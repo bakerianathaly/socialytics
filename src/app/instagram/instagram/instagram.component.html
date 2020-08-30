@@ -99,7 +99,6 @@
       </div>
     </div>
 
-
     <div class="row">
       <app-gallery [title]="'Most Liked Media'" [galleryMedia]="mostLikedMedia" [sampleSize]="sampleSize"
         [term]="'likes'" (toggleModal)="toggleModal($event, tplTitle, tplFooter)" (externalUrl)="externalUrl($event)"
@@ -111,6 +110,7 @@
       </app-gallery>
     </div>
 
+    <!-- Aqui es como se pintan las graficas -->
     <div class="row">
       <div class="col-12">
         <div class="card mb-4 box-shadow">
@@ -126,7 +126,7 @@
         </div>
       </div>
     </div>
-
+    <!-- Hasta aqui -->
 
     <p style="font-size: 9px;">
       *Instagram public endpoints have been changing since April 2018. As a result, the

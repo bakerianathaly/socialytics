@@ -90,32 +90,6 @@ export class InstagramComponent implements OnInit {
     });
   }
 
-  getUserData() {
-    this.loading = true;
-    console.log(this.username)
-    this.instagramService.getUserByUsername(this.username).subscribe(basicUserData => {
-        if (basicUserData) {
-          //El basic user data por lo que entiendo solamente te trae lo general del perfil, el nombre, la biografia y el id que es lo que usa para buscarlo mas abajo
-          //console.log(basicUserData)
-          this.basicUserData = basicUserData;
-
-          //this.basicUserData.graphql.user.id, esta entrando en la informacion basica se que ya pedi antes, luego en una de sus key que es otro arreglo de objetos y se llama "graphql"
-          //luego de entrar en graphql aparece otro key de arreglos de objetos que es "user", dentro de user se encuntra toda la informacion basica del usuario como la biografia
-          //de ese arreglos de objetos "user" se agarro el id (sabra dios porque facebook manda el id del usuario), y le pide a la API de instagram que busque por ese ID
-
-          this.instagramService.getUserById(this.basicUserData.graphql.user.id).subscribe((advancedUserData) => {
-              this.advancedUserData = advancedUserData
-              console.log(this.advancedUserData)
-              //edge_owner_to_timeline_media.edges -> creo que son las imagenes del perfil, como maximo manda las 50 primeras
-              this.stats = this.instagramService.getStats(this.advancedUserData.data.user.edge_owner_to_timeline_media.edges, this.basicUserData.graphql.user, this.username, 9);
-              this.populateStats();
-            }, err => {
-              this.handleError()
-            })
-        }
-      }, err => this.handleError(this.tplUsernameError))
-  }
-
   search() {
     console.log(this.username.length)
     if (this.username.length <= 0)
@@ -143,6 +117,33 @@ export class InstagramComponent implements OnInit {
         this.stats = res;
         this.populateStats();
       })
+  }
+
+  getUserData() {
+    this.loading = true;
+    console.log(this.username)
+    this.instagramService.getUserByUsername(this.username).subscribe(basicUserData => {
+        if (basicUserData) {
+          //El basic user data por lo que entiendo solamente te trae lo general del perfil, el nombre, la biografia y el id que es lo que usa para buscarlo mas abajo
+          //console.log(basicUserData)
+          this.basicUserData = basicUserData;
+
+          //this.basicUserData.graphql.user.id, esta entrando en la informacion basica se que ya pedi antes, luego en una de sus key que es otro arreglo de objetos y se llama "graphql"
+          //luego de entrar en graphql aparece otro key de arreglos de objetos que es "user", dentro de user se encuntra toda la informacion basica del usuario como la biografia
+          //de ese arreglos de objetos "user" se agarro el id (sabra dios porque facebook manda el id del usuario), y le pide a la API de instagram que busque por ese ID
+
+          this.instagramService.getUserById(this.basicUserData.graphql.user.id).subscribe((advancedUserData) => {
+              this.advancedUserData = advancedUserData
+              //console.log(this.advancedUserData)
+              //edge_owner_to_timeline_media.edges -> creo que son las imagenes del perfil, como maximo manda las 50 primeras
+              this.stats = this.instagramService.getStats(this.advancedUserData.data.user.edge_owner_to_timeline_media.edges, this.basicUserData.graphql.user, this.username, 9);
+              console.log(this.stats)
+              this.populateStats();
+            }, err => {
+              this.handleError()
+            })
+        }
+      }, err => this.handleError(this.tplUsernameError))
   }
 
   populateStats() {
