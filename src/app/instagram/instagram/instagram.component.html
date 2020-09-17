@@ -1,3 +1,4 @@
+<!-- Cuadro del principio, donde sale un input que debes colocar en usuario -->
 <div class="container-fluid m-0 jumbotron bg-warning">
   <div class="container d-flex justify-content-center p-3 my-3 text-white-50">
     <a [routerLink]="['/']"><img class="mr-3" src="assets/logo.png" width="64" height="64"></a>
@@ -18,7 +19,9 @@
     </form>
   </div>
 </div>
+<!-- Hasta aqui -->
 
+<!-- Cuando estas en el inicio aparece este boton y una imagen de un señor -->
 <div *ngIf="!loading && !stats">
   <nz-result nzStatus="403">
     <div nz-result-extra>
@@ -26,6 +29,7 @@
     </div>
   </nz-result>
 </div>
+<!-- Hasta aqui -->
 
 <div *ngIf="loading && !loaded" class="container-fluid m-0 py-4 min-100 bg-light">
   <div class="container">
@@ -68,6 +72,7 @@
 
 <div *ngIf="loaded && stats" class="container-fluid bg-light stats-container">
   <div class="container">
+    <!-- Info basica del usuario -->
     <div class="row w-100">
       <div class="col-2 d-flex align-items-center justify-content-center">
         <img class="avatar" [src]="stats.profilePictureUrlHD" />
@@ -88,17 +93,25 @@
         </div>
       </div>
     </div>
+    <!-- Hasta aqui -->
+
+    <!-- Cuadros de: Post, Followers y Following -->
     <div [style.margin-top.px]="'20'" class="row">
       <div *ngFor="let item of summary" class="col-md-4">
         <app-scorecard [item]="item"></app-scorecard>
       </div>
     </div>
+    <!-- Hasta aqui -->
+
+    <!-- Cuadros de: Total likes, Total comments, Average likes, Average comments -->
     <div class="row">
       <div *ngFor="let item of engagements" class="col-md-3">
         <app-scorecard [item]="item"></app-scorecard>
       </div>
     </div>
-
+    <!-- Hasta aqui -->
+    
+    <!-- Inicio de los cuadro donde salen las fotos segun sus estadisticas -->
     <div class="row">
       <app-gallery [title]="'Most Liked Media'" [galleryMedia]="mostLikedMedia" [sampleSize]="sampleSize"
         [term]="'likes'" (toggleModal)="toggleModal($event, tplTitle, tplFooter)" (externalUrl)="externalUrl($event)"
@@ -109,6 +122,7 @@
         class="col-md-12 col-lg-6">
       </app-gallery>
     </div>
+    <!-- Hasta aqui -->
 
     <!-- Aqui es como se pintan las graficas -->
     <div class="row">
@@ -128,11 +142,13 @@
     </div>
     <!-- Hasta aqui -->
 
+    <!-- Esto sale al final de la pagina -->
     <p style="font-size: 9px;">
       *Instagram public endpoints have been changing since April 2018. As a result, the
       application is in continuous development. If the endpoints have changed since the last test run, please bear
       with me and consider creating an issue <a href="https://github.com/preethamvishy/socialytics/issues">here</a>.
     </p>
+    <!-- Hasta aqui -->
   </div>
 </div>
 

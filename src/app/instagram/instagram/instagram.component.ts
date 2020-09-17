@@ -145,7 +145,8 @@ export class InstagramComponent implements OnInit {
         }
       }, err => this.handleError(this.tplUsernameError))
   }
-
+  
+  //Aqui se prepara toda las variables que contienen las estadisticas o datos a presentar en el front
   populateStats() {
     this.summary[0].value = this.stats.posts;
     this.summary[1].value = this.stats.followers;
