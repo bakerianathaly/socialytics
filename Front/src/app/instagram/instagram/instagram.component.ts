@@ -85,6 +85,7 @@ export class InstagramComponent implements OnInit {
 
   }
   createForm() {
+    //Creo que lo que hace es traerse el username del formulario validadndo que el mismo exista
     this.searchQuery = this.fb.group({
       username: ['', Validators.required],
     });
@@ -145,7 +146,7 @@ export class InstagramComponent implements OnInit {
         }
       }, err => this.handleError(this.tplUsernameError))
   }
-  
+
   //Aqui se prepara toda las variables que contienen las estadisticas o datos a presentar en el front
   populateStats() {
     this.summary[0].value = this.stats.posts;

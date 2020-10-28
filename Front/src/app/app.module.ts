@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 /** config angular i18n **/
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { ThemeService } from 'ng2-charts';
 registerLocaleData(en);
 
 
@@ -29,7 +30,8 @@ registerLocaleData(en);
   ],
   /** config ng-zorro-antd i18n (language && date) **/
   providers   : [
-    { provide: NZ_I18N, useValue: en_US }
+    { provide: NZ_I18N, useValue: en_US },
+    ThemeService
   ],
   bootstrap: [AppComponent]
 })

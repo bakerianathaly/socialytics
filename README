@@ -1,0 +1,8 @@
+Back
+    Comando para correr las pruebas: npm test
+    Comando para iniciar el proyecto: npm start
+
+Front
+    Antes de iniciar el servidor en angular se debe iniciar el servidor en node
+    Comando para iniciar el proyecto: ng serve --open
+    
