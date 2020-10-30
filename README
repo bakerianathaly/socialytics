@@ -5,4 +5,23 @@ Back
 Front
     Antes de iniciar el servidor en angular se debe iniciar el servidor en node
     Comando para iniciar el proyecto: ng serve --open
+
+Ejemplo pruebas
+
+    GET
+        it("Prueba GET request /", done =>{
+            request(app).get('/').end((err,response) =>{
+                assert(response.body.aux === "Hola mundo(?")
+                done() 
+            })
+        })
+
+    POST
+        it("Register successful", done =>{
+            let data = {id:0, country: "Croacia", year: 2017, days: 10}
+            request(app).post('/register').send(data).end((err, response) =>{
+                assert(response.body.aux === "hola")
+                done()
+            })
+        })
     

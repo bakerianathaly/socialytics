@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test nodemon --exec 'mocha -R min'", 
+    "test": "NODE_ENV=test nodemon --exec 'mocha -R min'",
     "start": "nodemon index.js"
   },
   "author": "Nathaly Bakerian y Carlos Sanoja",
@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "mocha": "^8.2.0",
+    "mongoose": "^5.10.11",
     "nodemon": "^2.0.6",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"

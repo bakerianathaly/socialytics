@@ -1,15 +1,25 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const request = require("request-promise");
 const app = express();
+const mongoose = require('mongoose');
+const userRoutes = require('./routes/user')
+
+//Mongo DB connection
+mongoose.connect('mongodb://localhost/socialytics', {useNewUrlParser: true})
+mongoose.connection.once("open", () =>{
+    console.log("Connected to DB")
+}).on("error", err =>{
+    console.warn("Error ", err)
+})
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/', (req,res)=>{
-    return res.send({aux:"Hola mundo(?"})
-})
+//Routes, they need the app object
+userRoutes(app)
 
-module.exports = app.listen(3000, () => {
+app.listen(3000, () => {
     console.log('App corriendo en http://localhost:3000')
 })
+
+module.exports = app
