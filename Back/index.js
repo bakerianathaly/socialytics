@@ -5,12 +5,15 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/user')
 
 //Mongo DB connection
-mongoose.connect('mongodb://localhost/socialytics', {useNewUrlParser: true})
-mongoose.connection.once("open", () =>{
-    console.log("Connected to DB")
-}).on("error", err =>{
-    console.warn("Error ", err)
-})
+if (process.env.NODE_ENV !== "test"){
+    //The if means, if the enviroment isn't test then connect to the "production" DB
+    mongoose.connect('mongodb://localhost/socialytics', {useNewUrlParser: true})
+    mongoose.connection.once("open", () =>{
+        console.log("Connected to DB")
+    }).on("error", err =>{
+        console.warn("Error ", err)
+    })
+}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
