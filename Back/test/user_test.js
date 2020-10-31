@@ -14,22 +14,22 @@ describe("Register tests", () => {
         }
 
         request(app).post('/register').send(data).end((err, res) =>{
-            assert(res.body.response === "Register successful")
+            assert(res.body.message === "Register successful")
             done()
         })
     })
 
-    it("Fail register", done => {
+    it("Fail register due to invalid format", done => {
         let data = {
             name: "Corina",
             lastName: "Smith",
             password: "lsd",
-            email: "corismith19@gmail.com",
+            email: "corismith19@.com",
             industry: "Influencer"
         }
 
         request(app).post('/register').send(data).end((err, res) =>{
-            assert(res.body.err === "This field has to be filled in the required format")
+            assert(res.body.message === "This field has to be filled in the required format")
             done()
         })
     })
@@ -44,7 +44,7 @@ describe("Register tests", () => {
         }
 
         request(app).post('/register').send(data).end((err, res) =>{
-            assert(res.body.err === "This field is required")
+            assert(res.body.message === "This field is required")
             done()
         })
     })
