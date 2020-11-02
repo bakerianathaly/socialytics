@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { APP_ROUTES } from './app-route';
 import { RouterModule, Routes } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
@@ -14,17 +14,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { ThemeService } from 'ng2-charts';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { LandscapeComponent } from './landscape/landscape.component';
 registerLocaleData(en);
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SignUpComponent,
+    LandscapeComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(APP_ROUTES),
+    AppRoutingModule,
     InstagramModule,
     NgZorroAntdModule
   ],
