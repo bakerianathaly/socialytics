@@ -3,15 +3,24 @@ const userModel = require('../models/user')
 
 async function register(req,res,done) {
     var data = req.body
-    
-    if(data.name == "" || data.lastName == "" || data.password == "" || data.email == "" || data.industry == ""){
+    var existingUser =  await userModel.findOne({ email: data.email}).exec()
+
+    if(existingUser != null){
+        res.status(409).send({
+            status: "409",
+            response:"Conflict",
+            message:"Email is invalid or already taken"
+        }) 
+    }
+    else if(data.name == "" || data.lastName == "" || data.password == "" || data.email == "" || data.industry == ""){
         res.status(406).send({
             status: "406",
             response:"Not Acceptable",
             message:"This field is required"
         })
     }
-    else if(data.password.length < 8 || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(data.email) != true){
+    else if(data.password.length < 8 || /^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i
+            .test(data.email) != true){
         res.status(406).send({
             status: "406",
             response:"Not Acceptable",

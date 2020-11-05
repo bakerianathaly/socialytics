@@ -1,10 +1,12 @@
 const assert = require("assert") //Para hacer la comparacion de booleans 
 const request = require("supertest") //Nos permite hacer llamadas a nuestra propia api 
 const app = require("../index") //Se necesita invocar al servidor porque desde ahi es que se invocan las rutas
+const { collection } = require("../models/user")
+const userModel = require('../models/user')
 
-describe("Register tests", () => {
+describe("Sign up tests", () => {
 
-    it("Register successful", done =>{
+    it("Sign up successful", done =>{
         let data = {
             name: "Corina",
             lastName: "Smith",
@@ -13,13 +15,13 @@ describe("Register tests", () => {
             industry: "Influencer"
         }
 
-        request(app).post('/register').send(data).end((err, res) =>{
+        request(app).post('/signup').send(data).end((err, res) =>{
             assert(res.body.message === "Register successful")
             done()
         })
     })
 
-    it("Fail register due to invalid format", done => {
+    it("Fail sign up due to invalid format", done => {
         let data = {
             name: "Corina",
             lastName: "Smith",
@@ -28,23 +30,38 @@ describe("Register tests", () => {
             industry: "Influencer"
         }
 
-        request(app).post('/register').send(data).end((err, res) =>{
+        request(app).post('/signup').send(data).end((err, res) =>{
             assert(res.body.message === "This field has to be filled in the required format")
             done()
         })
     })
 
-    it("Fail register due to empty fields", done => {
+    it("Fail sign up due to empty fields", done => {
         let data = {
             name: "Corina",
             lastName: "",
             password: "lsd",
-            email: "corismith19@gmail.com",
+            email: "corismith@gmail.com",
             industry: ""
         }
 
-        request(app).post('/register').send(data).end((err, res) =>{
+        request(app).post('/signup').send(data).end((err, res) =>{
             assert(res.body.message === "This field is required")
+            done()
+        })
+    })
+
+    it("Fail sign up due to a taken email", done =>{
+        let data = {
+            name: "Corina",
+            lastName: "Smith",
+            password: "lsdmklakdmlasmdlakmdslakmdsla",
+            email: "corismith19@gmail.com",
+            industry: "Influencer"
+        }
+        
+        request(app).post('/signup').send(data).end((err, res) =>{
+            assert(res.body.message === "Email is invalid or already taken")
             done()
         })
     })
