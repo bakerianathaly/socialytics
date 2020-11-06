@@ -16,6 +16,8 @@ import en from '@angular/common/locales/en';
 import { ThemeService } from 'ng2-charts';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LandscapeComponent } from './landscape/landscape.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 registerLocaleData(en);
 
 
@@ -30,7 +32,9 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     AppRoutingModule,
     InstagramModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   /** config ng-zorro-antd i18n (language && date) **/
   providers   : [

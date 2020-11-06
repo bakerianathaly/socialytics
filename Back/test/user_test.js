@@ -1,8 +1,6 @@
 const assert = require("assert") //Para hacer la comparacion de booleans 
 const request = require("supertest") //Nos permite hacer llamadas a nuestra propia api 
 const app = require("../index") //Se necesita invocar al servidor porque desde ahi es que se invocan las rutas
-const { collection } = require("../models/user")
-const userModel = require('../models/user')
 
 describe("Sign up tests", () => {
 
