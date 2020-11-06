@@ -29,6 +29,7 @@ registerLocaleData(en);
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     InstagramModule,

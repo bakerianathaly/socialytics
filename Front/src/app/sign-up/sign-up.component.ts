@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import Swal from'sweetalert2';
+import { SweetAlertOptions } from 'sweetalert2';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -22,7 +26,7 @@ export class SignUpComponent implements OnInit {
     industry: ''
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.industrySelect()
@@ -59,14 +63,20 @@ export class SignUpComponent implements OnInit {
         this.singUp.industry = this.formGroup.get('industry').value
 
         this.http.post("http://localhost:3000/signup", this.singUp).subscribe((response: any) => {
-          if(response.status == '200'){
-            console.log("perfecto perro")
-          }
-          else{
-            console.log("lo siento perro")
-          }
-          console.log(response);
-        });
+          Swal.fire(
+            response.message,
+            '',
+            'success'
+          ).then(results => {
+            //The route to the instagram sign up (to sign up the instagram or other social media username to be analyzed)
+            this.router.navigate(['/'])
+          })
+        }, error => 
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.error.message
+          }));
     }
     else{
       if (this.formGroup.get('password').value.length < 8 && this.formGroup.get('password').value != ''){

@@ -14,7 +14,7 @@ describe("Sign up tests", () => {
         }
 
         request(app).post('/signup').send(data).end((err, res) =>{
-            assert(res.body.message === "Register successful")
+            assert(res.body.message === "Sign up successful")
             done()
         })
     })

@@ -34,13 +34,13 @@ async function register(req,res,done) {
             res.status(200).send({
                 status: "200",
                 response:"OK",
-                message: "Register successful"
+                message: "Sign up successful"
             })
         }catch(err){
             res.status(404).send({
                 status: "404",
                 response:"Not Found",
-                message: "The register has fail due to an error"
+                message: "The sign up has fail due to an error"
             })
         }
     }
