@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import Swal from'sweetalert2';
 import { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
-
+import {Md5} from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-sign-up',
@@ -58,7 +58,7 @@ export class SignUpComponent implements OnInit {
 
         this.singUp.name = this.formGroup.get('firstName').value
         this.singUp.lastName = this.formGroup.get('lastName').value
-        this.singUp.password = this.formGroup.get('password').value
+        this.singUp.password = Md5.hashStr(this.formGroup.get('password').value).toString()
         this.singUp.email = this.formGroup.get('email').value
         this.singUp.industry = this.formGroup.get('industry').value
 
