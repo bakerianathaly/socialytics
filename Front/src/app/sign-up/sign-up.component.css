@@ -17,7 +17,7 @@ span{
 .center{
     text-align: center;
     align-content: center;
-    margin-top: 40%;
+    margin-top: 45%;
     color: black;
 }
 
@@ -74,7 +74,7 @@ span{
 .content {
     align-content: center;    
     margin: 0 auto;
-    top: 30%;
+    top: 35%;
     position: absolute;
     left: 50%;
     margin-left: -180px;
