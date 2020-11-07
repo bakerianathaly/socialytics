@@ -1,5 +1,6 @@
 //Models 
 const userModel = require('../models/user')
+const jwt = require('jsonwebtoken')
 
 async function register(req,res,done) {
     var data = req.body
@@ -40,7 +41,7 @@ async function register(req,res,done) {
             res.status(404).send({
                 status: "404",
                 response:"Not Found",
-                message: "The sign up has fail due to an error"
+                message: "The sign up has failed due to an error"
             })
         }
     }
@@ -49,8 +50,13 @@ async function register(req,res,done) {
 async function get(req,res,done){
     done()
 }
+
+async function loggedIn(req,res,done){
+    done()
+}
     
 module.exports = {
     register,
+    loggedIn,
     get
 }

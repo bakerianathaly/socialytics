@@ -64,3 +64,54 @@ describe("Sign up tests", () => {
         })
     })
 }) 
+
+describe("Login tests", () => {
+    
+    it("User Logged in Successfully", done =>{
+        let data = {
+            password: "12345678",
+            email: "krlsanoja@gmail.com",
+        }
+        
+        request(app).post('/login').send(data).end((err, res) =>{
+            assert(res.body.message === "Login Successfull")
+            done()
+        })
+    })
+
+    it("User entered wrong credentials", done =>{
+        let data = {
+            password: "12345678",
+            email: "krlsanoja@gmail.com",
+        }
+        
+        request(app).post('/login').send(data).end((err, res) =>{
+            assert(res.body.message === "The e-mail or password you entered is incorrect")
+            done()
+        })
+    })
+
+    it("User left empty fields", done =>{
+        let data = {
+            password: "12345678",
+            email: "",
+        }
+        
+        request(app).post('/login').send(data).end((err, res) =>{
+            assert(res.body.message === "This field is required")
+            done()
+        })
+    })
+    
+    it("User does not exist", done =>{
+        let data = {
+            password: "12345678",
+            email: "krlsanojas@gmail.com",
+        }
+        
+        request(app).post('/login').send(data).end((err, res) =>{
+            assert(res.body.message === "This user doesn't exist")
+            done()
+        })
+    })
+}) 
