@@ -64,25 +64,25 @@ describe("Sign up tests", () => {
         })
     })
 }) 
-
+// pruebas para el Login
 describe("Login tests", () => {
-    
+    // Caso de login exitoso.
     it("User Logged in Successfully", done =>{
         let data = {
-            password: "12345678",
-            email: "krlsanoja@gmail.com",
+            email: "corismith19@gmail.com",
+            password: "lsdmklakdmlasmdlakmdslakmdsla"
         }
         
         request(app).post('/login').send(data).end((err, res) =>{
-            assert(res.body.message === "Login Successfull")
+            assert(res.body.message === "Login Successful")
             done()
         })
     })
-
+    // Caso de ingreso de datos incorrectos.
     it("User entered wrong credentials", done =>{
         let data = {
-            password: "12345678",
-            email: "krlsanoja@gmail.com",
+            email: "corismith19@gmail.com",
+            password: "lsdmklakdmlasmdlakmds"
         }
         
         request(app).post('/login').send(data).end((err, res) =>{
@@ -90,11 +90,11 @@ describe("Login tests", () => {
             done()
         })
     })
-
+    // caso de ingreso de campos vacios.
     it("User left empty fields", done =>{
         let data = {
-            password: "12345678",
-            email: "",
+            email: "corismith19@gmail.com",
+            password: ""
         }
         
         request(app).post('/login').send(data).end((err, res) =>{
@@ -103,15 +103,5 @@ describe("Login tests", () => {
         })
     })
     
-    it("User does not exist", done =>{
-        let data = {
-            password: "12345678",
-            email: "krlsanojas@gmail.com",
-        }
-        
-        request(app).post('/login').send(data).end((err, res) =>{
-            assert(res.body.message === "This user doesn't exist")
-            done()
-        })
-    })
+    
 }) 
