@@ -14,23 +14,25 @@ import {Md5} from 'ts-md5/dist/md5';
 export class SignUpComponent implements OnInit {
 
   public formGroup: FormGroup
-  public subM: boolean = false
-  public industry = []
-  public error: String = '' 
+  public subM: boolean = false //Error handle variable*
+  public industry = [] //JSON variable to make the selection input dynamic
+  public error: String = '' //Error handle variable to the min lenght of the password
 
-  private singUp = {
+  private signUp = {
     name: '',
     lastName: '',
     password: '',
     email: '',
     industry: ''
-  }
+  } //JSON variable for the data to be send to the API
 
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
+    //Call to the industrySelect() function before showing the view
     this.industrySelect()
 
+    //Creating the form validation showing the view
     this.formGroup = new FormGroup({
       firstName: new FormControl('', [
         Validators.required
@@ -52,17 +54,25 @@ export class SignUpComponent implements OnInit {
     })
   }
 
+  /*Function onSubmit() is the one that receives the form data, 
+  it validates if this data is correct before calling the API to make the insert*/
   private onSubmit(){
+    /*First of all, the function validates if the form data is correct according to the formGroup variable
+    The validations settings for the formGroup variable are in the ngOnInit() function*/
     if(this.formGroup.get('firstName').value != ' ' && this.formGroup.get('lastName').value != ' ' && this.formGroup.get('email').value != ' ' 
       && this.formGroup.get('password').value != ' ' && this.formGroup.get('password').value.length >= 8 && this.formGroup.get('industry').value != -1 ){
 
-        this.singUp.name = this.formGroup.get('firstName').value
-        this.singUp.lastName = this.formGroup.get('lastName').value
-        this.singUp.password = Md5.hashStr(this.formGroup.get('password').value).toString()
-        this.singUp.email = this.formGroup.get('email').value
-        this.singUp.industry = this.formGroup.get('industry').value
+        //After the if (the success), the data is assigned to the JSON variable called signUp
+        this.signUp.name = this.formGroup.get('firstName').value
+        this.signUp.lastName = this.formGroup.get('lastName').value
+        this.signUp.password = Md5.hashStr(this.formGroup.get('password').value).toString()
+        this.signUp.email = this.formGroup.get('email').value
+        this.signUp.industry = this.formGroup.get('industry').value
 
-        this.http.post("http://localhost:3000/signup", this.singUp).subscribe((response: any) => {
+        /*The last step is to call the API route to make the insert
+        if the response is not an error, then it appears an success alert and redirect to the instagram register view
+        if the response is an error, it appears an error alert and stay in the form*/
+        this.http.post("http://localhost:3000/signup", this.signUp).subscribe((response: any) => {
           Swal.fire(
             response.message,
             '',
@@ -79,14 +89,20 @@ export class SignUpComponent implements OnInit {
           }));
     }
     else{
+      //After the if (the error), the variables to know that an error is present are instantiated
       if (this.formGroup.get('password').value.length < 8 && this.formGroup.get('password').value != ''){
+        /*This if works to know if the password received from the form is less than 8 characters
+        if it does, the error variable is assigned with the error name*/
         this.error = 'length'
       }
+      /*If it doesn't, it is just assigned true to the global error handle variable*/
       this.subM = true
     }
   }
 
+  /*Function industrySelect() it help to create a more dynamic select options in the .html*/
   public industrySelect(){
+    //It only assigned the industry name as a JSON form to the industry variable 
     this.industry = [
      {'name': "Agencies (Marketing/PR/Events/etc.)"},
      {'name': "Broadcast Media"},
@@ -105,6 +121,7 @@ export class SignUpComponent implements OnInit {
      {'name': "Non-Profit Organization"},
      {'name': "Retail"},
      {'name': "Sports &amp; Sporting Events"},
+     {'name': "Brand"},
      {'name': "Other"}
     ]
   }
