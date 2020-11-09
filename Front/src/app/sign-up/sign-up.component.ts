@@ -81,12 +81,14 @@ export class SignUpComponent implements OnInit {
             //The route to the instagram sign up (to sign up the instagram or other social media username to be analyzed)
             this.router.navigate(['/'])
           })
-        }, error => 
+        }, error => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: error.error.message
-          }));
+          })
+        });
+          
     }
     else{
       //After the if (the error), the variables to know that an error is present are instantiated

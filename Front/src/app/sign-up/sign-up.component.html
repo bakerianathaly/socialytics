@@ -1,49 +1,44 @@
-<div id="back">
-  <div class="backRight"></div>
-  <div class="backLeft p-3 text-white-50">
-    <div class="center">
-      <h1 class="mb-1 text-white mt-3 font-weight-bold">
-        <a [routerLink]="['/']">
-          <img class="mr-3" src="assets/logo.png" width="75" height="75">
-        </a>
-        <a style="color: white;" [routerLink]="['/']">Socialytics.</a>
-      </h1>
+<div class="container-fluid">
+  <div class="row">
+    <div id="left" class="col-6">
+      <div class="center">
+        <p class="mb-1 text-white mt-3">
+          <img class="mr-2 img-fluid" src="assets/logo.png" width="70" height="70">
+          <a style="color: white;" [routerLink]="['/']">Socialytics.</a>
+        </p> 
+      </div>
     </div>
-  </div>
-</div>
 
-<div id="slideBox" >
-  <div class="topLayer">
-    <div class="right">
+    <div id="right" class="col-6">
       <div class="content center">
         <h2>Sign up</h2>
         <form [formGroup]="formGroup">
           <div class="form-group">
-            <label for="name" class="form-label mr-3">First name</label>
+            <label for="name" class="form-label mr-2">First name</label>
             <input id="name" type="text" class="ml-2" formControlName="firstName" placeholder="Your first name" [class.alert-danger]="formGroup.get('firstName').invalid && subM"/>
             <br><span *ngIf="formGroup.get('firstName').invalid && subM">The first name is a required field.</span>
           </div>
           <div class="form-group">
-            <label for="lastname" class="form-label mr-3">Last name</label>
+            <label for="lastname" class="form-label mr-2">Last name</label>
             <input id="lastname" class="ml-2" type="text" formControlName="lastName" placeholder="Your last name" [class.alert-danger]="formGroup.get('lastName').invalid && subM"/>
             <br><span *ngIf="formGroup.get('lastName').invalid && subM">The last name is a required field.</span>          
           </div>
           <div class="form-group">
-            <label for="e-mail" class="form-label mr-3">E-mail</label>
+            <label for="e-mail" class="form-label mr-2">E-mail</label>
             <input id="e-mail" class="ml-2" type="text" formControlName="email" placeholder="Your e-mail" [class.alert-danger]="formGroup.get('email').invalid && subM"/>
             <br>
             <span *ngIf="formGroup.get('email').invalid && subM && formGroup.get('email').errors.required">The E-mail is a required field.</span>          
             <span *ngIf="formGroup.get('email').invalid && subM && formGroup.get('email').errors.email">Enter a valid E-mail.</span>         
           </div>
           <div class="form-group">
-            <label for="passWord" class="form-label mr-3">Password</label>
+            <label for="passWord" class="form-label mr-2">Password</label>
             <input id="passWord" class="ml-2" type="password" formControlName="password" placeholder="Min 8 Characters"/>
             <br>
             <span *ngIf="formGroup.get('password').invalid && subM && formGroup.get('password').errors.required && error != 'length'">The password is a required field.</span>  
             <span *ngIf="formGroup.get('password').invalid && subM && (error == 'length' || formGroup.get('password').errors.minlength )">The password min length is 8.</span>         
           </div> 
           <div class="form-group">
-            <label for="industryName" class="form-label mr-3">Industry</label>
+            <label for="industryName" class="form-label mr-2">Industry</label>
             <select id="industryName" class="custom-select" id="validationCustom04" formControlName="industry" [class.alert-danger]="formGroup.get('industry').value==-1 && subM">
               <option selected disabled value="-1">Choose...</option>
               <option *ngFor='let indus of industry' value="{{indus.name}}">{{indus.name}}</option>
@@ -59,6 +54,6 @@
           <a [routerLink]="['/']" >Already have an account? Log in.</a>
         </div>
       </div>
-    </div>
+    </div> 
   </div>
 </div>
