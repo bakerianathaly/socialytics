@@ -1,0 +1,42 @@
+<div class="rightBackground">
+    <div class="center">
+        <h1 class="mb-1 text-white mt-3 font-weight-bold">
+            <a [routerLink]="['/']">
+                <img class="mr-3" src="assets/logo.png" width="75" height="75">
+            </a>
+            <a style="color: white;" [routerLink]="['/']">Socialytics.</a>
+        </h1>
+    </div>
+</div>
+
+<div id="slideBox" >
+    <div class="topLayer">
+      <div class="right">
+        <div class="content ">
+            <h2>Login</h2>
+            <form [formGroup]="formGroup">
+                <div class="form-group">
+                  <label for="e-mail" class="form-label mr-3">E-mail</label>
+                  <input id="e-mail" class="ml-2" type="text" formControlName="email" placeholder="Your e-mail" [class.alert-danger]="formGroup.get('email').invalid && subM"/>
+                  <br>
+                  <span *ngIf="formGroup.get('email').invalid && subM && formGroup.get('email').errors.required">The E-mail is a required field.</span>          
+                  <span *ngIf="formGroup.get('email').invalid && subM && formGroup.get('email').errors.email">Enter a valid E-mail.</span>         
+                </div>
+                <div class="form-group">
+                  <label for="passWord" class="form-label mr-3">Password</label>
+                  <input id="passWord" class="ml-2" type="password" formControlName="password" placeholder="Min 8 Characters"/>
+                  <br>
+                  <span *ngIf="formGroup.get('password').invalid && subM && formGroup.get('password').errors.required && error != 'length'">The password is a required field.</span>  
+                  <span *ngIf="formGroup.get('password').invalid && subM && (error == 'length' || formGroup.get('password').errors.minlength )">The password min length is 8.</span>         
+                </div> 
+            </form>
+            <br>
+            <button (click)="onSubmit()" class="btn btn-success" type="submit">Let's go!</button>
+            <br>
+            <div class="mt-3">
+                <a href="/signup">Don't have an account? Create one now.</a>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

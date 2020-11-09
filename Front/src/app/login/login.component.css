@@ -1,0 +1,75 @@
+body {
+    height: 100%;
+    overflow: hidden;
+    width: 100% !important;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.rightBackground{
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: #3498db url('../../assets/SBG2.png');
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.center{
+    text-align: center;
+    align-content: center;
+    margin-top: 45%;
+    color: black;
+}
+
+.right {
+    text-align: center!important;
+    width: 50%;
+    height: 100%;
+    background: #ffffff;
+    right: 0;
+}
+
+.content h2 {
+    font-weight: 300;
+    font-size: 35px;
+}
+
+.content {
+    top: 30%;
+    left: 50%;
+    margin-top: 30%;
+}
+
+#slideBox {
+    width: 50%;
+    max-height: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.topLayer {
+    width: 200%;
+    height: 100%;
+    left: 0;
+    left: -100%;
+}
+
+input {
+    background: transparent;
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid #45494C;
+    border-bottom-width: 1px ;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+label{
+    font-size: 16px;
+    width: 80px;
+   color:black;
+}

@@ -17,6 +17,7 @@ import { ThemeService } from 'ng2-charts';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LandscapeComponent } from './landscape/landscape.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 registerLocaleData(en);
 
@@ -25,7 +26,8 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     SignUpComponent,
-    LandscapeComponent
+    LandscapeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

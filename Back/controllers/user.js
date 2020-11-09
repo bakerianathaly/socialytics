@@ -53,11 +53,13 @@ async function get(req,res,done){
 }
 // Función para el Login del usuario
 async function loggedIn(req,res,done){
+    // variable para almacenar las credenciales introducidas por el usuario.
     var cred = req.body
+    // variable para almacenar el usuario que esta almacenado en la BD.
     var user = await userModel.findOne({email:cred.email}).exec()
     // valida si hay campos vacios.
     if(cred.email == "" || cred.password == "" ){
-        console.log('f por:',cred)
+        
         res.status(406).send({
             status: "406",
             response:"Not Acceptable",
