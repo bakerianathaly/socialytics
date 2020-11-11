@@ -34,7 +34,8 @@ async function register(req,res,done) {
             res.status(200).send({
                 status: "200",
                 response:"OK",
-                message: "Sign up successful"
+                message: "Sign up successful",
+                id: register._id
             })
         }catch(err){
             res.status(404).send({

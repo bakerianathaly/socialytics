@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user')
+const instagramRoutes = require('./routes/instagram')
 
 //Mongo DB connection
 if (process.env.NODE_ENV !== "test"){
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 
 //Routes, they need the app object
 userRoutes(app)
+instagramRoutes(app)
 
 app.listen(3000, () => {
     console.log('App corriendo en http://localhost:3000')
