@@ -7,11 +7,13 @@ import { InstagramComponent } from './instagram/instagram/instagram.component';
 import { LandscapeComponent } from './landscape/landscape.component'
 import { SignUpComponent } from './sign-up/sign-up.component'
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
     {path:'', component: LandscapeComponent},
     {path:'signup', component: SignUpComponent},
     {path:'login', component: LoginComponent},
+    {path:'profile', component: ProfileComponent},
     {
         //The route would be socialytics/instagram/<the childrens of the instagram route>
         path: 'instagram', component: InstagramComponent, children: [{

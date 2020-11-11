@@ -73,3 +73,8 @@ label{
     width: 80px;
    color:black;
 }
+
+span{
+    color: red;
+    text-align: left!important;
+}
