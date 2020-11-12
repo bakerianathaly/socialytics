@@ -18,6 +18,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { LandscapeComponent } from './landscape/landscape.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CuentaInstagramComponent } from './cuenta-instagram/cuenta-instagram.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
+import { ProfileComponent } from './profile/profile.component';
 
 registerLocaleData(en);
 
@@ -27,7 +30,9 @@ registerLocaleData(en);
     AppComponent,
     SignUpComponent,
     LandscapeComponent,
-    CuentaInstagramComponent
+    CuentaInstagramComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,8 @@ registerLocaleData(en);
   /** config ng-zorro-antd i18n (language && date) **/
   providers   : [
     { provide: NZ_I18N, useValue: en_US },
-    ThemeService
+    ThemeService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

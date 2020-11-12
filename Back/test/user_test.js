@@ -64,3 +64,44 @@ describe("Sign up tests", () => {
         })
     })
 }) 
+// Login test cases.
+describe("Login tests", () => {
+    // Case: Login successful.
+    it("User Logged in Successfully", done =>{
+        let data = {
+            email: "corismith19@gmail.com",
+            password: "lsdmklakdmlasmdlakmdslakmdsla"
+        }
+        
+        request(app).post('/login').send(data).end((err, res) =>{
+            assert(res.body.message === "Login Successful")
+            done()
+        })
+    })
+    // Case:Incorrect entered values.
+    it("User entered wrong credentials", done =>{
+        let data = {
+            email: "corismith19@gmail.com",
+            password: "lsdmklakdmlasmdlakmds"
+        }
+        
+        request(app).post('/login').send(data).end((err, res) =>{
+            assert(res.body.message === "The e-mail or password you entered is incorrect")
+            done()
+        })
+    })
+    // Case: If there are any empty fields in the form.
+    it("User left empty fields", done =>{
+        let data = {
+            email: "corismith19@gmail.com",
+            password: ""
+        }
+        
+        request(app).post('/login').send(data).end((err, res) =>{
+            assert(res.body.message === "This field is required")
+            done()
+        })
+    })
+    
+    
+}) 
