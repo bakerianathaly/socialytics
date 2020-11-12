@@ -9,7 +9,7 @@ describe("Instagram sign up tests", () => {
             name: "Jeffree",
             lastName: "Star",
             password: "12345678910",
-            email: "corismith19@gmail.com",
+            email: "jeffreestar@gmail.com",
             industry: "Influencer"
         }
 
@@ -18,7 +18,7 @@ describe("Instagram sign up tests", () => {
                 username: "jeffreestar",
                 socialyticId: res.body.id
             }
-            console.log(res)
+
             request(app).post('/instagram/').send(data).end((err, res) =>{
                 console.log(res.body)
                 assert(res.body.message === "Account added successfully")
@@ -27,36 +27,66 @@ describe("Instagram sign up tests", () => {
         })
     })
 
-    it("Fail instagram sign up due to access error", done =>{
-        let data = {
-            username: "bakerianathaly"
+    it("Fail instagram sign up due to private account", done =>{
+        let register = {
+            name: "Jeffree",
+            lastName: "Star",
+            password: "12345678910",
+            email: "jeffreestar2@gmail.com",
+            industry: "Influencer"
         }
 
-        request(app).post('/instagram/').send(data).end((err, res) =>{
-            assert(res.body.message === "This is a private account, please try again")
-            done()
+        request(app).post('/signup').send(register).end((err, res) =>{
+            let data = {
+                username: "bakerianathaly",
+                socialyticId: res.body.id
+            }
+            request(app).post('/instagram/').send(data).end((err, res) =>{
+                assert(res.body.message === "This is a private account, please try again")
+                done()
+            })
         })
     })
 
     it("Fail instagram sign up due to unknown user", done =>{
-        let data = {
-            username: "bakeriana"
+        let register = {
+            name: "Jeffree",
+            lastName: "Star",
+            password: "12345678910",
+            email: "jeffreestar3@gmail.com",
+            industry: "Influencer"
         }
 
-        request(app).post('/instagram/').send(data).end((err, res) =>{
-            assert(res.body.message === "This user doesn't exist, please try again")
-            done()
+        request(app).post('/signup').send(register).end((err, res) =>{
+            let data = {
+                username: "vinchoncho",
+                socialyticId: res.body.id
+            }
+            request(app).post('/instagram/').send(data).end((err, res) =>{
+                assert(res.body.message === "This user doesn't exist, please try again")
+                done()
+            })
         })
     })
 
     it("Fail instagram sign up due to empty fields", done =>{
-        let data = {
-            username: " "
+        let register = {
+            name: "Jeffree",
+            lastName: "Star",
+            password: "12345678910",
+            email: "jeffreestar2@gmail.com",
+            industry: "Influencer"
         }
 
-        request(app).post('/instagram/').send(data).end((err, res) =>{
-            assert(res.body.message === "This field is required")
-            done()
+        request(app).post('/signup').send(register).end((err, res) =>{
+            let data = {
+                username: "",
+                socialyticId: res.body.id
+            }
+            request(app).post('/instagram/').send(data).end((err, res) =>{
+                assert(res.body.message === "This field is required")
+                done()
+            })
         })
     })
 })
