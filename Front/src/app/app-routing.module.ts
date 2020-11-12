@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component'
 import { InstagramComponent } from './instagram/instagram/instagram.component';
+import { AuthGuard } from './guards/auth.guard'; // AuthGuard's service to restrict routes before login
 
 //Routas de la tesis
 import { LandscapeComponent } from './landscape/landscape.component'
@@ -13,7 +14,7 @@ const routes: Routes = [
     {path:'', component: LandscapeComponent},
     {path:'signup', component: SignUpComponent},
     {path:'login', component: LoginComponent},
-    {path:'profile', component: ProfileComponent},
+    {path:'profile', component: ProfileComponent, canActivate: [AuthGuard]}, // canActivate:[AuthGuard]: It protects user's routes from unauthorized access.
     {
         //The route would be socialytics/instagram/<the childrens of the instagram route>
         path: 'instagram', component: InstagramComponent, children: [{

@@ -64,9 +64,9 @@ describe("Sign up tests", () => {
         })
     })
 }) 
-// pruebas para el Login
+// Login test cases.
 describe("Login tests", () => {
-    // Caso de login exitoso.
+    // Case: Login successful.
     it("User Logged in Successfully", done =>{
         let data = {
             email: "corismith19@gmail.com",
@@ -78,7 +78,7 @@ describe("Login tests", () => {
             done()
         })
     })
-    // Caso de ingreso de datos incorrectos.
+    // Case:Incorrect entered values.
     it("User entered wrong credentials", done =>{
         let data = {
             email: "corismith19@gmail.com",
@@ -90,7 +90,7 @@ describe("Login tests", () => {
             done()
         })
     })
-    // caso de ingreso de campos vacios.
+    // Case: If there are any empty fields in the form.
     it("User left empty fields", done =>{
         let data = {
             email: "corismith19@gmail.com",

@@ -51,13 +51,13 @@ async function register(req,res,done) {
 async function get(req,res,done){
     done()
 }
-// Función para el Login del usuario
+// User's login function.
 async function loggedIn(req,res,done){
-    // variable para almacenar las credenciales introducidas por el usuario.
+    // User's entered values variable.
     var cred = req.body
-    // variable para almacenar el usuario que esta almacenado en la BD.
+    // It checks if there're any users stored in the database.
     var user = await userModel.findOne({email:cred.email}).exec()
-    // valida si hay campos vacios.
+    // It checks for any empty fields in the form.
     if(cred.email == "" || cred.password == "" ){
         
         res.status(406).send({
@@ -70,7 +70,7 @@ async function loggedIn(req,res,done){
     else{
         
         try{
-            // verifica si el usuario esta registrado, de lo contrario muestra el mensaje de clave o mensaje incorrecto.
+            // if the user doesn't exist, send an error message.
             if(!user){
                 res.status(409).send({
                     status: "409",
@@ -80,14 +80,14 @@ async function loggedIn(req,res,done){
             }
            
             const enteredPassword=cred.password
-            // compara si la clave ingresada es igual a la almacenada en la BD.
+            // this checks if the user's entered password matches with the one stored in the database.
             if((enteredPassword == user.password)){
                 
-                // expiración del token generado en 24 Hrs. 
+                // this assigns an expiration time for the token in 24 hours. 
                 const expiresIn= 24*60*60 
-                // genera el token , pasando el id del usuario, a secret key y el tiempo de expiración.
+                // this generates the user's token by expiration, secretkey and Id.
                 const accessToken=jwt.sign({id:user.id},SECRET_KEY,{expiresIn:expiresIn})
-                // JSON para enviar los datos del usuario y los detalles del token al Front.
+                // User's JSON data to send to the front. This includes the token and its expiration time.
                 let datos= {
                     id:user.id,
                     name: user.name,

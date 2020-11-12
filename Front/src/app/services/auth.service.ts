@@ -9,15 +9,15 @@ import { Observable, BehaviorSubject} from 'rxjs';
 @Injectable()
 export class AuthService {
    
-   ApiServer: string='http://localhost:3000'
-   authSubject= new BehaviorSubject(false)
-   private token: string 
+    ApiServer: string='http://localhost:3000'
+    authSubject= new BehaviorSubject(false)
+    private token: string 
    
 
     constructor(private httpClient: HttpClient) { }
-   
+    // login method to authenticate the user 
     login(user:User):Observable<JwtResponse>{
-      
+      // in case of a response it will save the token based on the request.
       return this.httpClient.post<JwtResponse>(this.ApiServer + '/login',user).pipe(tap( 
         (res) => { 
           if (res){
@@ -44,7 +44,7 @@ export class AuthService {
     
     }
     // method to get the token in case if it doesn't exist.
-    private getToken(): string {
+    getToken(): string {
       
       if (!this.token) {
          this.token = localStorage.getItem("ACCESS_TOKEN")
