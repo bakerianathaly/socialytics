@@ -5,14 +5,14 @@ const request = require("request-promise")
 async function instagramBasicData(username){
     var instagramData = null 
     var code 
-    let peticion = {
+    let petition = {
         method: "GET",
         uri: `https://www.instagram.com/${username}/?__a=1`,
         resolveWithFullResponse: true,
         json: true
     };
     
-   await request(peticion).then((response) => {
+   await request(petition).then((response) => {
         instagramData = response.body.graphql.user        
     }).catch(function (err) {
         code = err        
@@ -27,8 +27,33 @@ async function instagramBasicData(username){
 }
 
 async function instagramAdvancedData(igId){
-    console.log(igId)
-    return false
+    var media = null
+    var code 
+    var count = 50 //Amount of picture we are asking instagram to return 
+    var after = ''
+   
+    let petition = {
+        method: "GET",
+        uri: `https://www.instagram.com/graphql/query/?query_hash=bfe6fc64e0775b47b311fc0398df88a9&variables=%7B%22id%22%3A%22305701719%22%2C%22first%22%3A20%7D`,
+        resolveWithFullResponse: true,
+        json: true
+    };
+    console.log('webo')
+    await request(petition).then((response) => {
+        console.log('hola',response.body.data )
+        media = response.body.data.user        
+    }).catch(function (err) {
+        console.log('chao', err)
+        code = err        
+    })
+
+    if (media != null ){
+        return media
+    }
+    else{
+        return code
+    }
+    
 }
 
 async function accountRegister(req,res,done){
@@ -57,11 +82,12 @@ async function accountRegister(req,res,done){
             }else{
                 //Case 4: Insert of the data, it is the 1st test in instagramUser_test.js
                 let advancedData = await instagramAdvancedData(basicData.id)
+                done()
             }
 
         }
         else if (basicData.statusCode == '404'){
-            //Conditions who verifies if the user does not exist in the instagram BD, it is the 3rd test in instagramUser_test.js
+            //Case : it verifies if the user does not exist in the instagram BD, it is the 3rd test in instagramUser_test.js
             res.status(404).send({
                 status: "404",
                 response:"Not Found",
