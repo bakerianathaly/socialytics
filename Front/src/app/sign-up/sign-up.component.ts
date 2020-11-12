@@ -17,6 +17,8 @@ export class SignUpComponent implements OnInit {
   public subM: boolean = false //Error handle variable*
   public industry = [] //JSON variable to make the selection input dynamic
   public error: String = '' //Error handle variable to the min lenght of the password
+  public facebookDevAppId = '1537824486409545'
+  public successRoute = 'http://localhost:4200/instagram'
 
   private signUp = {
     name: '',
@@ -54,6 +56,14 @@ export class SignUpComponent implements OnInit {
     })
   }
 
+  externalUrl(url) {
+    var shell;
+    if (shell)
+      shell.openExternal(url);
+    else
+      window.open(url);
+  }
+
   /*Function onSubmit() is the one that receives the form data, 
   it validates if this data is correct before calling the API to make the insert*/
   private onSubmit(){
@@ -78,8 +88,14 @@ export class SignUpComponent implements OnInit {
             '',
             'success'
           ).then(results => {
-            //The route to the instagram sign up (to sign up the instagram or other social media username to be analyzed)
-            this.router.navigate(['/'])
+            //After the swal, we ask to the user to login into the facebook account to get access to the instagram bussiness account
+            
+            let facebookDevAppId = '1537824486409545'
+            let successRoute = 'http://localhost:4200/instagram'
+
+            window.open(`https://www.facebook.com/v9.0/dialog/oauth?client_id=${facebookDevAppId}&redirect_uri=${successRoute}&scope=instagram_basic,pages_show_list`);
+            //this.router.navigate(['/'])
+            window.close()
           })
         }, error => {
           Swal.fire({
