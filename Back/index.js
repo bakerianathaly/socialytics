@@ -1,4 +1,6 @@
 const express = require('express');
+const fs = require('fs');
+const https = require('https');
 const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
@@ -23,8 +25,15 @@ app.use(bodyParser.json());
 userRoutes(app)
 instagramRoutes(app)
 
-app.listen(3000, () => {
-    console.log('App corriendo en http://localhost:3000')
-})
+https.createServer({
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.crt')
+}, app).listen(3000, () =>{
+    console.log("App corriendo en https://localhost:3000");
+});
+
+// app.listen(3000, () => {
+//     console.log('App corriendo en https://localhost:3000')
+// })
 
 module.exports = app

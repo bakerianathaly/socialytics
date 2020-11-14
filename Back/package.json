@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^8.2.0",
     "mongoose": "^5.10.11",

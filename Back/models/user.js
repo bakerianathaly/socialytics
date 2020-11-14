@@ -22,7 +22,7 @@ const userSchema = new Schema({
     },
     industry: {
         type: String,
-        required: true,
+        required: true
     }
 });
 

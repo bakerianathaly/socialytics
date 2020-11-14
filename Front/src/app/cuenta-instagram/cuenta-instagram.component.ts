@@ -16,6 +16,6 @@ export class CuentaInstagramComponent implements OnInit {
   }
 
   public facebookConfig(){
-    
+    console.log(this.router.url)
   }
 }

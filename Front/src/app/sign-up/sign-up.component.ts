@@ -17,8 +17,6 @@ export class SignUpComponent implements OnInit {
   public subM: boolean = false //Error handle variable*
   public industry = [] //JSON variable to make the selection input dynamic
   public error: String = '' //Error handle variable to the min lenght of the password
-  public facebookDevAppId = '1537824486409545'
-  public successRoute = 'http://localhost:4200/instagram'
 
   private signUp = {
     name: '',
@@ -56,14 +54,6 @@ export class SignUpComponent implements OnInit {
     })
   }
 
-  externalUrl(url) {
-    var shell;
-    if (shell)
-      shell.openExternal(url);
-    else
-      window.open(url);
-  }
-
   /*Function onSubmit() is the one that receives the form data, 
   it validates if this data is correct before calling the API to make the insert*/
   private onSubmit(){
@@ -82,20 +72,17 @@ export class SignUpComponent implements OnInit {
         /*The last step is to call the API route to make the insert
         if the response is not an error, then it appears an success alert and redirect to the instagram register view
         if the response is an error, it appears an error alert and stay in the form*/
-        this.http.post("http://localhost:3000/signup", this.signUp).subscribe((response: any) => {
+        this.http.post("https://localhost:3000/signup", this.signUp).subscribe((response: any) => {
           Swal.fire(
             response.message,
             '',
             'success'
           ).then(results => {
-            //After the swal, we ask to the user to login into the facebook account to get access to the instagram bussiness account
-            
+            //After the swal, we navigate the user to the login
             let facebookDevAppId = '1537824486409545'
-            let successRoute = 'http://localhost:4200/instagram'
-
-            window.open(`https://www.facebook.com/v9.0/dialog/oauth?client_id=${facebookDevAppId}&redirect_uri=${successRoute}&scope=instagram_basic,pages_show_list`);
-            //this.router.navigate(['/'])
-            window.close()
+            let successRoute = 'https://localhost:4200/home'
+            //window.open(`https://www.facebook.com/v9.0/dialog/oauth?client_id=${facebookDevAppId}&redirect_uri=${successRoute}&scope=instagram_basic,pages_show_list`);
+            this.router.navigate(['/login'])
           })
         }, error => {
           Swal.fire({
