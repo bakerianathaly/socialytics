@@ -62,7 +62,7 @@ export class ProfileComponent implements OnInit {
       else{
         console.log('User login failed');
       }
-    },{scope: 'instagram_basic,pages_show_list'});
+    },{scope: 'instagram_basic,pages_show_list,instagram_manage_insights,pages_read_engagement'});
   }
 
   public submitLogin(){
