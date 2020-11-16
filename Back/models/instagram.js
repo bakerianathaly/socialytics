@@ -7,6 +7,42 @@ const instagramSchema = new Schema({
         type: String,
         required: true
     },
+    biography: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    profilePicture: {
+        type: String,
+        required: true
+    },
+    followers_count: {
+        type: Number,
+        required: true
+    },
+    follows_count: {
+        type: Number,
+        required: true
+    },
+    media_count: {
+        type: Number,
+        required: true
+    },
+    website: {
+        type: String,
+        required: true
+    },
+    facebookId:{
+        type: String,
+        required: true
+    },
+    instagramId:{
+        type: String,
+        required: true
+    },
     socialyticId: {
         type: String,
         required: true

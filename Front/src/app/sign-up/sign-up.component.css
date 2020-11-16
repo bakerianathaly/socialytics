@@ -19,13 +19,13 @@ span{
     text-align: center;
     align-content: center;
     color: black;
-    margin-top: 90px;
+    margin-top: 20%;
 }
 
 .center p{
-    font-size: 3vw;
+    font-size: 40px;
     font-weight: 300;
-    margin-top: 350px !important;
+    margin-top: 50% !important;
 }
 
 #left{

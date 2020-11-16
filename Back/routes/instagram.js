@@ -1,6 +1,5 @@
-const instagramController = require('../controllers/instagram')
+const instagramController = require('../controllers/instagramAPI')
 
 module.exports = (app) =>{
-    app.post('/instagram/', instagramController.accountRegister),
-    app.get('/instagram/get', instagramController.getInstagramUsername)
+    app.get('/instagram/statistics', instagramController.getStatistics)
 }

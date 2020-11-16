@@ -19,8 +19,13 @@ body {
 .center{
     text-align: center;
     align-content: center;
-    margin-top: 45%;
     color: black;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.center p{
+    margin-top: 50% !important;
 }
 
 .right {
@@ -39,7 +44,7 @@ body {
 .content {
     top: 30%;
     left: 50%;
-    margin-top: 30%;
+    margin-top: 35%;
 }
 
 #slideBox {
@@ -66,12 +71,13 @@ input {
     border-bottom-width: 1px ;
     font-size: 14px;
     margin-top: 20px;
+    color:black !important;
 }
 
 label{
     font-size: 16px;
     width: 80px;
-   color:black;
+    color:black !important;
 }
 
 span{

@@ -33,6 +33,8 @@ export class AuthService {
       this.token=''
       localStorage.removeItem("ACCESS_TOKEN")
       localStorage.removeItem("EXPIRES_IN")
+      localStorage.removeItem("FB_ACCESS_TOKEN")
+      localStorage.removeItem("FB_EXPIRES_IN")
     }
      // method to save the token in localStorage.
     private saveToken(res:JwtResponse): void{

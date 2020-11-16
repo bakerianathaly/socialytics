@@ -65,3 +65,5 @@ e2e
 ./dist
 socialytics-darwin-x64
 */node_modules
+.crt
+.key
