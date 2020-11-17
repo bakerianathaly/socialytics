@@ -117,7 +117,7 @@ async function loggedIn(req,res,done){
             res.status(404).send({
                 status: "404",
                 response:"Not Found",
-                message: "login failed due to an error"
+                message: "Login failed due to an error"
             })
         }
     }
