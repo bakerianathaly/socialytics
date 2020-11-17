@@ -92,6 +92,7 @@ async function loggedIn(req,res,done){
                     id:user.id,
                     name: user.name,
                     email: user.email,
+                    password:user.password,
                     accessToken:accessToken,
                     expiresIn:expiresIn
                 }

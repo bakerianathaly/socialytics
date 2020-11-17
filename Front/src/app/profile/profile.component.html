@@ -8,11 +8,16 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="nav">
             <li class="nav-item ">
-              <a class="nav-link list" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
+               <a class="nav-link list" *ngFor="let user of current"> Welcome,{{user.name}} <span class="sr-only"> </span></a>
             </li>
+            <li class="nav-item ">
+               <a class="nav-link list" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
+           </li>
         </ul>
-    </div>
+   </div>
 </nav>
+
+    
 
 <!-- End homepage content -->
 <footer class="fixed-bottom">

@@ -12,6 +12,8 @@ export class AuthService {
     ApiServer: string='http://localhost:3000'
     authSubject= new BehaviorSubject(false)
     private token: string 
+    private user: User
+    
    
 
     constructor(private httpClient: HttpClient) { }
@@ -30,24 +32,32 @@ export class AuthService {
     }
     // logout method. 
     logout(): void {
-      this.token=''
-      localStorage.removeItem("ACCESS_TOKEN")
-      localStorage.removeItem("EXPIRES_IN")
+     
+      localStorage.removeItem('ACCESS_AUTH')
+    
     }
      // method to save the token in localStorage.
     private saveToken(res:JwtResponse): void{
       
-      localStorage.setItem("ACCESS_TOKEN",res.datos.accessToken)
-      localStorage.setItem("EXPIRES_IN",res.datos.expiresIn)
-      this.token=res.datos.accessToken
+       localStorage.setItem('ACCESS_AUTH', JSON.stringify(res.datos));
       
-    
     }
+    // Function to retrieve user's values from LocalStorage.
+    getcurrentUser():User {
+      
+      this.user=JSON.parse(localStorage.getItem('ACCESS_AUTH'))
+      
+      if (this.user){
+         return this.user
+      }
+      return null
+    }
+
     // method to get the token in case if it doesn't exist.
     getToken(): string {
       
       if (!this.token) {
-         this.token = localStorage.getItem("ACCESS_TOKEN")
+         this.token = localStorage.getItem('ACCESS_AUTH')
       }
       return this.token
     }
