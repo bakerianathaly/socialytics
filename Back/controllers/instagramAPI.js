@@ -21,7 +21,7 @@ async function instagramBasicUserData(fb_Token, ig_Id){
         fail = {
             status: '400',
             response: 'Bad Request',
-            message: 'Token has expired'
+            message: 'Token has expired or has a bad signature'
         } 
     })
 
@@ -62,7 +62,7 @@ async function newInstagramUser(socialytics_Id, fb_Token){
             fail = {
                 status: '400',
                 response: 'Bad Request',
-                message: 'Token has expired'
+                message: 'Token has expired or has a bad signature'
             } 
         })
 
@@ -84,7 +84,7 @@ async function newInstagramUser(socialytics_Id, fb_Token){
             fail = {
                 status: '400',
                 response: 'Bad Request',
-                message: 'Token has expired'
+                message: 'Token has expired or has a bad signature'
             } 
         })
 
@@ -117,10 +117,14 @@ async function getStatistics(req,res,done){
     //Data's from the view, it is the Facebook token and the socialytics user ID
     var data = String
     data = req.query;
-
+    var error = null//Variable to handle some errors we need to put in some conditions
     //Query to get the user by the socialyticsiD 
-    var user = await userModel.findById(data.socialyticsId).exec()
-
+    try{
+        var user = await userModel.findOne({_id: data.socialyticsId}).exec()
+    }catch(err){
+        error = err.messageFormat
+    }
+    
     if(data.fbToken == "" || data.socialyticsId == "" ){
         //Case 1: It checks for any empty fields in the data.
         res.status(406).send({
@@ -129,7 +133,7 @@ async function getStatistics(req,res,done){
             message:"This field is required"
         })
     }
-    else if(user == null){
+    else if(error == undefined){
         //Case 2: It checks if the user exists in the DB.
         res.status(409).send({
             status: "409",
