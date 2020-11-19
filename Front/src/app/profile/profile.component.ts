@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {AuthService} from '../services/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, from, of, EMPTY } from 'rxjs';
+import { map, concatMap, finalize } from 'rxjs/operators';
 
 declare var FB: any;
 
@@ -44,27 +46,54 @@ export class ProfileComponent implements OnInit {
     }(document, 'script', 'facebook-jssdk'));
   }
 
-  private loginStatus(){
-    return FB.getLoginStatus((response) => {
-      if (response.status === 'connected') {
+  private loginStatus(): boolean{
+    FB.getLoginStatus(response => {
+      if (response.authResponse) {
         this.fbToken = response.authResponse.accessToken
         this.fbExpiredToken = response.authResponse.expiresIn
         localStorage.setItem("FB_ACCESS_TOKEN",response.authResponse.accessToken)
         localStorage.setItem("FB_EXPIRES_IN",response.authResponse.expiresIn)
+      } 
+      else {
+        var aux = this.facebookLogin()
+        console.log('holi',aux)
       }
-      else{
-        this.facebookLogin()
-      }
-    })
+    });
+
+    if (localStorage.getItem('FB_ACCESS_TOKEN')){
+      return true
+    } 
+    else{
+      return false
+    } 
+    // FB.getLoginStatus((response) => {
+    //   if (response.status === 'connected') {
+    //     this.fbToken = response.authResponse.accessToken
+    //     this.fbExpiredToken = response.authResponse.expiresIn
+    //     localStorage.setItem("FB_ACCESS_TOKEN",response.authResponse.accessToken)
+    //     localStorage.setItem("FB_EXPIRES_IN",response.authResponse.expiresIn)
+    //   }
+    //   else{
+    //     this.facebookLogin()
+    //   }
+    // })
   }
 
-  private facebookLogin(){
-    FB.login((response)=> {
-      if (response.authResponse){
-        this.fbToken = response.authResponse.accessToken
-        this.fbExpiredToken = response.authResponse.expiresIn
-        localStorage.setItem("FB_ACCESS_TOKEN",response.authResponse.accessToken)
-        localStorage.setItem("FB_EXPIRES_IN",response.authResponse.expiresIn)
+  private facebookLogin(): boolean{
+
+    // return from(new Promise<fb.StatusResponse>(resolve => FB.login(resolve,{scope: 'instagram_basic,pages_show_list,instagram_manage_insights,pages_read_engagement'})))
+    //         .pipe(concatMap(({ authResponse }) => {
+    //             if (!authResponse) return EMPTY;
+    //             return of(authResponse.accessToken);
+    //         }));
+
+    FB.login((response: any)=> {
+      const { authResponse } = response
+      if (authResponse){
+        this.fbToken = authResponse.accessToken
+        this.fbExpiredToken = authResponse.expiresIn
+        localStorage.setItem("FB_ACCESS_TOKEN", authResponse.accessToken)
+        localStorage.setItem("FB_EXPIRES_IN", authResponse.expiresIn)
       }
       else{
         Swal.fire({
@@ -74,25 +103,34 @@ export class ProfileComponent implements OnInit {
         })
       }
     },{scope: 'instagram_basic,pages_show_list,instagram_manage_insights,pages_read_engagement'});
+
+    if (localStorage.getItem('FB_ACCESS_TOKEN')){
+      return true
+    } 
+    else{
+      return false
+    } 
   }
 
   protected async submitLogin(){
-    if (this.fbToken == null|| this.fbExpiredToken == null){
-      const x = await this.loginStatus() 
-    }
-    console.log('1',this.fbToken)
-    this.nodeAPI = this.nodeAPI+'/instagram/statistics?fbToken='+this.fbToken+'&socialyticsId='+this.id
-    console.log('2',this.nodeAPI)
 
-    this.http.get(this.nodeAPI.toString()).subscribe((response: any) => {
-      console.log('3',response)
-    }, error => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.error.message
-      })
-    });
+    if (!this.fbToken|| !this.fbExpiredToken) {
+      const auth = await this.loginStatus()
+      console.log('auth',auth)
+      if (auth) {
+        this.nodeAPI = this.nodeAPI+'/instagram/statistics?fbToken='+this.fbToken+'&socialyticsId='+this.id
+  
+        this.http.get(this.nodeAPI.toString()).subscribe((response: any) => {
+          console.log(response)
+        }, error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.error.message
+          })
+        });
+      } else console.warn('[AYURA]', this.fbToken)
+    }
   }
 
   public logout(){
