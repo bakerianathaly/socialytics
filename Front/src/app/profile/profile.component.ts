@@ -5,6 +5,9 @@ import {AuthService} from '../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, from, of, EMPTY } from 'rxjs';
 import { map, concatMap, finalize } from 'rxjs/operators';
+import { User } from '../models/user';
+
+
 
 declare var FB: any;
 
@@ -19,11 +22,15 @@ export class ProfileComponent implements OnInit {
   public fbExpiredToken: String = localStorage.getItem("FB_EXPIRES_IN") 
   private nodeAPI: String = 'https://localhost:3000'
   public id: String = '5faec2f58a077256552cb0e9'
+  private user: User
+  private current:Array<User>=[];
 
   constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
 
   ngOnInit() {
     this.facebookConfig()
+    this.user=this.authService.getcurrentUser()
+    this.current.push(this.user)
   }
 
   private facebookConfig(){

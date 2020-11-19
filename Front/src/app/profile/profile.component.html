@@ -12,12 +12,20 @@
             </li>
             <li class="nav-item ">
               <a class="nav-link list" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
+               <a class="nav-link list" *ngFor="let user of current"> Welcome, {{user.name}} {{user.lastName}} <span class="sr-only"> </span></a>
             </li>
+            <li class="nav-item ">
+               <a class="nav-link list" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
+           </li>
         </ul>
-    </div>
+   </div>
 </nav>
 
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> a599480cdf10227a12a16ea2f4108c9a5f4f605c
 
 <!-- End homepage content -->
 <footer class="fixed-bottom">
