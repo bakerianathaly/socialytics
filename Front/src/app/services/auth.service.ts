@@ -33,7 +33,7 @@ export class AuthService {
     // logout method. 
     logout(): void {
      
-      localStorage.removeItem('ACCESS_AUTH')
+       localStorage.removeItem('ACCESS_AUTH')
     
     }
      // method to save the token in localStorage.
