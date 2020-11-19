@@ -91,8 +91,10 @@ async function loggedIn(req,res,done){
                 let datos= {
                     id:user.id,
                     name: user.name,
+                    lastName: user.lastName,
                     email: user.email,
                     password:user.password,
+                    industry:user.industry,
                     accessToken:accessToken,
                     expiresIn:expiresIn
                 }

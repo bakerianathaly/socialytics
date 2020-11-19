@@ -7,7 +7,7 @@ const userRoutes = require('./routes/user')
 //Mongo DB connection
 if (process.env.NODE_ENV !== "test"){
     //The if means, if the enviroment isn't test then connect to the "production" DB
-    mongoose.connect('mongodb://localhost/socialytics', {useNewUrlParser: true})
+    mongoose.connect('mongodb://localhost/socialytics', {useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true})
     mongoose.connection.once("open", () =>{
         console.log("Connected to DB")
     }).on("error", err =>{
