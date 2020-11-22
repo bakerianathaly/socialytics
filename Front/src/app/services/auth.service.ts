@@ -35,6 +35,7 @@ export class AuthService {
       localStorage.removeItem('ACCESS_AUTH')
       localStorage.removeItem("FB_ACCESS_TOKEN")
       localStorage.removeItem("FB_EXPIRES_IN")
+      localStorage.removeItem('INSTAGRAM_DATA')
     }
      // method to save the token in localStorage.
     private saveToken(res:JwtResponse): void{

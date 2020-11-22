@@ -138,3 +138,48 @@ footer img{
     background-color: #C13584;
     color: white;
 }
+
+li a {
+    font-size: 17px;
+    color: black;
+}
+
+.name {
+    color: black;
+    font-size: 23px;
+    font-weight: bold;
+}
+  
+.username {
+    margin: auto;
+    display: inline-block;
+    color: black; 
+    font-size: 15px;
+}
+  
+.bio {
+    margin: auto;
+    color: black; 
+    font-size: 15px;
+}
+  
+.website {
+    margin: auto;
+    color: #0e98d3; 
+    font-size: 15px;
+    cursor: pointer;
+}
+  
+img.avatar {
+    padding: .7em;
+    margin-left: .3em;
+    margin-top: .3em; 
+    align-self: center;
+    height: 8em;
+    width: 8em;
+    border-radius: 18em;
+}
+
+.score-header {
+    font-size: 11px !important;
+}

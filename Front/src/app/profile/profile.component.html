@@ -1,6 +1,6 @@
 <!-- Nav bar(Header) -->
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-    <img class="logo" src="../../assets/logo.png" alt="Socialytics"><a id="name" class="navbar-brand justify-content-around" href="/"> Socialytics</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img class="logo" src="../../assets/logo.png" alt="Socialytics"><a id="name" class="navbar-brand justify-content-around" href="/profile"> Socialytics</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,28 +10,96 @@
             <li class="nav-item ">
               <button *ngIf="fbToken == null" (click)="submitLogin()" class="btn instagramBtn"><i class="fab fa-instagram"></i> Instagram Auth</button>
             </li>
-            <li class="nav-item ">
+           <li class="nav-item dropdown">
+            <a *ngFor="let user of current" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Welcome, {{user.name}}<span class="sr-only"> </span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="nav-link list" href=""> Profile <span class="sr-only"></span></a>
               <a class="nav-link list" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
-               <a class="nav-link list" *ngFor="let user of current"> Welcome, {{user.name}} {{user.lastName}} <span class="sr-only"> </span></a>
-            </li>
-            <li class="nav-item ">
-               <a class="nav-link list" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
-           </li>
+            </div>
+          </li>
         </ul>
    </div>
 </nav>
 
-<<<<<<< HEAD
+<div *ngIf="instagramData" class="container-fluid">
+  <div class="container" *ngFor="let ig of instagramData">
+    <!-- Basic user info -->
+    <div class="row w-100">
+      <div class="col-2 d-flex align-items-center justify-content-center">
+        <img class="avatar" [src]="ig.profile_picture_url" />
+      </div>
+      <div class="col-8 col-xs-6 card-body">
+        <div class="name">
+          {{ig.name}}
+        </div>
+        <div>
+          <a class="username" [href]="'https://instagram.com/'  + ig.username"
+            target="_blank">@{{ig.username}}</a>
+        </div>
+        <div class="bio">
+          {{ig.biography}}
+        </div>
+        <div class="website">
+          <a (click)="externalUrl(stats.website)" target="_blank">{{ig.website}}</a>
+        </div>
+      </div>
+    </div>
 
-=======
+    <!-- Post, Followers and Following squares-->
+    <div [style.margin-top.px]="'20'" class="row">
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body text-center">
+            <small class="score-header">Posts</small>
+            <h3 class="card-text score-body">{{ig.media_count}}</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body text-center">
+            <small class="score-header">Followers</small>
+            <h3 class="card-text score-body">{{ig.followers_count}}</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body text-center">
+            <small class="score-header">Following</small>
+            <h3 class="card-text score-body">{{ig.follows_count}}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cuadros de: Total likes, Total comments, Average likes, Average comments -->
+    <div class="row">
+      <div class="col-md-3">
+      </div>
+    </div>
+    <!-- Hasta aqui -->
+
     
->>>>>>> a599480cdf10227a12a16ea2f4108c9a5f4f605c
+  </div>
+</div>
 
 <!-- End homepage content -->
 <footer class="fixed-bottom">
   <div class="wrapper">
     <p><img src="../../assets/logo.png" alt="logo"> Socialytics</p>
     <p>&copy; All Rights Reserved 2020</p>
+    <!-- Esto sale al final de la pagina -->
+    <p style="font-size: 12px;">
+      *Instagram public endpoints have been changing since April 2018. As a result, the
+      application is in continuous development. If the endpoints have changed since the last test run, please bear
+      with me and consider creating an issue <a href="https://github.com/preethamvishy/socialytics/issues">here</a>.
+    </p>
+    <!-- Hasta aqui -->
   </div>
 </footer>
   

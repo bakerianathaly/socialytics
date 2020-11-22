@@ -6,6 +6,7 @@ import {AuthService} from '../services/auth.service';
 import { User } from '../models/user';
 import {Md5} from 'ts-md5/dist/md5';
 
+declare var FB: any;
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    
+    this.facebookConfig()
     this.formGroup = new FormGroup({
       
       email: new FormControl('', [
@@ -35,6 +36,55 @@ export class LoginComponent implements OnInit {
         Validators.minLength(8)
       ]),
       
+    })
+  }
+
+  private facebookConfig(){
+    (window as any).fbAsyncInit = function() {
+      FB.init({
+        appId      : '1537824486409545',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v9.0'
+      });
+      FB.AppEvents.logPageView();
+    };
+  
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }
+
+  private facebookLogin(){
+    FB.login((response: any)=> {
+      const { authResponse } = response
+      if (authResponse){
+        localStorage.setItem("FB_ACCESS_TOKEN", authResponse.accessToken)
+        localStorage.setItem("FB_EXPIRES_IN", authResponse.expiresIn)
+      }
+      else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Sorry, the authentication has fail please try again'
+        })
+      }
+    },{scope: 'instagram_basic,pages_show_list,instagram_manage_insights,pages_read_engagement,'});
+  }
+
+  private loginStatus(){
+    FB.getLoginStatus((response) => {
+      if (response.status === 'connected') {
+        localStorage.setItem("FB_ACCESS_TOKEN",response.authResponse.accessToken)
+        localStorage.setItem("FB_EXPIRES_IN",response.authResponse.expiresIn.toString())
+      }
+      else{
+        this.facebookLogin()
+      }
     })
   }
    
@@ -55,9 +105,10 @@ export class LoginComponent implements OnInit {
         this.authService.login(this.log).subscribe((response: any) => {
           Swal.fire(
             response.message,
-            '',
+            'Please, accept and do not close the following pop up to get access to your Facebook page',
             'success'
           ).then(results => {
+            this.loginStatus()
             //Route to the user's profile view
             this.router.navigate(['profile']) 
           })

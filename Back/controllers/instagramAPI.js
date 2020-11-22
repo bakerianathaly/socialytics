@@ -118,13 +118,14 @@ async function getStatistics(req,res,done){
     var data = String
     data = req.query;
     var error = null//Variable to handle some errors we need to put in some conditions
-    //Query to get the user by the socialyticsiD 
+    //Query to get the user by the socialyticsiD  {_id: data.socialyticsId}
+
+    console.log('[DATA]', data)
     try{
-        var user = await userModel.findOne({_id: data.socialyticsId}).exec()
+        var user = await userModel.findById(data.socialyticsId).exec()
     }catch(err){
         error = err.messageFormat
     }
-    
     if(data.fbToken == "" || data.socialyticsId == "" ){
         //Case 1: It checks for any empty fields in the data.
         res.status(406).send({
@@ -133,7 +134,7 @@ async function getStatistics(req,res,done){
             message:"This field is required"
         })
     }
-    else if(error == undefined){
+    else if(error == undefined && user == undefined){
         //Case 2: It checks if the user exists in the DB.
         res.status(409).send({
             status: "409",
