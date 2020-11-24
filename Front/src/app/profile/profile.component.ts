@@ -21,8 +21,7 @@ export class ProfileComponent implements OnInit {
   private nodeAPI: String = 'https://localhost:3000'
   private user: User
   private current:Array<User>=[];
-  private instagramData = []
-  public sumary = ["Posts","Followers","Following"] 
+  private instagramData 
 
   constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
 
@@ -30,35 +29,31 @@ export class ProfileComponent implements OnInit {
     this.user=this.authService.getcurrentUser()
     this.current.push(this.user) 
     console.log('[TOKEN]', this.fbToken)
-    if(this.fbToken){
-      this.getInstagramData()
-    }
-  }
-
-  protected async submitLogin(){
-    if(!this.fbExpiredToken || !this.fbToken){
-      this.fbToken = localStorage.getItem("FB_ACCESS_TOKEN") 
-      this.fbExpiredToken = localStorage.getItem("FB_EXPIRES_IN") 
-    }
-    console.log('tenemos el token: ',this.fbToken)
     this.getInstagramData()
+    
   }
 
   protected getInstagramData(){
+    //Here we initialize the URL to make the request to get te info, we initialize it with the token and the user id
     this.nodeAPI = this.nodeAPI+'/instagram/statistics?fbToken='+this.fbToken+'&socialyticsId='+this.user.id
   
     this.http.get(this.nodeAPI.toString()).subscribe((response: any) => {
+      /*If there is none error, we remove the INSTAGRAM_DATA from the storage (if it exists), set it again, set the
+      instagramData variable to use it in the profile.component.html*/
       localStorage.removeItem('INSTAGRAM_DATA')
-      console.log('[RESPONSE]',response.instagram[0])
-      localStorage.setItem('INSTAGRAM_DATA', response.instagram[0])
-      this.instagramData[0] = response.instagram[0]
-      console.log('[INSTAGRAM DATA]', this.instagramData[0])
+      localStorage.setItem('INSTAGRAM_DATA', response.instagram)
+      this.instagramData = response.instagram
+      console.log('[INSTAGRAM DATA]', this.instagramData)
+
     }, error => {
+      //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: error.error.message
       })
+      this.authService.logout()
+      this.router.navigate(['/'])
     });
   }
 

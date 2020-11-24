@@ -7,42 +7,40 @@
   
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="nav">
-            <li class="nav-item ">
-              <button *ngIf="fbToken == null" (click)="submitLogin()" class="btn instagramBtn"><i class="fab fa-instagram"></i> Instagram Auth</button>
-            </li>
            <li class="nav-item dropdown">
             <a *ngFor="let user of current" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Welcome, {{user.name}}<span class="sr-only"> </span>
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="nav-link list" href=""> Profile <span class="sr-only"></span></a>
-              <a class="nav-link list" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
+            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+              <a class="nav-link list down" href=""> Profile <span class="sr-only"></span></a>
+              <a class="nav-link list down" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
             </div>
           </li>
         </ul>
    </div>
 </nav>
 
+<!-- Instagram Basic Info -->
 <div *ngIf="instagramData" class="container-fluid">
-  <div class="container" *ngFor="let ig of instagramData">
+  <div class="container">
     <!-- Basic user info -->
     <div class="row w-100">
       <div class="col-2 d-flex align-items-center justify-content-center">
-        <img class="avatar" [src]="ig.profile_picture_url" />
+        <img class="avatar" [src]="instagramData.userData.profile_picture_url" />
       </div>
       <div class="col-8 col-xs-6 card-body">
         <div class="name">
-          {{ig.name}}
+          {{instagramData.userData.name}}
         </div>
         <div>
-          <a class="username" [href]="'https://instagram.com/'  + ig.username"
-            target="_blank">@{{ig.username}}</a>
+          <a class="username" [href]="'https://instagram.com/'  + instagramData.userData.username"
+            target="_blank">@{{instagramData.userData.username}}</a>
         </div>
         <div class="bio">
-          {{ig.biography}}
+          {{instagramData.userData.biography}}
         </div>
         <div class="website">
-          <a (click)="externalUrl(stats.website)" target="_blank">{{ig.website}}</a>
+          <a (click)="externalUrl(stats.website)" target="_blank">{{instagramData.userData.website}}</a>
         </div>
       </div>
     </div>
@@ -53,7 +51,7 @@
         <div class="card mb-4 box-shadow">
           <div class="card-body text-center">
             <small class="score-header">Posts</small>
-            <h3 class="card-text score-body">{{ig.media_count}}</h3>
+            <h4 class="card-text score-body">{{instagramData.userData.media_count}}</h4>
           </div>
         </div>
       </div>
@@ -62,7 +60,7 @@
         <div class="card mb-4 box-shadow">
           <div class="card-body text-center">
             <small class="score-header">Followers</small>
-            <h3 class="card-text score-body">{{ig.followers_count}}</h3>
+            <h4 class="card-text score-body">{{instagramData.userData.followers_count}}</h4>
           </div>
         </div>
       </div>
@@ -71,7 +69,7 @@
         <div class="card mb-4 box-shadow">
           <div class="card-body text-center">
             <small class="score-header">Following</small>
-            <h3 class="card-text score-body">{{ig.follows_count}}</h3>
+            <h4 class="card-text score-body">{{instagramData.userData.follows_count}}</h4>
           </div>
         </div>
       </div>
@@ -79,7 +77,40 @@
 
     <!-- Cuadros de: Total likes, Total comments, Average likes, Average comments -->
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-3">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body text-center">
+            <small class="score-header">Total Likes</small>
+            <h4 class="card-text score-body">{{instagramData.media.totalLikes}}</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body text-center">
+            <small class="score-header">Total Comments</small>
+            <h4 class="card-text score-body">{{instagramData.media.totalComments}}</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body text-center">
+            <small class="score-header">Average Likes</small>
+            <h4 class="card-text score-body" >{{instagramData.media.avgLikes}}</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body text-center">
+            <small class="score-header">Average Comments</small>
+            <h4 class="card-text score-body">{{instagramData.media.avgComments}}</h4>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Hasta aqui -->

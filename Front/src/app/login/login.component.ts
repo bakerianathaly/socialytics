@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   private facebookConfig(){
+    //Facebook SDK configuration more info here: https://developers.facebook.com/docs/javascript
     (window as any).fbAsyncInit = function() {
       FB.init({
         appId      : '1537824486409545',
@@ -59,44 +60,57 @@ export class LoginComponent implements OnInit {
     }(document, 'script', 'facebook-jssdk'));
   }
 
-  private facebookLogin(){
-    FB.login((response: any)=> {
-      const { authResponse } = response
-      if (authResponse){
-        localStorage.setItem("FB_ACCESS_TOKEN", authResponse.accessToken)
-        localStorage.setItem("FB_EXPIRES_IN", authResponse.expiresIn)
-      }
-      else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Sorry, the authentication has fail please try again'
-        })
-      }
-    },{scope: 'instagram_basic,pages_show_list,instagram_manage_insights,pages_read_engagement,'});
-  }
-
   private loginStatus(){
-    FB.getLoginStatus((response) => {
-      if (response.status === 'connected') {
-        localStorage.setItem("FB_ACCESS_TOKEN",response.authResponse.accessToken)
-        localStorage.setItem("FB_EXPIRES_IN",response.authResponse.expiresIn.toString())
-      }
-      else{
-        this.facebookLogin()
-      }
+    //loginStatus returns a promise when the response of the getLoginStatus facebook method get connected or with the response of the facebookLogin method
+    //More info fo this facebook method at: https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/?locale=es_ES
+    return new Promise((resolve, reject) => {
+      FB.getLoginStatus((response) => {
+        if (response.status === 'connected') {
+          resolve({
+            FB_ACCESS_TOKEN: response.authResponse.accessToken,
+            FB_EXPIRES_IN: response.authResponse.expiresIn
+          })
+        }
+        else{
+          resolve(this.facebookLogin())
+        }
+      })
     })
   }
    
+  private facebookLogin(){
+    //facebookLogin returns a promise when the response of the login facebook method get the authResponse or swal the error if somthing happens
+    //More info fo this facebook method at: https://developers.facebook.com/docs/facebook-login/web   
+    return new Promise((resolve, reject) => {
+      FB.login((response: any)=> {
+        const { authResponse } = response
+        if (authResponse){
+          resolve({
+            FB_ACCESS_TOKEN: authResponse.accessToken,
+            FB_EXPIRES_IN: authResponse.expiresIn
+          })
+        }
+        else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Sorry, the authentication has fail please try again'
+          })
+
+          reject(response)
+        }
+      },{scope: 'instagram_basic,pages_show_list,instagram_manage_insights,pages_read_engagement,'});
+    })
+  }
+  
   private onSubmit(){
     /*First of all, the function validates if the form data is correct according to the formGroup variable
     The validations settings for the formGroup variable are in the ngOnInit() function*/
     if(this.formGroup.get('email').value != ' ' && this.formGroup.get('password').value != ' ' && this.formGroup.get('password').value.length >= 8 ){
 
         //After the if (the success), the data is assigned to the JSON variable called log
-        
-         this.log.email=this.formGroup.get('email').value
-         this.log.password= Md5.hashStr(this.formGroup.get('password').value).toString()
+        this.log.email=this.formGroup.get('email').value
+        this.log.password= Md5.hashStr(this.formGroup.get('password').value).toString()
        
         /*The last step is to call the API route to make the insert
         if the response is not an error, then it appears an success alert and redirect to the profile view
@@ -107,16 +121,19 @@ export class LoginComponent implements OnInit {
             response.message,
             'Please, accept and do not close the following pop up to get access to your Facebook page',
             'success'
-          ).then(results => {
-            this.loginStatus()
-            //Route to the user's profile view
-            this.router.navigate(['profile']) 
+          ).then(async results => {
+            //Here we call loginStatus and waits the promise to return
+            this.loginStatus().then((response: any) => {
+              localStorage.setItem("FB_ACCESS_TOKEN", response.FB_ACCESS_TOKEN)
+              localStorage.setItem("FB_EXPIRES_IN", response.FB_EXPIRES_IN)
+              //Route to the user's profile view
+              this.router.navigate(['profile']) 
+            })
+            
           })
          
         }, error => { 
-          
           Swal.fire({
-            
             icon: 'error',
             title: 'Oops...',
             text: error.error.message

@@ -1,13 +1,15 @@
-//Models
+//Requires
 const instagramModel = require('../models/instagram')
 const request = require("request-promise")
 const userModel = require('../models/user')
-const statistics = [] //Array of JSON, it containts all the data recovered and tranforms ready to display in the view
+const media = require('./instagramMedia')
+let statistics  //JSON, it containts all the data recovered and tranforms ready to display in the view
 
 async function instagramBasicUserData(fb_Token, ig_Id){
-    let igInfo
-    let fail = null
+    let igInfo //Variable that containts the basic user info 
+    let fail = null //Variable to return the error if it exist
 
+    //Request 1 to facebook API: get the Instagram user basic infor, it needs the Facebook token and the instagram user ID to proceed
     let petition = {
         method: "GET",
         uri: `https://graph.facebook.com/v3.2/${ig_Id}?fields=username,biography,followers_count,follows_count,media_count,name,profile_picture_url,website&access_token=${fb_Token}`,
@@ -16,6 +18,7 @@ async function instagramBasicUserData(fb_Token, ig_Id){
     }
 
     await request(petition).then((response) => {
+        //Wait to response, and if is there none error asinged the info to the variable
         igInfo = response.body
     }).catch(function (err) {
         fail = {
@@ -26,6 +29,7 @@ async function instagramBasicUserData(fb_Token, ig_Id){
     })
 
     if (fail != null){
+        //It checks if an error has happens, and returned it 
         return fail
     }
     else{ 
@@ -57,6 +61,7 @@ async function newInstagramUser(socialytics_Id, fb_Token){
         }
 
         await request(petition).then((response) => {
+            //Wait to response, and if is there none error asinged the ID to the variable
             fbPageId = response.body.data[0].id
         }).catch(function (err) {
             fail = {
@@ -67,6 +72,7 @@ async function newInstagramUser(socialytics_Id, fb_Token){
         })
 
         if (fail != null){
+            //It checks if an error has happens, and returned it 
             return fail
         }
         
@@ -79,6 +85,7 @@ async function newInstagramUser(socialytics_Id, fb_Token){
         }
 
         await request(petition).then((response) => {
+            //Wait to response, and if is there none error asinged the ID to the variable
             igId = response.body.instagram_business_account.id
         }).catch(function (err) {
             fail = {
@@ -89,6 +96,7 @@ async function newInstagramUser(socialytics_Id, fb_Token){
         })
 
         if (fail != null){
+            //It checks if an error has happens, and returned it 
             return fail 
         }
         
@@ -100,10 +108,12 @@ async function newInstagramUser(socialytics_Id, fb_Token){
         }
 
         try{
+            //Try to insert the new Instagram user and it is return if the insertion was good
             var newUser = new instagramModel(data)
             var register = await newUser.save()
             return register
         }catch(err){
+            //Return error if something happens in the insertion
             return {
                 status: "404",
                 response:"Not Found",
@@ -114,13 +124,12 @@ async function newInstagramUser(socialytics_Id, fb_Token){
 }
 
 async function getStatistics(req,res,done){
-    //Data's from the view, it is the Facebook token and the socialytics user ID
-    var data = String
+    
+    var data = String //Data's from the view, it is the Facebook token and the socialytics user ID
     data = req.query;
-    var error = null//Variable to handle some errors we need to put in some conditions
+    var error = null //Variable to handle some errors we need to put in some conditions
+   
     //Query to get the user by the socialyticsiD  {_id: data.socialyticsId}
-
-    console.log('[DATA]', data)
     try{
         var user = await userModel.findById(data.socialyticsId).exec()
     }catch(err){
@@ -152,6 +161,7 @@ async function getStatistics(req,res,done){
             let igUser = await newInstagramUser(data.socialyticsId,data.fbToken)
 
             if(igUser.status != undefined){
+                //Case 5: It checks if any of the request came with an error and send an error to the view
                 res.status(400).send({
                     status: '400',
                     response: 'Bad Request',
@@ -162,14 +172,24 @@ async function getStatistics(req,res,done){
 
         //Request 1 to facebook API: get the instagram user basic data (in the instagramBasicUserData function), it needs the instagram page ID and the facebook token
         let userData = await instagramBasicUserData(data.fbToken, igUser.instagramId)
-        if(userData.status != undefined){
+        //Request 2 to facebook API: get the instagram media from the user  (in the getMedia function in the instagramMedia.js), it needs the instagram page ID and the facebook token
+        let mediaData = await media.getMedia(data.fbToken, igUser.instagramId)
+
+        if(userData.status != undefined || mediaData.status != undefined){
+            //Case 6: It checks if any of the request came with an error and send an error to the view
             res.status(400).send({
                 status: '400',
                 response: 'Bad Request',
                 message: userData.message
             })
         }
-        statistics.push(userData)
+
+        //JSON with the return information os the instagram
+        statistics = {
+            userData: userData,
+            media: mediaData
+        }
+        //Sucessful response message 
         res.status(200).send({
             status: "200",
             response:"OK",
