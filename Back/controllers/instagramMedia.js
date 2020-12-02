@@ -9,7 +9,7 @@ async function getMedia(fb_Token, ig_Id){
     let avgLikes = 0 //Varaiable that containts the average likes 
     let avgComments = 0 //Varaiable that containts the average commets
     let countMedia = 0 //Variable with the amount of media returned
-    let fail = null //Variable to return the error if it exist 
+    let fail = null //Variable to return the error if it exists 
     
     //Request 1 to facebook API: get the media IDs, it needs the Facebook token and the instagram user ID to proceed
     let petition = {

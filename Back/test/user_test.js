@@ -105,3 +105,55 @@ describe("Login tests", () => {
     
     
 }) 
+// test for update user's data 
+describe("Update user tests", () => {
+    //Case 1: User updates his data successfully.
+    it("User's data was updated", done =>{
+        let data = {
+            id:'5fc2bb11af38bf186d017f29',
+            name: "Corin",
+            lastName: "Smithi",
+            password: "lsdmklakdmlasmdlakmdslakmdsla",
+            email: "corismith19@gmail.com",
+            industry: "Influencer"
+        }
+        
+        request(app).post('/update').send(data).end((err, res) =>{
+            assert(res.body.message === "The update has been successful")
+            done()
+        })
+    })
+
+    //Case 2: User entered a wrong email format.
+    it("User's data wasn't updated due to a wrong email format entered", done =>{
+        let data = {
+            id:'5fc2bb11af38bf186d017f29',
+            name: "Corina",
+            lastName: "Smith",
+            password: "lsdmklakdmlasmdlakmdslakmdsla",
+            email: "cori",
+            industry: "Influencer"
+        }
+        
+        request(app).post('/update').send(data).end((err, res) =>{
+            assert(res.body.message === "This Email is on the wrong format, please try again")
+            done()
+        })
+    })
+    //Case 3: User entered a wrong password format.
+    it("User's data wasn't updated due to an invalid password format entered", done =>{
+        let data = {
+            id:'5fc2bb11af38bf186d017f29',
+            name: "Corina",
+            lastName: "Smith",
+            password: "lsdm",
+            email: "corismith21@gmail.com",
+            industry: "Influencer"
+        }
+        
+        request(app).post('/update').send(data).end((err, res) =>{
+            assert(res.body.message === "This password is on the wrong format, please try again")
+            done()
+        })
+    })
+})

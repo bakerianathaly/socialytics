@@ -21,6 +21,7 @@ import { CuentaInstagramComponent } from './cuenta-instagram/cuenta-instagram.co
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 
 registerLocaleData(en);
 
@@ -32,7 +33,8 @@ registerLocaleData(en);
     LandscapeComponent,
     CuentaInstagramComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    UserprofileComponent
   ],
   imports: [
     BrowserModule,
