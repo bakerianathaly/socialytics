@@ -124,7 +124,25 @@ describe("Update user tests", () => {
         })
     })
 
-    //Case 2: User entered a wrong email format.
+    //Case 2: User left empty fields.
+    it("User left empty fields", done =>{
+        let data = {
+            id:'5fc2bb11af38bf186d017f29',
+            name: "",
+            lastName: "",
+            password: "lsdmklakdmlasmdlakmdslakmdsla",
+            email: "corismith19@gmail.com",
+            industry: "Influencer"
+        }
+        
+        request(app).post('/update').send(data).end((err, res) =>{
+            assert(res.body.message === "This field is required")
+            done()
+        })
+    })
+
+
+    //Case 3: User entered a wrong email format.
     it("User's data wasn't updated due to a wrong email format entered", done =>{
         let data = {
             id:'5fc2bb11af38bf186d017f29',
@@ -140,7 +158,7 @@ describe("Update user tests", () => {
             done()
         })
     })
-    //Case 3: User entered a wrong password format.
+    //Case 4: User entered a wrong password format.
     it("User's data wasn't updated due to an invalid password format entered", done =>{
         let data = {
             id:'5fc2bb11af38bf186d017f29',

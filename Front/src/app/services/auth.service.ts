@@ -40,7 +40,7 @@ export class AuthService {
      // method to save the token in localStorage.
     private saveToken(res:JwtResponse): void{
       
-       localStorage.setItem('ACCESS_AUTH', JSON.stringify(res.datos));
+       localStorage.setItem('ACCESS_AUTH', JSON.stringify(res.datos))
       
     }
     // Function to retrieve user's values from LocalStorage.

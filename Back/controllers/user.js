@@ -133,12 +133,17 @@ async function UpdateUser(req,res,done){
     var data=req.body
     // variable for the user's id.
     var id=data.id
-    // variable for Retrieving the user by id.
-    var user = await userModel.findOne({ _id:id}).exec()
-    console.log('user:',user)
-   
+    
+    if(data.name == "" || data.lastName == "" || data.password == "" || data.email == "" || data.industry == ""){
+        res.status(406).send({
+            status: "406",
+            response:"Not Acceptable",
+            message:"This field is required"
+        })
+    }
+    
     // it validates if the email is on the right format.
-    if (/^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i
+    else if (/^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i
     .test(data.email) != true){
 
         res.status(406).send({
@@ -159,9 +164,12 @@ async function UpdateUser(req,res,done){
 
             }
             else{
-                userModel.findOneAndUpdate(id,data,{upsert: true},function(err, doc) {
+                userModel.findByIdAndUpdate(id,data,{upsert:true},function(err, doc) {
+                    console.log(err)
+                    
                     if (err) {
                        return res.send(500, {error: err});
+                       
                     }
                     return res.status(200).send({
                         status: "200",
