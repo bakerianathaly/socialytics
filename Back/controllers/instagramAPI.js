@@ -137,7 +137,7 @@ async function getStatistics(req,res,done){
     }
     if(data.fbToken == "" || data.socialyticsId == "" ){
         //Case 1: It checks for any empty fields in the data.
-        res.status(406).send({
+        return res.status(406).send({
             status: "406",
             response:"Not Acceptable",
             message:"This field is required"
@@ -145,10 +145,10 @@ async function getStatistics(req,res,done){
     }
     else if(error == undefined && user == undefined){
         //Case 2: It checks if the user exists in the DB.
-        res.status(409).send({
+        return res.status(409).send({
             status: "409",
             response:"Conflict",
-            message:"This user does not exist in Socialytics"
+            message:"This user doesn't exist, please try again"
         }) 
     }
     else{
@@ -162,7 +162,7 @@ async function getStatistics(req,res,done){
 
             if(igUser.status != undefined){
                 //Case 5: It checks if any of the request came with an error and send an error to the view
-                res.status(400).send({
+                return res.status(400).send({
                     status: '400',
                     response: 'Bad Request',
                     message: igUser.message
@@ -177,7 +177,7 @@ async function getStatistics(req,res,done){
 
         if(userData.status != undefined || mediaData.status != undefined){
             //Case 6: It checks if any of the request came with an error and send an error to the view
-            res.status(400).send({
+            return res.status(400).send({
                 status: '400',
                 response: 'Bad Request',
                 message: userData.message
@@ -190,7 +190,7 @@ async function getStatistics(req,res,done){
             media: mediaData
         }
         //Sucessful response message 
-        res.status(200).send({
+        return res.status(200).send({
             status: "200",
             response:"OK",
             message: "Sign up successful",

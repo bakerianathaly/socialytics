@@ -4,30 +4,6 @@ const app = require("../index") //Se necesita invocar al servidor porque desde a
 
 describe("Instagram sign up tests", () => {
 
-    // it("Instagram sign up successful", done =>{
-    //     let register = {
-    //         name: "Jeffree",
-    //         lastName: "Star",
-    //         password: "12345678910",
-    //         email: "jeffreestar@gmail.com",
-    //         industry: "Influencer"
-    //     }
-
-    //     request(app).post('/signup').send(register).end((err, res) =>{
-    //         let data = {
-    //             username: "jeffreestar",
-    //             socialyticId: res.body.id
-    //         }
-
-    //         request(app).post('/instagram/').send(data).end((err, res) =>{
-    //             console.log(res.body)
-    //             assert(res.body.message === "Account added successfully")
-    //             done()
-    //         })
-    //     })
-    // })
-
-
     it("Fail instagram sign up due to unknown user", done =>{
     
         let socialyticId = '5faec2f588ri4k56552cb0e9'
@@ -35,7 +11,7 @@ describe("Instagram sign up tests", () => {
         let url = '/instagram/statistics?fbToken='+fbToken+'&socialyticsId='+socialyticId
 
         request(app).get(url.toString()).end((err, res) =>{
-            assert(res.body.message === "This user does not exist in Socialytics")
+            assert(res.body.message === "This user doesn't exist, please try again")
             done()
         })
     })

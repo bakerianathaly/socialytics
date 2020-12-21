@@ -4,7 +4,7 @@ const instagramModel = require('../models/instagram')
 const e = require("express")
 
 async function bestDayToPostByProfileViews(req,res,done){
-    let profileViews = null
+    let profileViews = null //Variable that contains the response for the facebook request
     /*The next seven variables are the one that will have the prediction of each day of the week, that is the reason 
     they are identify by the name of the day */
     let monday = 0
@@ -14,15 +14,14 @@ async function bestDayToPostByProfileViews(req,res,done){
     let friday = 0
     let saturday = 0
     let sunday = 0
-    let totalPrediction = 0
-    let fbToken = req.body.fbToken
-    let socialytics = req.body.socialyticId
+    let totalPrediction = 0 //Variable that contains the total addition of the values of the request
+    let fbToken = req.body.fbToken //Variable to handle the facebook token
+    let socialytics = req.body.socialyticId //Variable to handle the user identification in the app
     let fail = null //Variable to handle some errors we need to put in some conditions
-    let today = new Date()
+    let today = new Date() //Variable with the today actual date
 
-    //1. Ver si el socialID viene vacio, retornar error (done)
-    //2. Si el token viene en la peticion pero el id del usuario no existe,  retonar error (done)
     for(let i = 0; i <3; i++){
+        //The loop it is here to make the request 3 times, to get the historical data of 3 differents months 
         if(socialytics == undefined || socialytics == ""){
             //Case 1: It checks for any empty fields in the data.
             return res.status(406).send({
@@ -42,6 +41,7 @@ async function bestDayToPostByProfileViews(req,res,done){
 
             if(fail == undefined && igUser == undefined){
                 //Case 2: It checks if the user exists in the DB.
+                //It checks if an error has happens, and returned it 
                 return res.status(409).send({
                     status: "409",
                     response:"Conflict",
@@ -50,10 +50,13 @@ async function bestDayToPostByProfileViews(req,res,done){
             }
             else{
                 //Case 3: The user exists we proceed to make the request to Facebook API to get the values of the profile views
-                let ig_Id = igUser.instagramId
-                let sinceDate = moment(today).subtract(31,'days').format()
-                let untilDate = moment(today).subtract(1,'days').format()
-                today = sinceDate
+                let ig_Id = igUser.instagramId //Variable with the Instagram ID if the user exits in the socialytics DB
+                let sinceDate = moment(today).subtract(31,'days').format() //Variable with the since date for the request (it is the actual date less 31 days)
+                let untilDate = moment(today).subtract(1,'days').format() //Variable with the until date for the request (it is the actual date less 1 day)
+                today = sinceDate //We update the today date with the since date to get the nexts dates of the other requests in the loop
+                
+                /*To be able to make the request to the facebook api, we need to transform the since and until date
+                to the UNIX date format */
                 sinceDate = moment(sinceDate).unix()
                 untilDate = moment(untilDate).unix()
 
@@ -83,6 +86,10 @@ async function bestDayToPostByProfileViews(req,res,done){
         }
 
         if(profileViews != null){
+            /*To be able to calculate the best day to post, for each one of the value we get in the request, we need
+            to check witch day of the week is and with that sum the value to the variable of that day
+            
+            And also, we need to calculate the total to be able to calculate de percent of probability*/
             for(let i =0; i < profileViews.length; i++){
                 let day = moment(profileViews[i].end_time).format('dddd')
                 totalPrediction = totalPrediction+profileViews[i].value 
@@ -119,7 +126,7 @@ async function bestDayToPostByProfileViews(req,res,done){
             i = 5
         }
     }
-    //Aqui poner el nombre de que carajo es esto xD es un porcentaje pero no se de que
+    //For each variable of the week, it is calculate the confidence interval to get for each day the posible percent of probability of the best day to post 
     monday = (monday/totalPrediction)*100
     tuesday = (tuesday/totalPrediction)*100
     wednesday = (wednesday/totalPrediction)*100
@@ -129,6 +136,7 @@ async function bestDayToPostByProfileViews(req,res,done){
     sunday = (sunday/totalPrediction)*100
 
     if(fail != null){
+        //It checks if an error has happens, and returned it 
         return res.status(400).send({
             status: fail.status,
             response: fail.response,
@@ -136,10 +144,11 @@ async function bestDayToPostByProfileViews(req,res,done){
         })
     }
     else{
+        //Case 4: Sucessful response message and JSON
         return res.status(200).send({
             status: "200",
             response:"OK",
-            message: "Prediction successful",
+            message: "Successful prediction",
             byProfileViews: {
                 sunday: sunday.toFixed(2),
                 monday: monday.toFixed(2),

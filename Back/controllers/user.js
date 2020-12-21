@@ -8,14 +8,14 @@ async function register(req,res,done) {
     var existingUser = await userModel.findOne({ email: data.email}).exec()
 
     if(existingUser != null){
-        res.status(409).send({
+        return res.status(409).send({
             status: "409",
             response:"Conflict",
             message:"Email is invalid or already taken"
         }) 
     }
     else if(data.name == "" || data.lastName == "" || data.password == "" || data.email == "" || data.industry == ""){
-        res.status(406).send({
+        return res.status(406).send({
             status: "406",
             response:"Not Acceptable",
             message:"This field is required"
@@ -23,7 +23,7 @@ async function register(req,res,done) {
     }
     else if(data.password.length < 8 || /^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i
             .test(data.email) != true){
-        res.status(406).send({
+        return res.status(406).send({
             status: "406",
             response:"Not Acceptable",
             message:"This field has to be filled in the required format"
@@ -33,14 +33,14 @@ async function register(req,res,done) {
         try{
             var newUser = new userModel(data)
             var register = await newUser.save()
-            res.status(200).send({
+            return res.status(200).send({
                 status: "200",
                 response:"OK",
                 message: "Sign up successful",
                 id: register._id
             })
         }catch(err){
-            res.status(404).send({
+            return res.status(404).send({
                 status: "404",
                 response:"Not Found",
                 message: "The sign up has failed due to an error"
@@ -61,7 +61,7 @@ async function loggedIn(req,res,done){
     // It checks for any empty fields in the form.
     if(cred.email == "" || cred.password == "" ){
         
-        res.status(406).send({
+        return res.status(406).send({
             status: "406",
             response:"Not Acceptable",
             message:"This field is required"
@@ -73,7 +73,7 @@ async function loggedIn(req,res,done){
         try{
             // if the user doesn't exist, send an error message.
             if(!user){
-                res.status(409).send({
+                return res.status(409).send({
                     status: "409",
                     response:"Conflict",
                     message:"The e-mail or password you entered is incorrect"
@@ -100,7 +100,7 @@ async function loggedIn(req,res,done){
                     expiresIn:expiresIn
                 }
                
-                res.status(200).send({
+                return res.status(200).send({
                     datos,
                     status: "200",
                     response:"OK",
@@ -109,7 +109,7 @@ async function loggedIn(req,res,done){
             
             }
             else{
-                res.status(409).send({
+                return res.status(409).send({
                     status: "409",
                     response:"Conflict",
                     message:"The e-mail or password you entered is incorrect"
@@ -117,15 +117,13 @@ async function loggedIn(req,res,done){
             }
         
         }catch(err){
-            res.status(404).send({
+            return res.status(404).send({
                 status: "404",
                 response:"Not Found",
                 message: "Login failed due to an error"
             })
         }
     }
-
-
 }
     
 module.exports = {

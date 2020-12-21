@@ -144,7 +144,7 @@ describe("Best day to post by profile views", () => {
             }
         
             request(app).get('/prediction/bestdaybyviews').send(info).end((err, res) =>{
-                assert(res.body.message === "Prediction successful")
+                assert(res.body.message === "Successful prediction")
                 done()
             })
         })
