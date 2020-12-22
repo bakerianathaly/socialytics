@@ -53,13 +53,19 @@
                  </div>
                 
                  <div class="form-group">
-                     <label for="passWord" class="form-label mr-2">Password</label>
-                     <input id="passWord" class="ml-2" type="password" formControlName="password" placeholder="Min 8 Characters" *ngIf="isShown4"/>
+                     <label for="oldpassWord" class="form-label mr-2">Password</label>
+                     <input id="oldpassWord" class="ml-2" value="{{user.password}}" type="password" readonly *ngIf="isShown4"/>
                      <button (click)="ShowField4()" class="btn btn-outline-dark btn-sm" style="position: absolute; right: 0;" type="button">Edit</button> 
-                     <br>
-                         <span *ngIf="formGroup.get('password').invalid && subM && formGroup.get('password').errors.required && error != 'length'">The password is a required field.</span> 
-                         <span *ngIf="formGroup.get('password').invalid && subM && (error == 'length' || formGroup.get('password').errors.minlength )">The password min length is 8.</span>         
+                           
                   </div> 
+
+                  <div class="form-group" *ngIf="isShown4">
+                     <label for="passWord" class="form-label mr-2">New Password</label>
+                     <input id="passWord" class="ml-2" type="password" formControlName="password" placeholder="Min 8 Characters" />
+                     
+                     <br>
+                         <span *ngIf="formGroup.get('password').invalid && subM && (error == 'length' || formGroup.get('password').errors.minlength )">The password min length is 8.</span>         
+                   </div> 
                 
                  <div class="form-group">
                      <label for="industryName" class="form-label mr-2">Industry</label>

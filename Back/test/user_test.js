@@ -136,7 +136,7 @@ describe("Update user tests", () => {
         }
         
         request(app).post('/update').send(data).end((err, res) =>{
-            assert(res.body.message === "This field is required")
+            assert(res.body.message === "Empty fields are not allowed")
             done()
         })
     })

@@ -134,11 +134,11 @@ async function UpdateUser(req,res,done){
     // variable for the user's id.
     var id=data.id
     
-    if(data.name == "" || data.lastName == "" || data.password == "" || data.email == "" || data.industry == ""){
+    if(data.name == "" || data.lastName == "" || data.email == "" || data.industry == ""){
         res.status(406).send({
             status: "406",
             response:"Not Acceptable",
-            message:"This field is required"
+            message:"Empty fields are not allowed"
         })
     }
     
@@ -155,6 +155,7 @@ async function UpdateUser(req,res,done){
     }
     else{
         try{
+            
             if (data.password.length < 8 ) {
                 res.status(406).send({
                     status: "406",
