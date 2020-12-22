@@ -18,8 +18,8 @@ export class PredictionComponent implements OnInit {
   public instagramData: any = JSON.parse(localStorage.getItem('INSTAGRAM_DATA'))
   private fbToken: String = localStorage.getItem("FB_ACCESS_TOKEN")
   private nodeAPI: String = 'https://localhost:3000'
-  public byProfileViews: any
-  public byEngagements: any
+  public maxValue: any
+  public maxDay: String
 
   constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
 
@@ -29,41 +29,47 @@ export class PredictionComponent implements OnInit {
     this.getBestDayToPostByProfileViews()
   }
 
+  private getMaxValueDay(values: any){
+    if(this.maxValue == values.monday ){
+      this.maxDay = 'Monday'
+    }
+    else if(this.maxValue == values.tuesday ){
+      this.maxDay = 'Tuesday'
+    }
+    else if(this.maxValue == values.wednesday ){
+      this.maxDay = 'Wednesday'
+    }
+    else if(this.maxValue == values.thursday ){
+      this.maxDay = 'Thursday'
+    }
+    else if(this.maxValue == values.friday ){
+      this.maxDay = 'Friday'
+    }
+    else if(this.maxValue == values.saturday ){
+      this.maxDay = 'Saturday'
+    }
+    else{ 
+      this.maxDay = 'Sunday'
+    }
+  }
+
   protected getBestDayToPostByProfileViews(){
     if(this.fbToken && this.user.id){
       let API = this.nodeAPI+'/prediction/bestdaybyviews?socialyticId='+this.user.id+'&fbToken='+this.fbToken
 
       this.http.get(API.toString()).subscribe((response: any) => {
         
-        this.byProfileViews = response.byProfileViews
-        let chart = new CanvasJS.Chart("chartContainer", {
-          animationEnabled: true,
-          theme: "light2", // "light1", "light2", "dark1", "dark2",
-          exportEnabled: true,
-          axisY: {
-            title: "Probability percent"
-          },
-          axisX: {
-            title: "Day of the week"
-          },
-          data: [{
-            type: "column",
-            showInLegend: "true",
-            legendText: "{label}",
-            yValueFormatString: "#,##0.0#\"%\"",
-            dataPoints: [
-              { y: parseFloat(this.byProfileViews.sunday), label: "Sunday" },
-              { y: parseFloat(this.byProfileViews.monday), label: "Monday" },
-              { y: parseFloat(this.byProfileViews.tuesday), label: "Tuesday" },
-              { y: parseFloat(this.byProfileViews.wednesday), label: "Wednesday" },
-              { y: parseFloat(this.byProfileViews.thursday), label: "Thursday" },
-              { y: parseFloat(this.byProfileViews.friday), label: "Friday" },
-              { y: parseFloat(this.byProfileViews.saturday), label: "Saturday" }
-            ]
-          }]
-        });
-          
-        chart.render();
+        this.maxValue = [
+          response.byProfileViews.sunday,
+          response.byProfileViews.monday,
+          response.byProfileViews.tuesday,
+          response.byProfileViews.wednesday,
+          response.byProfileViews.thursday,
+          response.byProfileViews.friday,
+          response.byProfileViews.saturday
+        ]
+        this.maxValue = Math.max(...this.maxValue)
+        this.getMaxValueDay(response.byProfileViews)
       }, error => {
         console.log('[ERROR]', error)
         //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user

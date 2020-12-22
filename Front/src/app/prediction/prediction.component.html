@@ -74,16 +74,12 @@
 
         <div class="ml-5 mt-3 tab-content">
             <div class="tab-pane active size" id="BestDayToPost" role="tabpanel" aria-labelledby="best-DayToPost">
-                <div id="BestDayToPost">
+                <div id="BestDayToPost"  *ngIf="this.maxDay && this.maxValue">
                     <h4>By profile views</h4>
-                    <div id="chartContainer"></div>
+                    <h6>Your probable best day to post is {{this.maxDay}} whit an {{this.maxValue}}% of probability by the Profile Views.</h6>
                     <h4>By engagements</h4>
-                    <div id="chartContainer"></div>
+                    <h6>Your probable best day to post is {{this.maxDay}} whit an {{this.maxValue}}% of probability by the Engagements.</h6>
                 </div>
-                <!-- <div id="BestDayToPost">
-                    <h4>By engagements</h4>
-                    <div id="chartContainer"></div>
-                </div> -->
             </div>
         
             <div class="tab-pane" id="Reach" role="tabpanel" aria-labelledby="reachPrediction">
