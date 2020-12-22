@@ -1,0 +1,135 @@
+body {
+    height: 100%;
+    overflow: hidden;
+    width: 100% !important;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.hoverPrediction:hover{
+    background-color:rgb(255, 193, 7);
+    color:black;
+}
+
+.sixe{
+    margin-left: 50%!important;
+    margin-right: 50%!important;
+}
+
+#chartContainer{
+    height: 370px;
+    width: auto;
+}
+
+#name{
+    font-size: 25px;
+    margin-left: 10px;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+}
+
+nav{
+    background-color: rgb(255, 193, 7)!important;
+    color: black!important;
+    text-align: center;
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+.logo{
+    width: 40px;
+    height: 40px;
+}
+
+.list{
+    color: black!important;
+    font-size: 17px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/*CSS from https://codepen.io/rbuxx/pen/BReZed*/
+.wrapper {
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 10px;
+    margin: 0 auto;
+    text-align: center!important;
+}
+  
+h1.logo {
+    background-repeat: no-repeat;
+    width: 100px;
+    text-indent: -10000px;
+    float: left;
+}
+
+footer {
+    background: #3b3b3b;
+    padding: 30px 0;
+}
+
+footer p{
+    color: white!important;
+}
+
+footer img{
+    height: 30px;
+    width: 30px;
+}
+
+li a {
+    font-size: 17px;
+    color: black;
+}
+
+.name {
+    color: black;
+    font-size: 23px;
+    font-weight: bold;
+}
+  
+.username {
+    margin: auto;
+    display: inline-block;
+    color: black; 
+    font-size: 15px;
+}
+  
+.bio {
+    margin: auto;
+    color: black; 
+    font-size: 15px;
+}
+  
+.website {
+    margin: auto;
+    color: #0e98d3; 
+    font-size: 15px;
+    cursor: pointer;
+}
+  
+img.avatar {
+    padding: .7em;
+    margin-left: .3em;
+    margin-top: .3em; 
+    align-self: center;
+    height: 8em;
+    width: 8em;
+    border-radius: 18em;
+}
+
+.score-header {
+    font-size: 11px !important;
+}
+
+.down{
+    font-size: 15px!important;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center!important;
+    margin-top: 10%;
+    padding-bottom: 10%;
+}

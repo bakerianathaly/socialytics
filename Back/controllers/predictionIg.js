@@ -15,11 +15,11 @@ async function bestDayToPostByProfileViews(req,res,done){
     let saturday = 0
     let sunday = 0
     let totalPrediction = 0 //Variable that contains the total addition of the values of the request
-    let fbToken = req.body.fbToken //Variable to handle the facebook token
-    let socialytics = req.body.socialyticId //Variable to handle the user identification in the app
+    let fbToken = req.query.fbToken //Variable to handle the facebook token
+    let socialytics = req.query.socialyticId //Variable to handle the user identification in the app
     let fail = null //Variable to handle some errors we need to put in some conditions
     let today = new Date() //Variable with the today actual date
-
+    
     for(let i = 0; i <3; i++){
         //The loop it is here to make the request 3 times, to get the historical data of 3 differents months 
         if(socialytics == undefined || socialytics == ""){

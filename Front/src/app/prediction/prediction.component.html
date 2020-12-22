@@ -1,6 +1,6 @@
 <!-- Nav bar(Header) -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img class="logo" src="../../assets/logo.png" alt="Socialytics"><a id="name" class="navbar-brand justify-content-around" href="/profile"> Socialytics</a>
+    <img class="logo" src="../../assets/logo.png" alt="Socialytics"><a id="name" class="navbar-brand justify-content-around" href="/home"> Socialytics</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -53,79 +53,58 @@
         </div>
       </div>
     </div>
-
-    <!-- Post, Followers and Following squares-->
-    <div [style.margin-top.px]="'20'" class="row">
-      <div class="col-md-4">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body text-center">
-            <small class="score-header">Posts</small>
-            <h4 class="card-text score-body">{{instagramData.media_count}}</h4>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body text-center">
-            <small class="score-header">Followers</small>
-            <h4 class="card-text score-body">{{instagramData.followers_count}}</h4>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body text-center">
-            <small class="score-header">Following</small>
-            <h4 class="card-text score-body">{{instagramData.follows_count}}</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Cuadros de: Total likes, Total comments, Average likes, Average comments -->
-    <div class="row">
-      <div class="col-3">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body text-center">
-            <small class="score-header">Total Likes</small>
-            <h4 class="card-text score-body">{{instagramMedia.totalLikes}}</h4>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body text-center">
-            <small class="score-header">Total Comments</small>
-            <h4 class="card-text score-body">{{instagramMedia.totalComments}}</h4>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body text-center">
-            <small class="score-header">Average Likes</small>
-            <h4 class="card-text score-body" >{{instagramMedia.avgLikes}}</h4>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body text-center">
-            <small class="score-header">Average Comments</small>
-            <h4 class="card-text score-body">{{instagramMedia.avgComments}}</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Hasta aqui -->
-
-    
+  
   </div>
+</div>
+<br><br>
+
+<div class="container-fluid">
+    <div class="container-fluid">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item hoverPrediction">
+              <a class="nav-link active" id="best-DayToPost" href="#BestDayToPost" role="tab" data-toggle="tab" aria-selected="true" aria-controls="BestDayToPost">Best day to Post</a>
+            </li>
+            <li class="nav-item hoverPrediction">
+              <a class="nav-link" id="reachPrediction" href="#Reach" role="tab" data-toggle="tab" aria-selected="false" aria-controls="Reach">Reach</a>
+            </li>
+            <li class="nav-item hoverPrediction">
+              <a class="nav-link" id="impressionsPrediction" href="#Impressions" role="tab" data-toggle="tab" aria-selected="false" aria-controls="Impressions">Impressions</a>
+            </li>
+        </ul>
+
+        <div class="ml-5 mt-3 tab-content">
+            <div class="tab-pane active size" id="BestDayToPost" role="tabpanel" aria-labelledby="best-DayToPost">
+                <div id="BestDayToPost">
+                    <h4>By profile views</h4>
+                    <div id="chartContainer"></div>
+                    <h4>By engagements</h4>
+                    <div id="chartContainer"></div>
+                </div>
+                <!-- <div id="BestDayToPost">
+                    <h4>By engagements</h4>
+                    <div id="chartContainer"></div>
+                </div> -->
+            </div>
+        
+            <div class="tab-pane" id="Reach" role="tabpanel" aria-labelledby="reachPrediction">
+                <div id="Reach">
+                    <p>ldmslafnaskjnfksjfn</p>
+                    <p>lakdmdlamlfmalfmalkdfmalf</p>
+                    <button class="btn btn-primary">lkmlaskdfmasf</button>
+                </div>
+            </div>
+        
+            <div class="tab-pane" id="Impressions" role="tabpanel" aria-labelledby="impressionsPrediction">
+                <div id="Impressions">
+                    <p>ldmslafnaskjddkjdkdjnfksjfn</p>
+                    <p>lakdmflakmdflamflkammdnadlamlfmalfmalkdfmalf</p>
+                    <button class="btn btn-warning">lkmlaskdfmasf</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
 </div>
 
 <!-- End homepage content -->

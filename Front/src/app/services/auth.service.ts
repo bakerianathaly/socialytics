@@ -35,12 +35,13 @@ export class AuthService {
       localStorage.removeItem('ACCESS_AUTH')
       localStorage.removeItem("FB_ACCESS_TOKEN")
       localStorage.removeItem("FB_EXPIRES_IN")
-      localStorage.removeItem('INSTAGRAM_DATA')
+      localStorage.removeItem("INSTAGRAM_DATA")
+      localStorage.removeItem("INSTAGRAM_MEDIA")
     }
-     // method to save the token in localStorage.
+     // Method to save the token in localStorage.
     private saveToken(res:JwtResponse): void{
       
-       localStorage.setItem('ACCESS_AUTH', JSON.stringify(res.datos));
+      localStorage.setItem('ACCESS_AUTH', JSON.stringify(res.datos));
       
     }
     // Function to retrieve user's values from LocalStorage.
@@ -54,11 +55,11 @@ export class AuthService {
       return null
     }
 
-    // method to get the token in case if it doesn't exist.
+    // Method to get the token in case if it doesn't exist.
     getToken(): string {
       
       if (!this.token) {
-         this.token = localStorage.getItem('ACCESS_AUTH')
+        this.token = localStorage.getItem('ACCESS_AUTH')
       }
       return this.token
     }

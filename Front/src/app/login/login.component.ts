@@ -127,7 +127,7 @@ export class LoginComponent implements OnInit {
               localStorage.setItem("FB_ACCESS_TOKEN", response.FB_ACCESS_TOKEN)
               localStorage.setItem("FB_EXPIRES_IN", response.FB_EXPIRES_IN)
               //Route to the user's profile view
-              this.router.navigate(['profile']) 
+              this.router.navigate(['home']) 
             })
             
           })
