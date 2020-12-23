@@ -17,7 +17,7 @@ const routes: Routes = [
     {path:'signup', component: SignUpComponent},
     {path:'login', component: LoginComponent},
     {path:'profile', component: ProfileComponent, canActivate: [AuthGuard]}, // canActivate:[AuthGuard]: It protects user's routes from unauthorized access.
-    {path:'userprofile', component:UserprofileComponent},
+    {path:'userprofile', component:UserprofileComponent, canActivate: [AuthGuard]},
     {path: 'home', component: CuentaInstagramComponent},
     {
         //The route would be socialytics/instagram/<the childrens of the instagram route>

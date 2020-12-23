@@ -99,8 +99,8 @@ export class UserprofileComponent implements OnInit {
               '',
               'success'
             ).then(results => {
-                this.router.navigate([''])
-                localStorage.setItem('ACCESS_AUTH', JSON.stringify(this.user))
+               this.router.navigate(['profile'])
+               localStorage.setItem('ACCESS_AUTH', JSON.stringify(this.user))
             })
             
           }, error => {
@@ -134,7 +134,7 @@ export class UserprofileComponent implements OnInit {
               '',
               'success'
             ).then(results => {
-                this.router.navigate([''])
+                this.router.navigate(['profile'])
                 localStorage.setItem('ACCESS_AUTH', JSON.stringify(this.user))
             })
             
@@ -151,9 +151,9 @@ export class UserprofileComponent implements OnInit {
       else{
          
         if (this.formGroup.get('password').value.length < 8 && this.formGroup.get('password').value != ''){
-          /*This if works to know if the password received from the form is less than 8 characters
+          /*This only works to know if the password received from the form is less than 8 characters
           if it does, the error variable is assigned with the error name*/
-          this.error = 'length'
+           this.error = 'length'
         }
 
         /*If it doesn't, it is just assigned true to the global error handle variable*/
@@ -162,6 +162,8 @@ export class UserprofileComponent implements OnInit {
       }
          
    }
+
+  
    /*Function industrySelect() it help to create a more dynamic select options in the .html*/
   public industrySelect(){
     //It only assigned the industry name as a JSON form to the industry variable 
@@ -187,5 +189,9 @@ export class UserprofileComponent implements OnInit {
      {'name': "Other"}
     ]
   }
+
+  public return(){
+     this.router.navigate(['profile'])
+  }  
 
 }

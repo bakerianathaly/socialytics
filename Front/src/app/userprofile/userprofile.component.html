@@ -12,8 +12,8 @@
                   Welcome, {{user.name}}<span class="sr-only"> </span>
                </a>
                <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                  <a class="nav-link list down" href=""> Profile <span class="sr-only"></span></a>
-                  <a class="nav-link list down" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
+                  <a class="nav-link list down" [routerLink]="['/profile']"> Dashboard <span class="sr-only"></span></a>
+                  <a class="nav-link list down" (click)="logout()" href=""> Log out <span class="sr-only">(current)</span></a>
               </div>
            </li>
         </ul>
@@ -61,7 +61,7 @@
 
                   <div class="form-group" *ngIf="isShown4">
                      <label for="passWord" class="form-label mr-2">New Password</label>
-                     <input id="passWord" class="ml-2" type="password" formControlName="password" placeholder="Min 8 Characters" />
+                     <input id="passWord" class="ml-2" type="password" formControlName="password" placeholder="Min 8 Characters (Optional change)" />
                      
                      <br>
                          <span *ngIf="formGroup.get('password').invalid && subM && (error == 'length' || formGroup.get('password').errors.minlength )">The password min length is 8.</span>         
@@ -83,7 +83,7 @@
               <br>
                  <div class="center">
                   <button (click)="onSubmit()" class="btn btn-success mr-1" type="submit">Save!</button>
-                  <button  class="btn btn-danger" style="display: inline;" type="button">Cancel</button>
+                  <button (click)="return()"   class="btn btn-danger" style="display: inline;" type="button">Cancel</button>
                 </div>
          </div>
      </div>
