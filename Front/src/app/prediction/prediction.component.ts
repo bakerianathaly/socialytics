@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {AuthService} from '../services/auth.service';
 import { HttpClient } from '@angular/common/http';
-import * as CanvasJS from '../../assets/canvasjs.min.js'
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { Label, Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-prediction',
@@ -20,6 +22,47 @@ export class PredictionComponent implements OnInit {
   private nodeAPI: String = 'https://localhost:3000'
   public maxValue: any
   public maxDay: String
+
+  public barChartOptions: ChartOptions = { 
+    responsive: true,
+    scales: { xAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: 'Days of the week',
+        fontColor: 'black'
+      },
+      ticks: {
+        fontColor: 'black',  // x axe labels (can be hexadecimal too)
+      }
+    }], 
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Probability percent',
+          fontColor: 'black',
+        },
+        ticks: {
+          fontColor: 'black',  // x axe labels (can be hexadecimal too)
+        }
+      }] 
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      }
+    }
+  };
+  public barChartLabels: Label[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
+  public barChartPlugins = [pluginDataLabels];
+  public nath: Color[] = [
+    { backgroundColor: '#5B54FB' },
+  ]
+
+  public barChartData: any[] = [
+  ];
 
   constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
 
@@ -68,6 +111,7 @@ export class PredictionComponent implements OnInit {
           response.byProfileViews.friday,
           response.byProfileViews.saturday
         ]
+        this.barChartData.push({ data: this.maxValue, label: 'Porbability percent' })
         this.maxValue = Math.max(...this.maxValue)
         this.getMaxValueDay(response.byProfileViews)
       }, error => {

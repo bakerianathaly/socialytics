@@ -11,9 +11,15 @@ body {
     color:black;
 }
 
-.sixe{
-    margin-left: 50%!important;
-    margin-right: 50%!important;
+.size{
+    height: 500px!important;
+    width: 500px!important;
+}
+
+#chao{
+    display: block;
+    height: 400px;
+    width: 400px;
 }
 
 #chartContainer{

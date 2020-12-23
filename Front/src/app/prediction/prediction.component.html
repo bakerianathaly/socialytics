@@ -51,6 +51,7 @@
         <div class="website">
           <a (click)="externalUrl(stats.website)" target="_blank">{{instagramData.website}}</a>
         </div>
+        <small style="font-size: 10px">(based on {{sampleSize}} posts)</small>
       </div>
     </div>
   
@@ -58,6 +59,7 @@
 </div>
 <br><br>
 
+<!-- Graphics -->
 <div class="container-fluid">
     <div class="container-fluid">
         <ul class="nav nav-tabs nav-justified">
@@ -73,10 +75,22 @@
         </ul>
 
         <div class="ml-5 mt-3 tab-content">
-            <div class="tab-pane active size" id="BestDayToPost" role="tabpanel" aria-labelledby="best-DayToPost">
-                <div id="BestDayToPost"  *ngIf="this.maxDay && this.maxValue">
+            <div class="tab-pane active container-fluid" id="BestDayToPost" role="tabpanel" aria-labelledby="best-DayToPost">
+                <div class="container" id="BestDayToPost"  *ngIf="this.maxDay && this.maxValue">
                     <h4>By profile views</h4>
                     <h6>Your probable best day to post is {{this.maxDay}} whit an {{this.maxValue}}% of probability by the Profile Views.</h6>
+                    <div class="row">
+                        <div class="col-12">
+                          <div class="card mb-4 box-shadow">
+                            <div class="card-body text-center" >
+                              <canvas style="color: black!important;" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                                [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType" [colors]="nath">
+                              </canvas>
+                              
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                     <h4>By engagements</h4>
                     <h6>Your probable best day to post is {{this.maxDay}} whit an {{this.maxValue}}% of probability by the Engagements.</h6>
                 </div>
@@ -104,17 +118,15 @@
 </div>
 
 <!-- End homepage content -->
-<footer class="fixed-bottom">
+<!-- <footer class="fixed-bottom">
   <div class="wrapper">
     <p><img src="../../assets/logo.png" alt="logo"> Socialytics</p>
     <p>&copy; All Rights Reserved 2020</p>
-    <!-- Esto sale al final de la pagina -->
     <p style="font-size: 12px;">
       *Instagram public endpoints have been changing since April 2018. As a result, the
       application is in continuous development. If the endpoints have changed since the last test run, please bear
       with me and consider creating an issue <a href="https://github.com/preethamvishy/socialytics/issues">here</a>.
     </p>
-    <!-- Hasta aqui -->
   </div>
 </footer>
-  
+   -->

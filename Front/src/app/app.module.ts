@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-
+import { ChartsModule } from 'ng2-charts';
 import { AppComponent } from './app.component';
 
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
@@ -38,6 +38,7 @@ registerLocaleData(en);
   ],
   imports: [
     BrowserModule,
+    ChartsModule,
     RouterModule,
     BrowserAnimationsModule,
     AppRoutingModule,
