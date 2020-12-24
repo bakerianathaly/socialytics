@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import {Md5} from 'ts-md5/dist/md5';
 
-
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
@@ -61,16 +60,16 @@ export class UserprofileComponent implements OnInit {
   }
   // Hide and Show input fields functions.
   ShowField1() {
-     this.isShown1=!this.isShown1
+    this.isShown1=!this.isShown1
   }
   ShowField2() {
-     this.isShown2=!this.isShown2
+    this.isShown2=!this.isShown2
   }
   ShowField3() {
-     this.isShown3=!this.isShown3
+    this.isShown3=!this.isShown3
   }
   ShowField4() {
-     this.isShown4=!this.isShown4
+    this.isShown4=!this.isShown4
   }
   ShowField5() {
     this.isShown5=!this.isShown5
@@ -78,92 +77,91 @@ export class UserprofileComponent implements OnInit {
   // Function to submit the update form.
   private onSubmit(){
       
-       if (this.formGroup.get('firstName').value != '' && this.formGroup.get('lastName').value != '' && this.formGroup.get('email').value != '' 
-       && this.formGroup.get('password').value != '' && this.formGroup.get('password').value.length >= 8 && this.formGroup.get('industry').value != ''){
+    if (this.formGroup.get('firstName').value != '' && this.formGroup.get('lastName').value != '' && this.formGroup.get('email').value != '' 
+    && this.formGroup.get('password').value != '' && this.formGroup.get('password').value.length >= 8 && this.formGroup.get('industry').value != ''){
+      
+      this.user.id=this.userLocal.id
+      this.user.name = this.formGroup.get('firstName').value
+      this.user.lastName = this.formGroup.get('lastName').value
+      this.user.email = this.formGroup.get('email').value
+      this.user.password = Md5.hashStr(this.formGroup.get('password').value).toString()
+      this.user.industry = this.formGroup.get('industry').value
+      this.user.accessToken=this.userLocal.accessToken
+      this.user.expiresIn=this.userLocal.expiresIn
+      
+      /*The last step is to call the API route to make the insert
+      if the response is not an error, then it appears an success alert and redirect to the home view
+      if the response is an error, it appears an error alert and stay in the form*/
+      this.http.post("https://localhost:3000/update", this.user).subscribe((response: any) => {
+        Swal.fire(
+          response.message,
+          '',
+          'success'
+        ).then(results => {
+          console.log(results)
+          this.router.navigate(['/home'])
+          localStorage.setItem('ACCESS_AUTH', JSON.stringify(this.user))
+        })
         
-          this.user.id=this.userLocal.id
-          this.user.name = this.formGroup.get('firstName').value
-          this.user.lastName = this.formGroup.get('lastName').value
-          this.user.email = this.formGroup.get('email').value
-          this.user.password = Md5.hashStr(this.formGroup.get('password').value).toString()
-          this.user.industry = this.formGroup.get('industry').value
-          this.user.accessToken=this.userLocal.accessToken
-          this.user.expiresIn=this.userLocal.expiresIn
-          
-          /*The last step is to call the API route to make the insert
-          if the response is not an error, then it appears an success alert and redirect to the profile view
-          if the response is an error, it appears an error alert and stay in the form*/
-          this.http.post("https://localhost:3000/update", this.user).subscribe((response: any) => {
-            Swal.fire(
-              response.message,
-              '',
-              'success'
-            ).then(results => {
-               this.router.navigate(['profile'])
-               localStorage.setItem('ACCESS_AUTH', JSON.stringify(this.user))
-            })
-            
-          }, error => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: error.error.message
-            })
-          });
-        
-        }
-
-        else if (this.formGroup.get('firstName').value != '' && this.formGroup.get('lastName').value != '' && this.formGroup.get('email').value != '' 
-          && this.formGroup.get('password').value == '' && this.formGroup.get('industry').value != ''){
-        
-          this.user.id=this.userLocal.id
-          this.user.name = this.formGroup.get('firstName').value
-          this.user.lastName = this.formGroup.get('lastName').value
-          this.user.email = this.formGroup.get('email').value
-          this.user.password = this.userLocal.password
-          this.user.industry = this.formGroup.get('industry').value
-          this.user.accessToken=this.userLocal.accessToken
-          this.user.expiresIn=this.userLocal.expiresIn
-          
-          /*The last step is to call the API route to make the insert
-          if the response is not an error, then it appears an success alert and redirect to the profile view
-          if the response is an error, it appears an error alert and stay in the form*/
-          this.http.post("https://localhost:3000/update", this.user).subscribe((response: any) => {
-            Swal.fire(
-              response.message,
-              '',
-              'success'
-            ).then(results => {
-                this.router.navigate(['profile'])
-                localStorage.setItem('ACCESS_AUTH', JSON.stringify(this.user))
-            })
-            
-          }, error => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: error.error.message
-            })
-          });
-        
-        }
-
-      else{
-         
-        if (this.formGroup.get('password').value.length < 8 && this.formGroup.get('password').value != ''){
-          /*This only works to know if the password received from the form is less than 8 characters
-          if it does, the error variable is assigned with the error name*/
-           this.error = 'length'
-        }
-
-        /*If it doesn't, it is just assigned true to the global error handle variable*/
-        this.subM = true
-
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.error.message
+        })
+      });
+      
       }
-         
+
+    else if (this.formGroup.get('firstName').value != '' && this.formGroup.get('lastName').value != '' && this.formGroup.get('email').value != '' 
+    && this.formGroup.get('password').value == '' && this.formGroup.get('industry').value != ''){
+      
+      this.user.id=this.userLocal.id
+      this.user.name = this.formGroup.get('firstName').value
+      this.user.lastName = this.formGroup.get('lastName').value
+      this.user.email = this.formGroup.get('email').value
+      this.user.password = this.userLocal.password
+      this.user.industry = this.formGroup.get('industry').value
+      this.user.accessToken=this.userLocal.accessToken
+      this.user.expiresIn=this.userLocal.expiresIn
+      
+      /*The last step is to call the API route to make the insert
+      if the response is not an error, then it appears an success alert and redirect to the home view
+      if the response is an error, it appears an error alert and stay in the form*/
+      this.http.post("https://localhost:3000/update", this.user).subscribe((response: any) => {
+        Swal.fire(
+          response.message,
+          '',
+          'success'
+        ).then(results => {
+            this.router.navigate(['/home'])
+            localStorage.setItem('ACCESS_AUTH', JSON.stringify(this.user))
+        })
+        
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.error.message
+        })
+      });
+    }
+
+    else{
+        
+      if (this.formGroup.get('password').value.length < 8 && this.formGroup.get('password').value != ''){
+        /*This only works to know if the password received from the form is less than 8 characters
+        if it does, the error variable is assigned with the error name*/
+        this.error = 'length'
+      }
+
+      /*If it doesn't, it is just assigned true to the global error handle variable*/
+      this.subM = true
+
+    }
+        
    }
 
-  
    /*Function industrySelect() it help to create a more dynamic select options in the .html*/
   public industrySelect(){
     //It only assigned the industry name as a JSON form to the industry variable 
@@ -191,7 +189,7 @@ export class UserprofileComponent implements OnInit {
   }
 
   public return(){
-     this.router.navigate(['profile'])
+    this.router.navigate(['/home'])
   }  
 
 }

@@ -133,7 +133,7 @@ async function UpdateUser(req,res,done){
     var id=data.id
     
     if(data.name == "" || data.lastName == "" || data.email == "" || data.industry == ""){
-        res.status(406).send({
+        return res.status(406).send({
             status: "406",
             response:"Not Acceptable",
             message:"Empty fields are not allowed"
@@ -144,7 +144,7 @@ async function UpdateUser(req,res,done){
     else if (/^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i
     .test(data.email) != true){
 
-        res.status(406).send({
+        return res.status(406).send({
             status: "406",
             response:"Not Acceptable",
             message:"This Email is on the wrong format, please try again"
@@ -155,7 +155,7 @@ async function UpdateUser(req,res,done){
         try{
             
             if (data.password.length < 8 ) {
-                res.status(406).send({
+                return res.status(406).send({
                     status: "406",
                     response:"Conflict",
                     message:"This password is on the wrong format, please try again"
@@ -179,7 +179,7 @@ async function UpdateUser(req,res,done){
             }
         }catch(err){
         
-            res.status(404).send({
+            return res.status(404).send({
                 status: "404",
                 response:"Not Found",
                 message: "Update has failed due to an error"

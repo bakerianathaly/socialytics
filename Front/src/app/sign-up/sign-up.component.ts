@@ -79,9 +79,6 @@ export class SignUpComponent implements OnInit {
             'success'
           ).then(results => {
             //After the swal, we navigate the user to the login
-            let facebookDevAppId = '1537824486409545'
-            let successRoute = 'https://localhost:4200/home'
-            //window.open(`https://www.facebook.com/v9.0/dialog/oauth?client_id=${facebookDevAppId}&redirect_uri=${successRoute}&scope=instagram_basic,pages_show_list`);
             this.router.navigate(['/login'])
           })
         }, error => {

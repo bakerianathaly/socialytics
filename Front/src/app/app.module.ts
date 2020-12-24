@@ -17,7 +17,6 @@ import { ThemeService } from 'ng2-charts';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LandscapeComponent } from './landscape/landscape.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CuentaInstagramComponent } from './cuenta-instagram/cuenta-instagram.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
@@ -32,7 +31,6 @@ registerLocaleData(en);
     AppComponent,
     SignUpComponent,
     LandscapeComponent,
-    CuentaInstagramComponent,
     LoginComponent,
     ProfileComponent,
     PredictionComponent,
