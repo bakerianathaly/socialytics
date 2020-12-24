@@ -96,7 +96,7 @@ async function newInstagramUser(socialytics_Id, fb_Token){
         })
 
         if (fail != null){
-            //It checks if an error has happens, and returned it 
+            //It checks if an error has happened, and return it 
             return fail 
         }
         

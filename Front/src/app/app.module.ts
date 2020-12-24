@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { PredictionComponent } from './prediction/prediction.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 
 registerLocaleData(en);
 
@@ -34,7 +35,8 @@ registerLocaleData(en);
     CuentaInstagramComponent,
     LoginComponent,
     ProfileComponent,
-    PredictionComponent
+    PredictionComponent,
+    UserprofileComponent
   ],
   imports: [
     BrowserModule,

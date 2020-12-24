@@ -10,6 +10,7 @@ import { SignUpComponent } from './sign-up/sign-up.component'
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PredictionComponent } from './prediction/prediction.component'
+import { UserprofileComponent } from './userprofile/userprofile.component'
 
 const routes: Routes = [
     {path:'', component: LandscapeComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
     {path:'login', component: LoginComponent},
     {path:'home', component: ProfileComponent, canActivate: [AuthGuard]}, // canActivate:[AuthGuard]: It protects user's routes from unauthorized access.
     {path: 'prediction', component: PredictionComponent, canActivate: [AuthGuard]},
+    {path:'userprofile', component:UserprofileComponent, canActivate: [AuthGuard]},
     {
         //The route would be socialytics/instagram/<the childrens of the instagram route>
         path: 'instagram', component: InstagramComponent, children: [{

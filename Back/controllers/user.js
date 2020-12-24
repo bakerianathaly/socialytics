@@ -125,9 +125,72 @@ async function loggedIn(req,res,done){
         }
     }
 }
+// Function to update user's data from the app
+async function UpdateUser(req,res,done){
+    
+    var data=req.body
+    // variable for the user's id.
+    var id=data.id
+    
+    if(data.name == "" || data.lastName == "" || data.email == "" || data.industry == ""){
+        res.status(406).send({
+            status: "406",
+            response:"Not Acceptable",
+            message:"Empty fields are not allowed"
+        })
+    }
+    
+    // it validates if the email is on the right format.
+    else if (/^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i
+    .test(data.email) != true){
+
+        res.status(406).send({
+            status: "406",
+            response:"Not Acceptable",
+            message:"This Email is on the wrong format, please try again"
+        })
+
+    }
+    else{
+        try{
+            
+            if (data.password.length < 8 ) {
+                res.status(406).send({
+                    status: "406",
+                    response:"Conflict",
+                    message:"This password is on the wrong format, please try again"
+                })
+
+            }
+            else{
+                userModel.findByIdAndUpdate(id,data,{upsert:true},function(err, doc) {
+                    console.log(err)
+                    
+                    if (err) {
+                       return res.send(500, {error: err});
+                       
+                    }
+                    return res.status(200).send({
+                        status: "200",
+                        response:"OK",
+                        message: "The update has been successful",
+                    })
+                })
+            }
+        }catch(err){
+        
+            res.status(404).send({
+                status: "404",
+                response:"Not Found",
+                message: "Update has failed due to an error"
+            })
+        }
+    }
+}
     
 module.exports = {
     register,
     loggedIn,
+    UpdateUser,
     get
 }

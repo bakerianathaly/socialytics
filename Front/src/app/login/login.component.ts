@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Sorry, the authentication has fail please try again'
+            text: 'Sorry, the authentication has failed, please try again'
           })
 
           reject(response)

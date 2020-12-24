@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 before(done => {
-    mongoose.connect('mongodb://localhost/socialyticsTest',{useNewUrlParser: true});
+    mongoose.connect('mongodb://localhost/socialyticsTest',{useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true});
     mongoose.connection.once("open", () =>{
         console.log("Connected to DB test")
         done()
