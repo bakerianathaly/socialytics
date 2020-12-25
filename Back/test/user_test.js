@@ -109,29 +109,40 @@ describe("Login tests", () => {
 describe("Update user tests", () => {
     //Case 1: User updates his data successfully.
     it("User's data was updated", done =>{
-        let data = {
-            id:'5fc2bb11af38bf186d017f29',
-            name: "Corin",
-            lastName: "Smithi",
-            password: "lsdmklakdmlasmdlakmdslakmdsla",
-            email: "corismith19@gmail.com",
+        let user = {
+            name: "eduardo",
+            lastName: "Sanoja",
+            password: "12345678",
+            email: "edsanoja@gmail.com",
             industry: "Influencer"
         }
+
+        request(app).post('/signup').send(user).end((err, res) =>{
+
+           let updatedUser = {
+                id:res.body.id,
+                name: "edward",
+                lastName: "Sano",
+                password: "12345678",
+                email: "edsanoja@gmail.com",
+                industry: "Influencer"
+            }
         
-        request(app).post('/update').send(data).end((err, res) =>{
-            assert(res.body.message === "The update has been successful")
-            done()
+            request(app).post('/update').send(updatedUser).end((err, res) =>{
+                
+                assert(res.body.message === "The update has been successful")
+                done()
+            })
         })
     })
 
     //Case 2: User left empty fields.
     it("User left empty fields", done =>{
         let data = {
-            id:'5fc2bb11af38bf186d017f29',
             name: "",
             lastName: "",
-            password: "lsdmklakdmlasmdlakmdslakmdsla",
-            email: "corismith19@gmail.com",
+            password: "12345678",
+            email: "edsanoja@gmail.com",
             industry: "Influencer"
         }
         
@@ -145,11 +156,10 @@ describe("Update user tests", () => {
     //Case 3: User entered a wrong email format.
     it("User's data wasn't updated due to a wrong email format entered", done =>{
         let data = {
-            id:'5fc2bb11af38bf186d017f29',
-            name: "Corina",
-            lastName: "Smith",
-            password: "lsdmklakdmlasmdlakmdslakmdsla",
-            email: "cori",
+            name: "edward",
+            lastName: "Sano",
+            password: "12345678",
+            email: "ed",
             industry: "Influencer"
         }
         
@@ -161,11 +171,10 @@ describe("Update user tests", () => {
     //Case 4: User entered a wrong password format.
     it("User's data wasn't updated due to an invalid password format entered", done =>{
         let data = {
-            id:'5fc2bb11af38bf186d017f29',
-            name: "Corina",
-            lastName: "Smith",
+            name: "edward",
+            lastName: "Sano",
             password: "lsdm",
-            email: "corismith21@gmail.com",
+            email: "edsanoja@gmail.com",
             industry: "Influencer"
         }
         
