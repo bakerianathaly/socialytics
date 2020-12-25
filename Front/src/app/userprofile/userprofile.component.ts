@@ -98,9 +98,8 @@ export class UserprofileComponent implements OnInit {
           '',
           'success'
         ).then(results => {
-          console.log(results)
-          this.router.navigate(['/home'])
-          localStorage.setItem('ACCESS_AUTH', JSON.stringify(this.user))
+           this.router.navigate(['/home'])
+           localStorage.setItem('ACCESS_AUTH', JSON.stringify(this.user))
         })
         
       }, error => {
