@@ -13,7 +13,7 @@ async function bestDayToPostByProfileViews(req,res,done){
     let thursday = 0
     let friday = 0
     let saturday = 0
-    let sunday = 0
+    let sunday = 0 
     let totalPrediction = 0 //Variable that contains the total addition of the values of the request
     let fbToken = req.query.fbToken //Variable to handle the facebook token
     let socialytics = req.query.socialyticId //Variable to handle the user identification in the app
@@ -82,7 +82,8 @@ async function bestDayToPostByProfileViews(req,res,done){
         else{ 
             //This else is ONLY use for the TDD, to test the Successfull case. The reason is that the facebook token comes from the view
             //and we can not make the request to facebook API to get the values
-            profileViews = req.body.data
+            profileViews = req.query.data
+            i = 5
         }
 
         if(profileViews != null){

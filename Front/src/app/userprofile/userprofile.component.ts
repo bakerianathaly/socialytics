@@ -89,7 +89,7 @@ export class UserprofileComponent implements OnInit {
       this.user.accessToken=this.userLocal.accessToken
       this.user.expiresIn=this.userLocal.expiresIn
       
-      /*The last step is to call the API route to make the insert
+      /*The last step is to call the API route to make the update
       if the response is not an error, then it appears an success alert and redirect to the home view
       if the response is an error, it appears an error alert and stay in the form*/
       this.http.post("https://localhost:3000/update", this.user).subscribe((response: any) => {
@@ -124,7 +124,7 @@ export class UserprofileComponent implements OnInit {
       this.user.accessToken=this.userLocal.accessToken
       this.user.expiresIn=this.userLocal.expiresIn
       
-      /*The last step is to call the API route to make the insert
+      /*The last step is to call the API route to make the update
       if the response is not an error, then it appears an success alert and redirect to the home view
       if the response is an error, it appears an error alert and stay in the form*/
       this.http.post("https://localhost:3000/update", this.user).subscribe((response: any) => {

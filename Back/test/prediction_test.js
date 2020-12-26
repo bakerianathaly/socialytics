@@ -137,13 +137,10 @@ describe("Best day to post by profile views", () => {
                     end_time: "2020-11-30T08:00:00+0000"
                 }
             ]
-
-            let info = {
-                socialyticId: res.body.id,
-                data: data
-            }
+            let socialyticId = res.body.id
+            let url = '/prediction/bestdaybyviews?socialyticId='+socialyticId+'&data='+data
         
-            request(app).get('/prediction/bestdaybyviews').send(info).end((err, res) =>{
+            request(app).get(url.toString()).end((err, res) =>{
                 assert(res.body.message === "Successful prediction")
                 done()
             })
@@ -194,24 +191,22 @@ describe("Best day to post by profile views", () => {
             }
         ]
 
-        let info = {
-            socialyticId: '',
-            data: data
-        }
+        let socialyticId = ''
+        let url = '/prediction/bestdaybyviews?socialyticId='+socialyticId+'&data='+data
     
-        request(app).get('/prediction/bestdaybyviews').send(info).end((err, res) =>{
+        request(app).get(url.toString()).end((err, res) =>{
             assert(res.body.message === "This field is required")
             done()
         })
     })
 
     it("Fail best day to post by profile views due to unexist user", done =>{
-        let info = {
-            socialyticId: '5faec2f58a0772y6w52cb0e9',
-            fbToken: 'EAAV2pKo9RUke1vWV3YvgkCMgDaEZAjgZBHqdSHdmOE3d1OFZCxJSFDjVzskkhNSYZANHyTiDFW43riox4nfF7jjdONMCn2rIPzk3FiZA6ZBwC9petZBlQZDZD'
-        }
+        
+        let socialyticId = '5fa4c2f58a0772y6w52cb0e9'
+        let fbToken = 'EAAV2pKo9RUke1vWV3YvgkCMgDaEZAjgZBHqdSHdmOE3d1OFZCxJSFDjVzskkhNSYZANHyTiDFW43riox4nfF7jjdONMCn2rIPzk3FiZA6ZBwC9petZBlQZDZD'
+        let url = '/prediction/bestdaybyviews?socialyticId='+socialyticId+'&fbToken='+fbToken
     
-        request(app).get('/prediction/bestdaybyviews').send(info).end((err, res) =>{
+        request(app).get(url.toString()).end((err, res) =>{
             assert(res.body.message === "This user doesn't exist, please try again")
             done()
         })
