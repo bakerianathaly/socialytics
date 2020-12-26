@@ -164,7 +164,6 @@ async function UpdateUser(req,res,done){
             }
             else{
                 userModel.findByIdAndUpdate(id,data,{upsert:true},function(err, doc) {
-                    console.log(err)
                     
                     if (err) {
                        return res.send(500, {error: err});
