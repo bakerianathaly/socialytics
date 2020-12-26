@@ -73,7 +73,7 @@ async function bestDayToPostByProfileViews(req,res,done){
                     fail = {
                         status: '400',
                         response: 'Bad Request',
-                        message: 'Token has expired or has a bad signature'
+                        message: 'Your session has expired'
                     } 
                 })
             }
@@ -121,7 +121,7 @@ async function bestDayToPostByProfileViews(req,res,done){
             fail = {
                 status: '400',
                 response: 'Bad Request',
-                message: 'Token has expired or has a bad signature'
+                message: 'Your session has expired'
             }
             i = 5
         }
@@ -234,7 +234,7 @@ async function probableAmountOfReach(req,res,done){
                     fail = {
                         status: '400',
                         response: 'Bad Request',
-                        message: 'Token has expired or has a bad signature'
+                        message: 'Your session has expired'
                     } 
                 })
             }
@@ -282,7 +282,7 @@ async function probableAmountOfReach(req,res,done){
             fail = {
                 status: '400',
                 response: 'Bad Request',
-                message: 'Token has expired or has a bad signature'
+                message: 'Your session has expired'
             }
             i = 5
         }

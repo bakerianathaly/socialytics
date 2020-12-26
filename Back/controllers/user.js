@@ -49,9 +49,6 @@ async function register(req,res,done) {
     }
 }
 
-async function get(req,res,done){
-    done()
-}
 // User's login function.
 async function loggedIn(req,res,done){
     // User's entered values variable.
@@ -125,6 +122,7 @@ async function loggedIn(req,res,done){
         }
     }
 }
+
 // Function to update user's data from the app
 async function UpdateUser(req,res,done){
     
@@ -190,6 +188,5 @@ async function UpdateUser(req,res,done){
 module.exports = {
     register,
     loggedIn,
-    UpdateUser,
-    get
+    UpdateUser
 }

@@ -24,7 +24,7 @@ async function instagramBasicUserData(fb_Token, ig_Id){
         fail = {
             status: '400',
             response: 'Bad Request',
-            message: 'Token has expired or has a bad signature'
+            message: 'Your session has expired'
         } 
     })
 
@@ -67,7 +67,7 @@ async function newInstagramUser(socialytics_Id, fb_Token){
             fail = {
                 status: '400',
                 response: 'Bad Request',
-                message: 'Token has expired or has a bad signature'
+                message: 'Your session has expired'
             } 
         })
 
@@ -91,7 +91,7 @@ async function newInstagramUser(socialytics_Id, fb_Token){
             fail = {
                 status: '400',
                 response: 'Bad Request',
-                message: 'Token has expired or has a bad signature'
+                message: 'Your session has expired'
             } 
         })
 
