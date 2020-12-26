@@ -51,7 +51,7 @@
         <div class="website">
           <a (click)="externalUrl(stats.website)" target="_blank">{{instagramData.website}}</a>
         </div>
-        <small style="font-size: 10px">(based on {{sampleSize}} posts)</small>
+        <small style="font-size: 10px">(Based on 3 months of historical data)</small>
       </div>
     </div>
   
@@ -61,60 +61,71 @@
 
 <!-- Graphics -->
 <div class="container-fluid">
-    <div class="container-fluid">
-        <ul class="nav nav-tabs nav-justified">
-            <li class="nav-item hoverPrediction">
-              <a class="nav-link active" id="best-DayToPost" href="#BestDayToPost" role="tab" data-toggle="tab" aria-selected="true" aria-controls="BestDayToPost">Best day to Post</a>
-            </li>
-            <li class="nav-item hoverPrediction">
-              <a class="nav-link" id="reachPrediction" href="#Reach" role="tab" data-toggle="tab" aria-selected="false" aria-controls="Reach">Reach</a>
-            </li>
-            <li class="nav-item hoverPrediction">
-              <a class="nav-link" id="impressionsPrediction" href="#Impressions" role="tab" data-toggle="tab" aria-selected="false" aria-controls="Impressions">Impressions</a>
-            </li>
-        </ul>
+  <div class="container-fluid">
+    <ul class="nav nav-tabs nav-justified">
+        <li class="nav-item hoverPrediction">
+          <a class="nav-link active" id="best-DayToPost" href="#BestDayToPost" role="tab" data-toggle="tab" aria-selected="true" aria-controls="BestDayToPost">Best day to Post</a>
+        </li>
+        <li class="nav-item hoverPrediction">
+          <a class="nav-link" id="reachPrediction" href="#Reach" role="tab" data-toggle="tab" aria-selected="false" aria-controls="Reach">Reach</a>
+        </li>
+        <li class="nav-item hoverPrediction">
+          <a class="nav-link" id="impressionsPrediction" href="#Impressions" role="tab" data-toggle="tab" aria-selected="false" aria-controls="Impressions">Impressions</a>
+        </li>
+    </ul>
 
-        <div class="ml-5 mt-3 tab-content">
-            <div class="tab-pane active container-fluid" id="BestDayToPost" role="tabpanel" aria-labelledby="best-DayToPost">
-                <div class="container" id="BestDayToPost"  *ngIf="this.maxDay && this.maxValue">
-                    <h4>By profile views</h4>
-                    <h6>Your probable best day to post is {{this.maxDay}} whit an {{this.maxValue}}% of probability by the Profile Views.</h6>
-                    <div class="row">
-                        <div class="col-12">
-                          <div class="card mb-4 box-shadow">
-                            <div class="card-body text-center" >
-                              <canvas style="color: black!important;" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-                                [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType" [colors]="nath">
-                              </canvas>
-                              
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                    <h4>By engagements</h4>
-                    <h6>Your probable best day to post is {{this.maxDay}} whit an {{this.maxValue}}% of probability by the Engagements.</h6>
+    <div class="ml-5 mt-3 tab-content">
+      <!-- Best day to post graphics -->
+      <div class="tab-pane active container-fluid" id="BestDayToPost" role="tabpanel" aria-labelledby="best-DayToPost">
+        <div class="container" id="BestDayToPost"  *ngIf="this.maxDayPV && this.maxValuePV">
+          <h4>Best day to post by profile views</h4>
+          <h6>Your probable best day to post is on {{this.maxDayPV}}, with an {{this.maxValuePV}}% of probability by the Profile Views.</h6>
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-4 box-shadow">
+                <div class="card-body text-center" >
+                  <canvas baseChart [datasets]="byProfileViewsData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType" [colors]="byProfileViewsColor">
+                  </canvas>
+                  <small style="font-size: 10px">(Total number of times the multimedia objects in the trading account were viewed uniquely)</small>
                 </div>
+              </div>
             </div>
-        
-            <div class="tab-pane" id="Reach" role="tabpanel" aria-labelledby="reachPrediction">
-                <div id="Reach">
-                    <p>ldmslafnaskjnfksjfn</p>
-                    <p>lakdmdlamlfmalfmalkdfmalf</p>
-                    <button class="btn btn-primary">lkmlaskdfmasf</button>
-                </div>
-            </div>
-        
-            <div class="tab-pane" id="Impressions" role="tabpanel" aria-labelledby="impressionsPrediction">
-                <div id="Impressions">
-                    <p>ldmslafnaskjddkjdkdjnfksjfn</p>
-                    <p>lakdmflakmdflamflkammdnadlamlfmalfmalkdfmalf</p>
-                    <button class="btn btn-warning">lkmlaskdfmasf</button>
-                </div>
-            </div>
+          </div>
+
+          <h4>Best day to post by engagements</h4>
+          <h6>Your probable best day to post is  with an % of probability by the Engagements.</h6>
         </div>
+      </div>
+    
+      <!-- Probable amount of reach graphic -->
+      <div class="tab-pane container-fluid" id="Reach" role="tabpanel" aria-labelledby="reachPrediction">
+        <div class="container" id="Reach" *ngIf="this.maxDayPR && this.maxValuePR">
+          <h4>Probable amount of Reach by the days of the week</h4>
+          <h6>This is your probable Reach by the day of the week, your best day could be on {{this.maxDayPR}}, with and {{this.maxValuePR}}% of probability</h6>
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-4 box-shadow">
+                <div class="card-body text-center" >
+                  <canvas  baseChart [datasets]="probableReachData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType" [colors]="probableReachColor">
+                  </canvas>
+                  <small style="font-size: 10px">(Total number of users who viewed the trading account profile in the specified time period)</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Probable amount of impressions graphic -->
+      <div class="tab-pane container-fluid" id="Impressions" role="tabpanel" aria-labelledby="impressionsPrediction">
+        <div class="container" id="Impressions">
+          <h4>Probable amount of Impressions by the days of the week</h4>
+        </div>
+      </div>
     </div>
-    
-    
+  </div>
 </div>
 
 <!-- End homepage content -->

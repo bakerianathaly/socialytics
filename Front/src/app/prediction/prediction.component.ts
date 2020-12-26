@@ -17,14 +17,14 @@ export class PredictionComponent implements OnInit {
 
   private user: User
   private current:Array<User>=[];
-  public instagramData: any = JSON.parse(localStorage.getItem('INSTAGRAM_DATA'))
-  private fbToken: String = localStorage.getItem("FB_ACCESS_TOKEN")
-  private nodeAPI: String = 'https://localhost:3000'
-  public maxValue: any
-  public maxDay: String
+  public instagramData: any = JSON.parse(localStorage.getItem('INSTAGRAM_DATA')) //Instagram basic info from the user, we set it in the local storage at the profile.component.ts
+  private fbToken: String = localStorage.getItem("FB_ACCESS_TOKEN") //Facebook token, we set it in the local storage at the profile.component.ts
+  private nodeAPI: String = 'https://localhost:3000' //Basic URL to the API
 
+  //Comun graphics variables
   public barChartOptions: ChartOptions = { 
     responsive: true,
+    //Axis configuration
     scales: { xAxes: [{
       scaleLabel: {
         display: true,
@@ -42,7 +42,7 @@ export class PredictionComponent implements OnInit {
           fontColor: 'black',
         },
         ticks: {
-          fontColor: 'black',  // x axe labels (can be hexadecimal too)
+          fontColor: 'black',  // y axe labels (can be hexadecimal too)
         }
       }] 
     },
@@ -54,15 +54,27 @@ export class PredictionComponent implements OnInit {
     }
   };
   public barChartLabels: Label[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
+  public barChartType: ChartType = 'bar'; //Type of graphic, in this cases are bar graphics
+  public barChartLegend = true; //Variable to display the legend 
   public barChartPlugins = [pluginDataLabels];
-  public nath: Color[] = [
+
+  //Best day to post by profile views graphics variables
+  public byProfileViewsColor: Color[] = [
     { backgroundColor: '#5B54FB' },
   ]
-
-  public barChartData: any[] = [
+  public byProfileViewsData: any[] = [ //Variable that will containt the data for the Best day to post by profile views graphic
   ];
+  public maxValuePV: any //Variable that will containt the max value of the profile views graphic
+  public maxDayPV: String //Variable that will containt the day who has the max value of the profile views graphic
+
+  //Probable amount of Reach by day of the week graphics variables
+  public probableReachColor: Color[] = [
+    { backgroundColor: '#A52A2A' },
+  ]
+  public probableReachData: any[] = [ //Variable that will containt the data for Probable amount by the day of the week graphic
+  ];
+  public maxValuePR: any //Variable that will containt the max value of the probable reach graphic
+  public maxDayPR: String //Variable that will containt the day who has the max value of the probable reach  graphic
 
   constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
 
@@ -70,39 +82,45 @@ export class PredictionComponent implements OnInit {
     this.user = this.authService.getcurrentUser()
     this.current.push(this.user) 
     this.getBestDayToPostByProfileViews()
+    this.getProbableReach()
   }
 
-  private getMaxValueDay(values: any){
-    if(this.maxValue == values.monday ){
-      this.maxDay = 'Monday'
+  private getMaxValueDay(values: any, maxValue: number){
+    /*Function that return the day of the week who has the max value, it needs all the values that we received in the request 
+    and the max value of those values*/
+    if(maxValue == values.monday ){
+      return 'Monday'
     }
-    else if(this.maxValue == values.tuesday ){
-      this.maxDay = 'Tuesday'
+    else if(maxValue == values.tuesday ){
+      return 'Tuesday'
     }
-    else if(this.maxValue == values.wednesday ){
-      this.maxDay = 'Wednesday'
+    else if(maxValue == values.wednesday ){
+      return 'Wednesday'
     }
-    else if(this.maxValue == values.thursday ){
-      this.maxDay = 'Thursday'
+    else if(maxValue == values.thursday ){
+      return 'Thursday'
     }
-    else if(this.maxValue == values.friday ){
-      this.maxDay = 'Friday'
+    else if(maxValue == values.friday ){
+      return 'Friday'
     }
-    else if(this.maxValue == values.saturday ){
-      this.maxDay = 'Saturday'
+    else if(maxValue == values.saturday ){
+      return 'Saturday'
     }
     else{ 
-      this.maxDay = 'Sunday'
+      return 'Sunday'
     }
   }
 
   protected getBestDayToPostByProfileViews(){
     if(this.fbToken && this.user.id){
+      /*If we have the facebook token and the user ID we proceed to make the request to the API, the values are send in the url
+      After we initialize the URL variable we made the request*/
       let API = this.nodeAPI+'/prediction/bestdaybyviews?socialyticId='+this.user.id+'&fbToken='+this.fbToken
 
       this.http.get(API.toString()).subscribe((response: any) => {
-        
-        this.maxValue = [
+        /*If the request return with none error, it is initialize the max value variable of the graphic with the 7 values of the response
+        After that, we push those values to the variable data of the graphic with the label that will have in the legend */
+        this.maxValuePV = [
           response.byProfileViews.sunday,
           response.byProfileViews.monday,
           response.byProfileViews.tuesday,
@@ -111,11 +129,12 @@ export class PredictionComponent implements OnInit {
           response.byProfileViews.friday,
           response.byProfileViews.saturday
         ]
-        this.barChartData.push({ data: this.maxValue, label: 'Porbability percent' })
-        this.maxValue = Math.max(...this.maxValue)
-        this.getMaxValueDay(response.byProfileViews)
+        this.byProfileViewsData.push({ data: this.maxValuePV, label: 'Porbability percent' })
+        /*For last, we calculate the max value of the resuqest with the method Math.max, it needs an array of values tu proceed. And after that
+        we call the getMaxValueDay function to get the day that will have that max value  */
+        this.maxValuePV = Math.max(...this.maxValuePV)
+        this.maxDayPV = this.getMaxValueDay(response.byProfileViews, this.maxValuePV)
       }, error => {
-        console.log('[ERROR]', error)
         //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
         Swal.fire({
           icon: 'error',
@@ -126,6 +145,7 @@ export class PredictionComponent implements OnInit {
       });
     }
     else{
+      //If for some reason the token o the user id does not exist, it swal an error and logout the user
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -136,6 +156,49 @@ export class PredictionComponent implements OnInit {
     }
   }
 
-  
+  protected getProbableReach(){
+    if(this.fbToken && this.user.id){
+      /*If we have the facebook token and the user ID we proceed to make the request to the API, the values are send in the url
+      After we initialize the URL variable we made the request*/
+      let API = this.nodeAPI+'/prediction/probablereach?socialyticId='+this.user.id+'&fbToken='+this.fbToken
+
+      this.http.get(API.toString()).subscribe((response: any) => {
+        /*If the request return with none error, it is initialize the max value variable of the graphic with the 7 values of the response
+        After that, we push those values to the variable data of the graphic with the label that will have in the legend */
+        this.maxValuePR = [
+          response.probableReachs.sunday,
+          response.probableReachs.monday,
+          response.probableReachs.tuesday,
+          response.probableReachs.wednesday,
+          response.probableReachs.thursday,
+          response.probableReachs.friday,
+          response.probableReachs.saturday
+        ]
+        this.probableReachData.push({ data: this.maxValuePR, label: 'Porbability percent' })
+        /*For last, we calculate the max value of the resuqest with the method Math.max, it needs an array of values tu proceed. And after that
+        we call the getMaxValueDay function to get the day that will have that max value  */
+        this.maxValuePR = Math.max(...this.maxValuePR)
+        this.maxDayPR = this.getMaxValueDay(response.probableReachs, this.maxValuePR)
+      }, error => {
+        //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.error.message
+        })
+        this.router.navigate(['/home'])
+      });
+    }
+    else{
+      //If for some reason the token o the user id does not exist, it swal an error and logout the user
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Your sessions has expired'
+      })
+      this.authService.logout()
+      this.router.navigate(['/'])
+    }
+  }
 
 }

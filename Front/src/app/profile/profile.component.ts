@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
 
   public fbToken: String = localStorage.getItem("FB_ACCESS_TOKEN") 
   public fbExpiredToken: String = localStorage.getItem("FB_EXPIRES_IN") 
-  private nodeAPI: String = 'https://localhost:3000'
+  private nodeAPI: String = 'https://localhost:3000' //Basic URL to the API
   private user: User
   private current:Array<User>=[];
   public instagramData: any //Basic user instagram data
@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
     this.nodeAPI = this.nodeAPI+'/instagram/statistics?fbToken='+this.fbToken+'&socialyticsId='+this.user.id
   
     this.http.get(this.nodeAPI.toString()).subscribe((response: any) => {
-      /*If there is none error, we remove the INSTAGRAM_DATA from the storage (if it exists), set it again, set the
+      /*If there is none error, we set it again, set the
       instagramData variable to use it in the profile.component.html*/
       this.instagramData = response.instagram.userData
       this.instagramMedia = response.instagram.media
