@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/user')
 const instagramRoutes = require('./routes/instagram')
 const predictionRoutes = require('./routes/prediction')
+const recomendationRoutes = require('./routes/recomendations')
 
 //Mongo DB connection
 if (process.env.NODE_ENV !== "test"){
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 userRoutes(app)
 instagramRoutes(app)
 predictionRoutes(app)
+recomendationRoutes(app)
 
 https.createServer({
     key: fs.readFileSync('server.key'),
@@ -33,9 +35,5 @@ https.createServer({
 }, app).listen(3000, () =>{
     console.log("App corriendo en https://localhost:3000");
 });
-
-// app.listen(3000, () => {
-//     console.log('App corriendo en https://localhost:3000')
-// })
 
 module.exports = app
