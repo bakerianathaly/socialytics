@@ -22,6 +22,7 @@ import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { PredictionComponent } from './prediction/prediction.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
+import { RecomendationsComponent } from './recomendations/recomendations.component';
 
 registerLocaleData(en);
 
@@ -34,7 +35,8 @@ registerLocaleData(en);
     LoginComponent,
     ProfileComponent,
     PredictionComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    RecomendationsComponent
   ],
   imports: [
     BrowserModule,

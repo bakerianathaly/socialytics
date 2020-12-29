@@ -1,0 +1,143 @@
+<!-- Nav bar(Header) -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img class="logo" src="../../assets/logo.png" alt="Socialytics"><a id="name" class="navbar-brand justify-content-around" href="/home"> Socialytics</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="nav">
+          <li  class="nav-item">
+            <a class="nav-link active" href="/home">Home</a>
+          </li>
+          <li  class="nav-item">
+            <a class="nav-link active" href="/prediction">Prediction</a>
+          </li>
+          <li  class="nav-item">
+            <a class="nav-link active" href="/recomendation">Recomendation</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a *ngFor="let user of current" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Welcome, {{user.name}}<span class="sr-only"> </span>
+            </a>
+            <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+              <a class="nav-link list down" [routerLink]="['/userprofile']"> Profile <span class="sr-only"></span></a>
+              <a class="nav-link list down" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
+            </div>
+          </li>
+        </ul>
+   </div>
+</nav>
+
+<!-- Instagram Basic Info -->
+<div *ngIf="instagramData" class="container-fluid">
+  <div class="container">
+    <!-- Basic user info -->
+    <div class="row w-100">
+      <div class="col-2 d-flex align-items-center justify-content-center">
+        <img class="avatar" [src]="instagramData.profile_picture_url" />
+      </div>
+      <div class="col-8 col-xs-6 card-body">
+        <div class="name">
+          {{instagramData.name}}
+        </div>
+        <div>
+          <a class="username" [href]="'https://instagram.com/'  + instagramData.username"
+            target="_blank">@{{instagramData.username}}</a>
+        </div>
+        <div class="bio">
+          {{instagramData.biography}}
+        </div>
+        <div class="website">
+          <a (click)="externalUrl(stats.website)" target="_blank">{{instagramData.website}}</a>
+        </div>
+        <small style="font-size: 10px">(Based on historical data)</small>
+      </div>
+    </div>
+  
+  </div>
+</div>
+<br><br>
+
+<!-- Graphics -->
+<div class="container-fluid">
+  <div class="container-fluid">
+    <ul class="nav nav-tabs nav-justified">
+        <li class="nav-item hoverPrediction">
+          <a class="nav-link active" id="engagements-Profileviews" href="#EngagementsProfileViews" role="tab" data-toggle="tab" aria-selected="true" aria-controls="EngagementsProfileViews">Engagements</a>
+        </li>
+        <li class="nav-item hoverPrediction">
+          <a class="nav-link" id="reachPrediction" href="#Reach" role="tab" data-toggle="tab" aria-selected="false" aria-controls="Reach">New Followers</a>
+        </li>
+        <li class="nav-item hoverPrediction">
+          <a class="nav-link" id="impressionsPrediction" href="#Impressions" role="tab" data-toggle="tab" aria-selected="false" aria-controls="Impressions">Post</a>
+        </li>
+    </ul>
+
+    <div class="ml-5 mt-3 tab-content">
+      <!-- Best day to post graphics -->
+      <div class="tab-pane active container-fluid" id="EngagementsProfileViews" role="tabpanel" aria-labelledby="engagements-Profileviews">
+        <div class="container" id="EngagementsProfileViews" *ngIf="this.messagePVE">
+          <h4>Our recomentation to post based in your profile's Engagements and Profile views</h4>
+          <h6>{{this.messagePVE}}</h6>
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-4 box-shadow">
+                <div class="card-body text-center" >
+                  <canvas baseChart [datasets]="byProfileViewsEngagementsData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                    [plugins]="lineChartPlugins" [legend]="lineChartLegend" [chartType]="lineChartType" [colors]="byProfileViewsEngagementsColor">
+                  </canvas> 
+                  <small style="font-size: 10px">(Total number of times the multimedia objects in the trading account were viewed uniquely)</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h4>Best day to post by engagements</h4>
+          <h6>Your probable best day to post is  with an % of probability by the Engagements.</h6>
+        </div>
+      </div>
+    
+      <!-- Probable amount of reach graphic -->
+      <div class="tab-pane container-fluid" id="Reach" role="tabpanel" aria-labelledby="reachPrediction">
+        <div class="container" id="Reach" *ngIf="this.maxDayPR && this.maxValuePR">
+          <h4>Probable amount of Reach by the days of the week</h4>
+          <h6>This is your probable Reach by the day of the week, your best day could be on {{this.maxDayPR}}, with and {{this.maxValuePR}}% of probability</h6>
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-4 box-shadow">
+                <div class="card-body text-center" >
+                  <!-- <canvas  baseChart [datasets]="probableReachData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType" [colors]="probableReachColor">
+                  </canvas> -->
+                  <small style="font-size: 10px">(Total number of users who viewed the trading account profile in the specified time period)</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Probable amount of impressions graphic -->
+      <div class="tab-pane container-fluid" id="Impressions" role="tabpanel" aria-labelledby="impressionsPrediction">
+        <div class="container" id="Impressions">
+          <h4>Probable amount of Impressions by the days of the week</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End homepage content -->
+<!-- <footer class="fixed-bottom">
+  <div class="wrapper">
+    <p><img src="../../assets/logo.png" alt="logo"> Socialytics</p>
+    <p>&copy; All Rights Reserved 2020</p>
+    <p style="font-size: 12px;">
+      *Instagram public endpoints have been changing since April 2018. As a result, the
+      application is in continuous development. If the endpoints have changed since the last test run, please bear
+      with me and consider creating an issue <a href="https://github.com/preethamvishy/socialytics/issues">here</a>.
+    </p>
+  </div>
+</footer>
+   -->

@@ -4,26 +4,24 @@ import { AppComponent } from './app.component'
 import { InstagramComponent } from './instagram/instagram/instagram.component';
 import { AuthGuard } from './guards/auth.guard'; // AuthGuard's service to restrict routes before login
 
-//Routas de la tesis
+//New Routes
 import { LandscapeComponent } from './landscape/landscape.component'
 import { SignUpComponent } from './sign-up/sign-up.component'
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PredictionComponent } from './prediction/prediction.component'
 import { UserprofileComponent } from './userprofile/userprofile.component'
+import { RecomendationsComponent } from './recomendations/recomendations.component'
 
 const routes: Routes = [
     {path:'', component: LandscapeComponent},
     {path:'signup', component: SignUpComponent},
     {path:'login', component: LoginComponent},
-    {path:'home', component: ProfileComponent, canActivate: [AuthGuard]}, // canActivate:[AuthGuard]: It protects user's routes from unauthorized access.
+    // canActivate:[AuthGuard]: It protects user's routes from unauthorized access.
+    {path:'home', component: ProfileComponent, canActivate: [AuthGuard]}, 
     {path: 'prediction', component: PredictionComponent, canActivate: [AuthGuard]},
     {path:'userprofile', component:UserprofileComponent, canActivate: [AuthGuard]},
-    {
-        //The route would be socialytics/instagram/<the childrens of the instagram route>
-        path: 'instagram', component: InstagramComponent, children: [{
-        path: '', component: InstagramComponent}]
-    } 
+    {path:'recomendation', component:RecomendationsComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

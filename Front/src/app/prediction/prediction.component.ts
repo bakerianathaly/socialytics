@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -129,7 +129,7 @@ export class PredictionComponent implements OnInit {
           response.byProfileViews.friday,
           response.byProfileViews.saturday
         ]
-        this.byProfileViewsData.push({ data: this.maxValuePV, label: 'Porbability percent' })
+        this.byProfileViewsData.push({ data: this.maxValuePV, label: 'Probable Profile Views' })
         /*For last, we calculate the max value of the resuqest with the method Math.max, it needs an array of values tu proceed. And after that
         we call the getMaxValueDay function to get the day that will have that max value  */
         this.maxValuePV = Math.max(...this.maxValuePV)
@@ -174,7 +174,7 @@ export class PredictionComponent implements OnInit {
           response.probableReachs.friday,
           response.probableReachs.saturday
         ]
-        this.probableReachData.push({ data: this.maxValuePR, label: 'Porbability percent' })
+        this.probableReachData.push({ data: this.maxValuePR, label: 'Probable Reach' })
         /*For last, we calculate the max value of the resuqest with the method Math.max, it needs an array of values tu proceed. And after that
         we call the getMaxValueDay function to get the day that will have that max value  */
         this.maxValuePR = Math.max(...this.maxValuePR)
