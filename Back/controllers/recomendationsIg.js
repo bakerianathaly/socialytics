@@ -267,7 +267,7 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
             status: "200",
             response:"OK",
             message: "Successful recomendation",
-            probableAmountOfPicture: {
+            probableEngagements: {
                 sunday: sunday.toFixed(2),
                 monday: monday.toFixed(2),
                 tuesday: tuesday.toFixed(2),
@@ -335,9 +335,7 @@ async function getAmountOfPostProfileViewsRecomendation(req, res, done){
         else{
             //Case 3: The user exists we proceed to make the request to Facebook API to get the values of the profile views
             let ig_Id = igUser.instagramId //Variable with the Instagram ID if the user exits in the socialytics DB
-            console.log(ig_Id)
             profileViews = await getProfileViewsData(fbToken, ig_Id, '')
-            console.log(profileViews)
         }
     }
     
@@ -389,13 +387,13 @@ async function getAmountOfPostProfileViewsRecomendation(req, res, done){
     else{
         //Case 4: Sucessful, response message and JSON
         let allDaysValues= [
-            sunday.toFixed(2),
-            monday.toFixed(2),
-            tuesday.toFixed(2),
-            wednesday.toFixed(2),
-            thursday.toFixed(2),
-            friday.toFixed(2),
-            saturday.toFixed(2)
+            sunday,
+            monday,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            saturday
         ]//Array variable, this one is only use to get the max value for the engagements and profile views probability values 
         let maxValueAmountOfPicture = Math.max(...allDaysValues) //Variable that has the max value for the engagements json
 
@@ -414,7 +412,7 @@ async function getAmountOfPostProfileViewsRecomendation(req, res, done){
             status: "200",
             response:"OK",
             message: "Successful recomendation",
-            probableAmountOfPicture: {
+            amountOfPictures: {
                 sunday: sunday,
                 monday: monday,
                 tuesday: tuesday,

@@ -43,7 +43,6 @@ export class ProfileComponent implements OnInit {
       this.instagramMedia = response.instagram.media
       localStorage.setItem("INSTAGRAM_DATA", JSON.stringify(this.instagramData))
       localStorage.setItem("INSTAGRAM_MEDIA", JSON.stringify(this.instagramMedia))
-      console.log('[LOCAL]', this.instagramData)
     }, error => {
       //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
       Swal.fire({

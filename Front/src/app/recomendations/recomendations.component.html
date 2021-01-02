@@ -51,35 +51,36 @@
         <div class="website">
           <a (click)="externalUrl(stats.website)" target="_blank">{{instagramData.website}}</a>
         </div>
+        <small style="font-size: 10px">All the graphic are calculate by the day of the week.</small>
+        <br>
         <small style="font-size: 10px">(Based on historical data)</small>
       </div>
     </div>
   
   </div>
 </div>
-<br><br>
 
 <!-- Graphics -->
-<div class="container-fluid">
+<div class="mt-2">
   <div class="container-fluid">
     <ul class="nav nav-tabs nav-justified">
         <li class="nav-item hoverPrediction">
           <a class="nav-link active" id="engagements-Profileviews" href="#EngagementsProfileViews" role="tab" data-toggle="tab" aria-selected="true" aria-controls="EngagementsProfileViews">Engagements</a>
         </li>
         <li class="nav-item hoverPrediction">
-          <a class="nav-link" id="reachPrediction" href="#Reach" role="tab" data-toggle="tab" aria-selected="false" aria-controls="Reach">New Followers</a>
+          <a class="nav-link" id="newFollows-Views" href="#FollowersProfileViews" role="tab" data-toggle="tab" aria-selected="false" aria-controls="FollowersProfileViews">New Followers</a>
         </li>
         <li class="nav-item hoverPrediction">
-          <a class="nav-link" id="impressionsPrediction" href="#Impressions" role="tab" data-toggle="tab" aria-selected="false" aria-controls="Impressions">Post</a>
+          <a class="nav-link" id="post-Profileviews" href="#PostProfileViews" role="tab" data-toggle="tab" aria-selected="false" aria-controls="PostProfileViews">Number of Post</a>
         </li>
     </ul>
 
     <div class="ml-5 mt-3 tab-content">
-      <!-- Best day to post graphics -->
+      <!-- Recomendation between profile views and engagements graphic -->
       <div class="tab-pane active container-fluid" id="EngagementsProfileViews" role="tabpanel" aria-labelledby="engagements-Profileviews">
-        <div class="container" id="EngagementsProfileViews" *ngIf="this.messagePVE">
-          <h4>Our recomentation to post based in your profile's Engagements and Profile views</h4>
-          <h6>{{this.messagePVE}}</h6>
+        <div class="container" id="EngagementsProfileViews" *ngIf="this.messageEngagements">
+          <h4>Our recomentation to your account based on your profile's Engagements and Profile views</h4>
+          <h6>{{this.messageEngagements}}</h6>
           <div class="row">
             <div class="col-12">
               <div class="card mb-4 box-shadow">
@@ -87,41 +88,42 @@
                   <canvas baseChart [datasets]="byProfileViewsEngagementsData" [labels]="lineChartLabels" [options]="lineChartOptions"
                     [plugins]="lineChartPlugins" [legend]="lineChartLegend" [chartType]="lineChartType" [colors]="byProfileViewsEngagementsColor">
                   </canvas> 
-                  <small style="font-size: 10px">(Total number of times the multimedia objects in the trading account were viewed uniquely)</small>
+                  <small style="font-size: 10px">Profile Views: Total number of times the multimedia objects in the trading account were viewed uniquely.</small><br>
+                  <small style="font-size: 10px">Engagements: It is the commitment on the part of your followers to the publications of the commercial account.</small>
                 </div>
               </div>
             </div>
           </div>
-
-          <h4>Best day to post by engagements</h4>
-          <h6>Your probable best day to post is  with an % of probability by the Engagements.</h6>
+          <br>
         </div>
       </div>
     
-      <!-- Probable amount of reach graphic -->
-      <div class="tab-pane container-fluid" id="Reach" role="tabpanel" aria-labelledby="reachPrediction">
-        <div class="container" id="Reach" *ngIf="this.maxDayPR && this.maxValuePR">
-          <h4>Probable amount of Reach by the days of the week</h4>
-          <h6>This is your probable Reach by the day of the week, your best day could be on {{this.maxDayPR}}, with and {{this.maxValuePR}}% of probability</h6>
+      <!-- Recomendation between profile views and new Followers graphic -->
+      <div class="tab-pane container-fluid" id="FollowersProfileViews" role="tabpanel" aria-labelledby="newFollows-Views">
+        <div class="container" id="FollowersProfileViews">
+          <h4>Our recomentation to your account based in your profile's new Followers and Profile views</h4>
+
+        </div>
+      </div>
+    
+      <!-- Recomendation between profile views and amount of post graphic -->
+      <div class="tab-pane container-fluid" id="PostProfileViews" role="tabpanel" aria-labelledby="post-Profileviews">
+        <div class="container" id="PostProfileViews" *ngIf="this.messagePost">
+          <h4>Our recomentation to your account based on your profile's the number of Post and Profile views</h4>
+          <h6>{{this.messagePost}}</h6>
           <div class="row">
             <div class="col-12">
               <div class="card mb-4 box-shadow">
                 <div class="card-body text-center" >
-                  <!-- <canvas  baseChart [datasets]="probableReachData" [labels]="barChartLabels" [options]="barChartOptions"
-                    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType" [colors]="probableReachColor">
-                  </canvas> -->
-                  <small style="font-size: 10px">(Total number of users who viewed the trading account profile in the specified time period)</small>
+                  <canvas baseChart [datasets]="byProfileViewsAmountOfPostData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                    [plugins]="lineChartPlugins" [legend]="lineChartLegend" [chartType]="lineChartType" [colors]="byProfileViewsAmountOfPostColor">
+                  </canvas> 
+                  <small style="font-size: 10px">Profile Views: Total number of times the multimedia objects in the trading account were viewed uniquely.</small>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    
-      <!-- Probable amount of impressions graphic -->
-      <div class="tab-pane container-fluid" id="Impressions" role="tabpanel" aria-labelledby="impressionsPrediction">
-        <div class="container" id="Impressions">
-          <h4>Probable amount of Impressions by the days of the week</h4>
+          <br>
         </div>
       </div>
     </div>
@@ -129,7 +131,7 @@
 </div>
 
 <!-- End homepage content -->
-<!-- <footer class="fixed-bottom">
+<footer *ngIf="this.messageEngagements && this.messagePost">
   <div class="wrapper">
     <p><img src="../../assets/logo.png" alt="logo"> Socialytics</p>
     <p>&copy; All Rights Reserved 2020</p>
@@ -140,4 +142,4 @@
     </p>
   </div>
 </footer>
-   -->
+  

@@ -41,7 +41,7 @@ async function getMedia(fb_Token, ig_Id){
         //Request 2 to facebook API: get the media information, it needs the Facebook token and the each one media  ID to proceed
         let petition = {
             method: "GET",
-            uri: `https://graph.facebook.com/v9.0/${mediaId[i]}?fields=caption,comments_count,like_count,media_url,timestamp&access_token=${fb_Token}`,
+            uri: `https://graph.facebook.com/v9.0/${mediaId[i]}?fields=caption,comments_count,like_count,media_url,media_type,timestamp&access_token=${fb_Token}`,
             resolveWithFullResponse: true,
             json: true
         }
