@@ -70,7 +70,6 @@ async function getMedia(req,res,done){
     for(let i = 0; i < 25; i++){
         //While the i is still less than countMedia the cycle continue
         //Request 2 to facebook API: get the media information, it needs the Facebook token and the each one media  ID to proceed
-        console.log(`${i}`, mediaId[i])
         let petition = {
             method: "GET",
             uri: `https://graph.facebook.com/v9.0/${mediaId[i]}?fields=caption,comments_count,like_count,media_url,media_type,timestamp&access_token=${fb_Token}`,

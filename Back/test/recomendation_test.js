@@ -1,7 +1,8 @@
-const assert = require("assert") //Para hacer la comparacion de booleans 
-const request = require("supertest") //Nos permite hacer llamadas a nuestra propia api 
-const app = require("../index") //Se necesita invocar al servidor porque desde ahi es que se invocan las rutas
+const assert = require("assert") //To make the boolean comparison
+const request = require("supertest") //It allows us to make calls to our own api 
+const app = require("../index") //The server needs to be invoked because that's where the paths are invoked
 
+//Cross between profile views and engagements tests
 describe("Recomendations of profile views and engagements", () => {
     it("Recomendations of profile views and engagements Successfully", done =>{
         let register = {
@@ -243,7 +244,8 @@ describe("Recomendations of profile views and engagements", () => {
     })
 })
 
-describe("Recomendations of profile views and amountofpost", () => {
+//Cross between profile views and the number of post tests
+describe("Recomendations of profile views and number of post", () => {
     it("Recomendations of profile views and amountofpost Successfully", done =>{
         let register = {
             name: "Henry",

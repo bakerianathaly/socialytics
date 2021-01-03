@@ -196,6 +196,45 @@ async function getStatistics(req,res,done){
 }
 
 async function getNewFollowersStatistics(req,res,done){
+    let test_data = req.body.data
+    let fbToken = req.body.fbToken //Variable to handle the facebook token
+    let socialyticId = req.body.socialyticId //Variable to handle the user identification in the app
+    let newFollowers = null //Variable that contains the new followers values
+    let fail = null //Variable to handle some errors we need to put in some conditions
+
+    if(test_data != undefined){
+        //This condition is ONLY use for the TDD, to test the Successfull case. The reason is that the facebook token comes from the view
+        //and we can not make the request to facebook API to get the values
+        newFollowers = test_data
+    }
+    else if((fbToken == undefined || fbToken == "") || (socialyticId == undefined || socialyticId == "")){
+        //Case 1: It checks for any empty fields in the data.
+        return res.status(406).send({
+            status: "406",
+            response:"Not Acceptable",
+            message:"This field is required"
+        })
+    }
+    else{
+        //The data from the view it is good to proceed to get the profile views prediction data
+        //Query to get the instagram user data in the socialytics DB
+        try{
+            var igUser = await instagramModel.findOne({socialyticId: socialyticId}).exec()
+        }catch(err){
+            fail = err.messageFormat
+        }
+
+        if(fail == undefined && igUser == undefined){
+            //Case 2: It checks if the user exists in the DB.
+            //It checks if an error has happens, and returned it 
+            return res.status(409).send({
+                status: "409",
+                response:"Conflict",
+                message:"This user doesn't exist, please try again"
+            }) 
+        }
+    }
+
     done()
 }
 

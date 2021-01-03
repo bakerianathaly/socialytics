@@ -1,6 +1,6 @@
-const assert = require("assert") //Para hacer la comparacion de booleans 
-const request = require("supertest") //Nos permite hacer llamadas a nuestra propia api 
-const app = require("../index") //Se necesita invocar al servidor porque desde ahi es que se invocan las rutas
+const assert = require("assert") //To make the boolean comparison
+const request = require("supertest") //It allows us to make calls to our own api 
+const app = require("../index") //The server needs to be invoked because that's where the paths are invoked
 
 //Best day to post by profile views tests
 describe("Best day to post by profile views", () => {
@@ -214,6 +214,7 @@ describe("Best day to post by profile views", () => {
     
 }) 
 
+//Probable amount of Reach tests
 describe("Probable amount of Reach per day of the week", () => {
     it("Best day to post by profile views Successfully", done =>{
         let register = {

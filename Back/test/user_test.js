@@ -1,7 +1,8 @@
-const assert = require("assert") //Para hacer la comparacion de booleans 
-const request = require("supertest") //Nos permite hacer llamadas a nuestra propia api 
-const app = require("../index") //Se necesita invocar al servidor porque desde ahi es que se invocan las rutas
+const assert = require("assert") //To make the boolean comparison
+const request = require("supertest") //It allows us to make calls to our own api 
+const app = require("../index") //The server needs to be invoked because that's where the paths are invoked
 
+//Sign up tests
 describe("Sign up tests", () => {
 
     it("Sign up successful", done =>{
@@ -64,6 +65,7 @@ describe("Sign up tests", () => {
         })
     })
 }) 
+
 // Login test cases.
 describe("Login tests", () => {
     // Case: Login successful.
@@ -105,6 +107,7 @@ describe("Login tests", () => {
     
     
 }) 
+
 // test for update user's data 
 describe("Update user tests", () => {
     //Case 1: User updates his data successfully.

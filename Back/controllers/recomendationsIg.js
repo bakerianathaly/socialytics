@@ -134,7 +134,7 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
     let socialyticId = req.body.socialyticId //Variable to handle the user identification in the app
     let media = req.body.media //Variable that containts de media data, this data is request by the view in getMedia method
     let test_data = req.body.data
-    let profileViews = null
+    let profileViews = null //Variable that contains the response for the profile views function
     /*The next seven variables are the one that will have the prediction of each day of the week, that is the reason 
     they are identify by the name of the day */
     let monday = 0
@@ -145,7 +145,7 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
     let saturday = 0
     let sunday = 0 
     let totalPrediction = 0 //Variable that contains the total addition of the values of the request
-    let fail = null
+    let fail = null //Variable to handle some errors we need to put in some conditions
 
     if(test_data != undefined){
         //This condition is ONLY use for the TDD, to test the Successfull case. The reason is that the facebook token comes from the view
@@ -284,11 +284,11 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
 }
 
 async function getAmountOfPostProfileViewsRecomendation(req, res, done){
-    let fbToken = req.body.fbToken//Variable to handle the facebook token
+    let fbToken = req.body.fbToken //Variable to handle the facebook token
     let socialyticId = req.body.socialyticId //Variable to handle the user identification in the app
     let media = req.body.media //Variable that containts de media data, this data is request by the view in getMedia method
     let test_data = req.body.data
-    let profileViews = null
+    let profileViews = null //Variable that contains the response for the profile views function
     /*The next seven variables are the one that will have the prediction of each day of the week, that is the reason 
     they are identify by the name of the day */
     let monday = 0
@@ -298,8 +298,7 @@ async function getAmountOfPostProfileViewsRecomendation(req, res, done){
     let friday = 0
     let saturday = 0
     let sunday = 0 
-    let totalPrediction = 0 //Variable that contains the total addition of the values of the request
-    let fail = null
+    let fail = null //Variable to handle some errors we need to put in some conditions
 
     if(test_data != undefined){
         //This condition is ONLY use for the TDD, to test the Successfull case. The reason is that the facebook token comes from the view
