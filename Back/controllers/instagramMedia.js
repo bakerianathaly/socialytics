@@ -1,7 +1,10 @@
 const request = require("request-promise")
+const instagramModel = require('../models/instagram')
 
-async function getMedia(fb_Token, ig_Id){
-
+async function getMedia(req,res,done){
+    let fb_Token = req.query.fbToken //Variable to handle the facebook token
+    let userID = req.query.socialyticId //Variable to handle the user identification in the app
+    let ig_Id //Variable with the Instagram ID if the user exits in the socialytics DB
     let mediaId = [] //Variable that containts the id of the first 25 media
     let mediaInfo = [] //Variable that containts the data (counts of likes, counts of comments, type, etc) of the first 25 media
     let totalLikes = 0 //Varaiable that containts the total likes calculation
@@ -10,35 +13,64 @@ async function getMedia(fb_Token, ig_Id){
     let avgComments = 0 //Varaiable that containts the average commets
     let countMedia = 0 //Variable with the amount of media returned
     let fail = null //Variable to return the error if it exists 
-    
-    //Request 1 to facebook API: get the media IDs, it needs the Facebook token and the instagram user ID to proceed
-    let petition = {
-        method: "GET",
-        uri: `https://graph.facebook.com/v9.0/${ig_Id}/media?access_token=${fb_Token}`,
-        resolveWithFullResponse: true,
-        json: true
+
+    if(userID == undefined || userID == "" || fb_Token == undefined || fb_Token == ""){
+        //Case 1: It checks for any empty fields in the data.
+        return res.status(406).send({
+            status: "406",
+            response:"Not Acceptable",
+            message:"This field is required"
+        })
+    }
+    else{
+        //The data from the view it is good to proceed
+        //Query to get the instagram user data in the socialytics DB
+        try{
+            var igUser = await instagramModel.findOne({socialyticId: userID}).exec()
+        }catch(err){
+            fail = err.messageFormat
+        }
+
+        if(fail == undefined && igUser == undefined){
+            //Case 2: It checks if the user exists in the DB.
+            //It checks if an error has happens, and returned it 
+            return res.status(409).send({
+                status: "409",
+                response:"Conflict",
+                message:"This user doesn't exist, please try again"
+            }) 
+        }
+
+        ig_Id = igUser.instagramId
+        //Request 1 to facebook API: get the media IDs, it needs the Facebook token and the instagram user ID to proceed
+        let petition = {
+            method: "GET",
+            uri: `https://graph.facebook.com/v9.0/${ig_Id}/media?access_token=${fb_Token}`,
+            resolveWithFullResponse: true,
+            json: true
+        }
+
+        await request(petition).then((response) => {
+            //Wait to response, and if is there none error asinged the response length to the countMedia variable
+            countMedia = response.body.data.length
+            //To get every id to push it to the mediaId variable we need to get the value out with a for cycle
+            for(let i = 0; i < countMedia; i++){
+                mediaId.push(response.body.data[i].id)
+            }
+        }).catch(function (err) {
+            fail = {
+                status: '400',
+                response: 'Bad Request',
+                message: 'Your session has expired'
+            } 
+        })
     }
 
-    await request(petition).then((response) => {
-        //Wait to response, and if is there none error asinged the response length to the countMedia variable
-        countMedia = response.body.data.length
-        //To get every id to push it to the mediaId variable we need to get the value out with a for cycle
-        for(let i = 0; i < countMedia; i++){
-            mediaId.push(response.body.data[i].id)
-        }
-    }).catch(function (err) {
-        fail = {
-            status: '400',
-            response: 'Bad Request',
-            message: 'Your session has expired'
-        } 
-    })
-
     //To be able to get more information of the every media, it need to make a request for each one of the media ID we got before
-    let i = 0
-    while(fail == null && i < countMedia){
-        //While error is still null and the i is still less than countMedia the cycle continue
+    for(let i = 0; i < 25; i++){
+        //While the i is still less than countMedia the cycle continue
         //Request 2 to facebook API: get the media information, it needs the Facebook token and the each one media  ID to proceed
+        console.log(`${i}`, mediaId[i])
         let petition = {
             method: "GET",
             uri: `https://graph.facebook.com/v9.0/${mediaId[i]}?fields=caption,comments_count,like_count,media_url,media_type,timestamp&access_token=${fb_Token}`,
@@ -51,8 +83,8 @@ async function getMedia(fb_Token, ig_Id){
             totalComments = totalComments + response.body.comments_count
             totalLikes = totalLikes + response.body.like_count
             mediaInfo.push(response.body)
-            i++
         }).catch(function (err) {
+            i = 100
             fail = {
                 status: '400',
                 response: 'Bad Request',
@@ -61,26 +93,35 @@ async function getMedia(fb_Token, ig_Id){
         })
     }
 
-    //Calculation of the average
-    avgComments = totalComments / (countMedia-1)
-    avgLikes = totalLikes / (countMedia-1)
-
-    //Initialation of the JSON that it will be returned if the error variable is still null
-    let allMediaInfo = {
-        totalLikes: totalLikes,
-        totalComments: totalComments,
-        avgLikes: avgLikes.toFixed(2),
-        avgComments: avgComments.toFixed(2),
-        countMedia: countMedia,
-        mediaInfo: mediaInfo
-    }
-
-    if (fail !=null){
-        //It checks if an error has happens, and returned it 
-        return fail
+    if(fail != null){
+        return res.status(fail.status).send({
+            status: fail.status,
+            response: fail.response,
+            message: fail.message
+        }) 
     }
     else{
-        return allMediaInfo
+        //Calculation of the average
+        avgComments = totalComments / (countMedia-1)
+        avgLikes = totalLikes / (countMedia-1)
+
+        //Initialation of the JSON that it will be returned if the error variable is still null
+        let allMediaInfo = {
+            totalLikes: totalLikes,
+            totalComments: totalComments,
+            avgLikes: avgLikes.toFixed(2),
+            avgComments: avgComments.toFixed(2),
+            countMedia: countMedia,
+            mediaInfo: mediaInfo
+        }
+
+        //Case 4: Sucessful response message and JSON
+        return res.status(200).send({
+            status: "200",
+            response:"OK",
+            message: "Got media successful",
+            allMediaInfo
+        })
     }
 }
 

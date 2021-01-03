@@ -1,32 +1,32 @@
 <!-- Nav bar(Header) -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-   <img class="logo" src="../../assets/logo.png" alt="Socialytics"><a id="name" class="navbar-brand justify-content-around" href="/home"> Socialytics</a>
-   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-     <span class="navbar-toggler-icon"></span>
-   </button>
- 
-   <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-       <ul class="nav">
-         <li  class="nav-item">
-           <a class="nav-link active" href="/home">Home</a>
-         </li>
-         <li  class="nav-item">
-           <a class="nav-link active" href="/prediction">Prediction</a>
-         </li>
-         <li  class="nav-item">
-           <a class="nav-link active" href="/recomendation">Recomendation</a>
-         </li>
-         <li class="nav-item dropdown">
-           <a *ngFor="let user of current" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             Welcome, {{user.name}}<span class="sr-only"> </span>
-           </a>
-           <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-             <a class="nav-link list down" [routerLink]="['/userprofile']"> Profile <span class="sr-only"></span></a>
-             <a class="nav-link list down" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
-           </div>
-         </li>
-       </ul>
-  </div>
+  <img class="logo" src="../../assets/logo.png" alt="Socialytics"><a id="name" class="navbar-brand justify-content-around" href="/home"> Socialytics</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="nav">
+        <li  class="nav-item">
+          <a class="nav-link active" href="/home">Home</a>
+        </li>
+        <li  class="nav-item">
+          <a class="nav-link active" href="/prediction">Prediction</a>
+        </li>
+        <li  class="nav-item">
+          <a class="nav-link active" href="/recomendation">Recomendation</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a *ngFor="let user of current" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Welcome, {{user.name}}<span class="sr-only"> </span>
+          </a>
+          <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+            <a class="nav-link list down" [routerLink]="['/userprofile']"> Profile <span class="sr-only"></span></a>
+            <a class="nav-link list down" (click)="logout()" href=""> Logout <span class="sr-only">(current)</span></a>
+          </div>
+        </li>
+      </ul>
+</div>
 </nav>
   
   

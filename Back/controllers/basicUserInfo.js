@@ -2,7 +2,6 @@
 const instagramModel = require('../models/instagram')
 const request = require("request-promise")
 const userModel = require('../models/user')
-const media = require('./instagramMedia')
 let statistics  //JSON, it containts all the data recovered and tranforms ready to display in the view
 
 async function instagramBasicUserData(fb_Token, ig_Id){
@@ -172,10 +171,8 @@ async function getStatistics(req,res,done){
 
         //Request 1 to facebook API: get the instagram user basic data (in the instagramBasicUserData function), it needs the instagram page ID and the facebook token
         let userData = await instagramBasicUserData(data.fbToken, igUser.instagramId)
-        //Request 2 to facebook API: get the instagram media from the user  (in the getMedia function in the instagramMedia.js), it needs the instagram page ID and the facebook token
-        let mediaData = await media.getMedia(data.fbToken, igUser.instagramId)
 
-        if(userData.status != undefined || mediaData.status != undefined){
+        if(userData.status != undefined){
             //Case 6: It checks if any of the request came with an error and send an error to the view
             return res.status(400).send({
                 status: '400',
@@ -186,8 +183,7 @@ async function getStatistics(req,res,done){
 
         //JSON with the return information os the instagram
         statistics = {
-            userData: userData,
-            media: mediaData
+            userData: userData
         }
         //Sucessful response message 
         return res.status(200).send({
@@ -199,8 +195,13 @@ async function getStatistics(req,res,done){
     }
 }
 
+async function getNewFollowersStatistics(req,res,done){
+    done()
+}
+
 module.exports = {
-    getStatistics,
+    instagramBasicUserData,
     newInstagramUser,
-    instagramBasicUserData
+    getStatistics,
+    getNewFollowersStatistics
 }

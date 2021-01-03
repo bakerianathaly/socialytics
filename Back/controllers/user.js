@@ -3,6 +3,7 @@ const userModel = require('../models/user')
 const jwt = require('jsonwebtoken')
 const SECRET_KEY="secretkey123456"
 
+//User's sign up function.
 async function register(req,res,done) {
     var data = req.body
     var existingUser = await userModel.findOne({ email: data.email}).exec()
