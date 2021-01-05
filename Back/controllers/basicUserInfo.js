@@ -47,7 +47,7 @@ async function newInstagramUser(socialytics_Id, fb_Token){
         return {
             status: "406",
             response:"Not Acceptable",
-            message:"This field is required"
+            message:"Couldn’t process your request due to missing params inside the request"
         }
     }
     else{
@@ -140,7 +140,7 @@ async function getStatistics(req,res,done){
         return res.status(406).send({
             status: "406",
             response:"Not Acceptable",
-            message:"This field is required"
+            message:"Couldn’t process your request due to missing params inside the request"
         })
     }
     else if(error == undefined && user == undefined){
@@ -225,7 +225,7 @@ async function getNewFollowersStatistics(req,res,done){
         return res.status(406).send({
             status: "406",
             response:"Not Acceptable",
-            message:"This field is required"
+            message:"Couldn’t process your request due to missing params inside the request"
         })
     }
     else{

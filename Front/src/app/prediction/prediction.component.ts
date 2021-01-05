@@ -62,8 +62,7 @@ export class PredictionComponent implements OnInit {
   public byProfileViewsColor: Color[] = [
     { backgroundColor: '#5B54FB' },
   ]
-  public byProfileViewsData: any[] = [ //Variable that will containt the data for the Best day to post by profile views graphic
-  ];
+  public byProfileViewsData: any[] = [] //Variable that will containt the data for the Best day to post by profile views graphic
   public maxValuePV: any //Variable that will containt the max value of the profile views graphic
   public maxDayPV: String //Variable that will containt the day who has the max value of the profile views graphic
 
@@ -71,8 +70,7 @@ export class PredictionComponent implements OnInit {
   public probableReachColor: Color[] = [
     { backgroundColor: '#A52A2A' },
   ]
-  public probableReachData: any[] = [ //Variable that will containt the data for Probable amount by the day of the week graphic
-  ];
+  public probableReachData: any[] = [] //Variable that will containt the data for Probable amount by the day of the week graphic
   public maxValuePR: any //Variable that will containt the max value of the probable reach graphic
   public maxDayPR: String //Variable that will containt the day who has the max value of the probable reach  graphic
 

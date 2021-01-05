@@ -24,7 +24,7 @@ describe("Instagram sign up tests", () => {
         let url = '/instagram/statistics?fbToken='+fbToken+'&socialyticsId='+socialyticId
 
         request(app).get(url.toString()).end((err, res) =>{
-            assert(res.body.message === "This field is required")
+            assert(res.body.message === "Couldn’t process your request due to missing params inside the request")
             done()
         })
     })
@@ -52,7 +52,7 @@ describe("Get the media profile tests", () => {
         let url = '/instagram/getmedia?fbToken='+fbToken+'&socialyticId='+socialyticId
 
         request(app).get(url.toString()).end((err, res) =>{
-            assert(res.body.message === "This field is required")
+            assert(res.body.message === "Couldn’t process your request due to missing params inside the request")
             done()
         })
     })
@@ -225,7 +225,7 @@ describe("New followers graphic tests", () => {
         }
 
         request(app).post('/intstagram/newFollowers').send(info).end((err, res) =>{
-            assert(res.body.message === "This field is required")
+            assert(res.body.message === "Couldn’t process your request due to missing params inside the request")
             done()
         })
     })

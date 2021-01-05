@@ -19,7 +19,7 @@ async function getMedia(req,res,done){
         return res.status(406).send({
             status: "406",
             response:"Not Acceptable",
-            message:"This field is required"
+            message:"Couldn’t process your request due to missing params inside the request"
         })
     }
     else{

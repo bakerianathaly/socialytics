@@ -207,7 +207,7 @@ describe("Recomendations of profile views and engagements", () => {
         }
 
         request(app).post('/recomendations/engagements').send(info).end((err, res) =>{
-            assert(res.body.message === "This field is required")
+            assert(res.body.message === "Couldn’t process your request due to missing params inside the request")
             done()
         })
     })
@@ -449,7 +449,7 @@ describe("Recomendations of profile views and number of post", () => {
         }
 
         request(app).post('/recomendations/amountofpost').send(info).end((err, res) =>{
-            assert(res.body.message === "This field is required")
+            assert(res.body.message === "Couldn’t process your request due to missing params inside the request")
             done()
         })
     })

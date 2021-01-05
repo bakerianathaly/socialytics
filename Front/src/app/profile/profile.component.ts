@@ -4,6 +4,9 @@ import Swal from 'sweetalert2';
 import {AuthService} from '../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { Label, Color } from 'ng2-charts';
 
 declare var FB: any;
 
@@ -22,6 +25,53 @@ export class ProfileComponent implements OnInit {
   public instagramData: any //Basic user instagram data
   public instagramMedia: any //First 25 pictures of the user
 
+  //Comun graphics variables
+  public ChartOptions: ChartOptions = { 
+    responsive: true,
+    //Axis configuration
+    scales: { xAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: 'Days of the week',
+        fontColor: 'black'
+      },
+      ticks: {
+        fontColor: 'black',  // x axe labels (can be hexadecimal too)
+      }
+    }], 
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Quantity of the values',
+          fontColor: 'black',
+        },
+        ticks: {
+          fontColor: 'black',  // y axe labels (can be hexadecimal too)
+        }
+      }] 
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      }
+    }
+  };
+  public ChartLabels: Label[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  public ChartLegend = true; //Variable to display the legend 
+  public ChartPlugins = [pluginDataLabels];
+
+  //Follower count graphics variables 
+  public barChartType: ChartType = 'bar'; //Type of graphic, in this cases is a bar  graphics
+  public followerCountColor: Color[] = [
+    {backgroundColor: '#3366cc'},
+    {backgroundColor: '#660099'},
+    {backgroundColor: '#800000'},
+    {backgroundColor: '#5f9ea0'}
+  ]
+  public followerCountData: any[] = [] //Variable that will containt the data for the Best day to post by profile views graphic
+  public changeFollowers: any
+
   constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
 
   ngOnInit() {
@@ -37,6 +87,7 @@ export class ProfileComponent implements OnInit {
     })
     this.getInstagramData()
     this.getMedia()
+    this.getFollowerCount()
   }
 
   protected getInstagramData(){
@@ -81,6 +132,165 @@ export class ProfileComponent implements OnInit {
       this.router.navigate(['/'])
     });
     
+  }
+
+  protected getFollowerCount(){
+    //Here we initialize the URL to make the request to get te info, we initialize it with the token and the user id
+    let nodeAPI = this.nodeAPI+'/intstagram/newFollowers'
+    let info = { //Variable with the JSON that it will be send to the API endpoint 
+      socialyticId: this.user.id,
+      fbToken: this.fbToken
+    }
+
+    // let info = {
+    //   data: [
+    //     {
+    //       value: 0,
+    //       end_time: "2020-11-01T07:00:00+0000"
+    //     },
+    //     {
+    //         value: 3,
+    //         end_time: "2020-11-02T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 21,
+    //         end_time: "2020-11-03T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 3,
+    //         end_time: "2020-11-04T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 4,
+    //         end_time: "2020-11-05T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 2,
+    //         end_time: "2020-11-06T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 0,
+    //         end_time: "2020-11-07T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 1,
+    //         end_time: "2020-11-08T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 0,
+    //         end_time: "2020-11-09T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 0,
+    //         end_time: "2020-11-10T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 0,
+    //         end_time: "2020-11-11T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 43,
+    //         end_time: "2020-11-12T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 4,
+    //         end_time: "2020-11-13T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 2,
+    //         end_time: "2020-11-14T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 4,
+    //         end_time: "2020-11-15T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 5,
+    //         end_time: "2020-11-16T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 10,
+    //         end_time: "2020-11-17T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 1,
+    //         end_time: "2020-11-18T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 1,
+    //         end_time: "2020-11-19T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 1,
+    //         end_time: "2020-11-20T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 0,
+    //         end_time: "2020-11-21T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 0,
+    //         end_time: "2020-11-22T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 0,
+    //         end_time: "2020-11-23T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 0,
+    //         end_time: "2020-11-24T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 34,
+    //         end_time: "2020-11-25T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 12,
+    //         end_time: "2020-11-26T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 4,
+    //         end_time: "2020-11-27T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 3,
+    //         end_time: "2020-11-28T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 6,
+    //         end_time: "2020-11-29T08:00:00+0000"
+    //     },
+    //     {
+    //         value: 12,
+    //         end_time: "2020-11-30T08:00:00+0000"
+    //     }
+    //   ]
+    // }
+
+    this.http.post(nodeAPI.toString(), info).subscribe((response: any) => {
+      /*If there is none error, we set it again, set the
+      instagramData variable to use it in the profile.component.html*/
+      console.log('[Response]', response)
+      this.changeFollowers = {
+        total: response.totalChangeFollowers,
+        avg: response.avgChange,
+        max: response.maxOfEachWeek,
+        min: response.minOfEachWeek
+      }
+      this.followerCountData.push({ data: response.week1, label: 'Week number 1'})
+      this.followerCountData.push({ data: response.week2, label: 'Week number 2'})
+      this.followerCountData.push({ data: response.week3, label: 'Week number 3'})
+      this.followerCountData.push({ data: response.week4, label: 'Week number 4'})
+    }, error => {
+      //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.error.message
+      })
+      this.authService.logout()
+      this.router.navigate(['/'])
+    });
   }
 
   public logout(){

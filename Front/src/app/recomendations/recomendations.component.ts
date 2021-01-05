@@ -64,8 +64,7 @@ export class RecomendationsComponent implements OnInit {
     { borderColor: 'red',backgroundColor: 'rgba(255,0,0,0.3)'},
     {borderColor: 'rgba(77,83,96,1)',backgroundColor: 'rgba(77,83,96,0.2)'}
   ]
-  public byProfileViewsEngagementsData: any[] = [ //Variable that will containt the data for the Best day to post by profile views graphic
-  ];
+  public byProfileViewsEngagementsData: any[] = [] //Variable that will containt the data for the Best day to post by profile views graphic
   public messageEngagements: String
 
   //Recomendation based on profile views and the number of post 
@@ -73,8 +72,7 @@ export class RecomendationsComponent implements OnInit {
     { borderColor: 'rgb(180,93,151)',backgroundColor: 'rgb(228,197,218)'},
     {borderColor: 'rgba(77,83,96,1)',backgroundColor: 'rgba(77,83,96,0.2)'}
   ]
-  public byProfileViewsAmountOfPostData: any[] = [ //Variable that will containt the data for the Best day to post by profile views graphic
-  ];
+  public byProfileViewsAmountOfPostData: any[] = [] //Variable that will containt the data for the Best day to post by profile views graphic
   public messagePost: String 
 
   constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }

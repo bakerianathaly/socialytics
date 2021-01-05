@@ -29,7 +29,7 @@
   </div>
 </nav>
 
-<!-- Instagram Basic Info -->
+<!-- Instagram Basic Info bakerianathaly@gmail.com -->
 <div  class="container-fluid">
   <div class="container">
     <!-- Basic user info -->
@@ -51,12 +51,13 @@
         <div class="website">
           <a (click)="externalUrl(stats.website)" target="_blank">{{instagramData.website}}</a>
         </div>
+        <small style="font-size: 10px">All graphics are based on your lasted 25 pictures and 30 days of historical data.</small>
       </div>
     </div>
 
     <!-- Post, Followers and Following squares-->
-    <div *ngIf="this.instagramData" [style.margin-top.px]="'20'" class="row">
-      <div class="col-md-4">
+    <div *ngIf="this.instagramData && this.instagramMedia" [style.margin-top.px]="'20'" class="row">
+      <div class="col-2">
         <div class="card mb-4 box-shadow">
           <div class="card-body text-center">
             <small class="score-header">Posts</small>
@@ -65,7 +66,7 @@
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-2">
         <div class="card mb-4 box-shadow">
           <div class="card-body text-center">
             <small class="score-header">Followers</small>
@@ -74,7 +75,7 @@
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-2">
         <div class="card mb-4 box-shadow">
           <div class="card-body text-center">
             <small class="score-header">Following</small>
@@ -82,10 +83,37 @@
           </div>
         </div>
       </div>
+
+      <div class="col-2">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body text-center">
+            <small class="score-header">Total Likes</small>
+            <h4 class="card-text score-body">{{instagramMedia.totalLikes}}</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-2">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body text-center">
+            <small class="score-header">Total Comments</small>
+            <h4 class="card-text score-body">{{instagramMedia.totalComments}}</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-2">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body text-center">
+            <small class="score-header">Average Likes</small>
+            <h4 class="card-text score-body" >{{instagramMedia.avgLikes}}</h4>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Cuadros de: Total likes, Total comments, Average likes, Average comments -->
-    <div *ngIf="this.instagramMedia" class="row">
+    <!-- <div *ngIf="this.instagramMedia" class="row">
       <div class="col-3">
         <div class="card mb-4 box-shadow">
           <div class="card-body text-center">
@@ -121,15 +149,52 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- Hasta aqui -->
 
     
   </div>
 </div>
 
+<div class="container" *ngIf = "this.changeFollowers">
+  <h4 class="text-center mt-3">Follower growth count</h4>
+  <div class="row" >
+    <div class="col-12">
+      <div class="card mb-4 box-shadow">
+        <div class="card-body text-center" >
+          <canvas baseChart [datasets]="followerCountData" [labels]="ChartLabels" [options]="ChartOptions"
+            [plugins]="ChartPlugins" [legend]="ChartLegend" [chartType]="barChartType" [colors]="followerCountColor">
+          </canvas>
+          <small style="font-size: 10px">Profile Views: Total number of times the multimedia objects in the trading account were viewed uniquely.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table text-center">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Profile name</th>
+        <th scope="col">Max change</th>
+        <th scope="col">Min change</th>
+        <th scope="col">Average change</th>
+        <th scope="col">Total change</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{instagramData.username}}</th>
+        <td>{{changeFollowers.max}}</td>
+        <td>{{changeFollowers.min}}</td>
+        <td>{{changeFollowers.avg}}</td>
+        <td>{{changeFollowers.total}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 <!-- End homepage content -->
-<footer class="fixed-bottom">
+<footer >
   <div class="wrapper">
     <p><img src="../../assets/logo.png" alt="logo"> Socialytics</p>
     <p>&copy; All Rights Reserved 2020</p>
