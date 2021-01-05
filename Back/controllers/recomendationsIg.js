@@ -59,7 +59,7 @@ async function getProfileViewsData(fbToken, instagramId, test_data){
 
         if(profileViews != null){
             /*To be able to calculate the best day to post, for each one of the value we get in the request, we need
-            to check witch day of the week is and with that sum the value to the variable of that day
+            to check which day of the week is and with that sum the value to the variable of that day
             And also, we need to calculate the total to be able to calculate de percent of probability*/
             for(let i =0; i < profileViews.length; i++){
                 let day = moment(profileViews[i].end_time).format('dddd')
@@ -187,7 +187,7 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
     totalPrediction = media.totalComments + media.totalLikes
     for(let i =0; i < media.mediaInfo.length; i++){
         /*To be able to calculate the best day to post, for each one of the value we get in the media, we need
-        to check witch day of the week is and with that sum the value to the variable of that day
+        to check which day of the week is and with that sum the value to the variable of that day
         And also, we need to calculate the total to be able to calculate de percent of probability*/
         let day = moment(media.mediaInfo[i].timestamp).format('dddd')
 
@@ -340,7 +340,7 @@ async function getAmountOfPostProfileViewsRecomendation(req, res, done){
     
     for(let i =0; i < media.mediaInfo.length; i++){
         /*To be able to calculate the best day to post, for each one of the value we get in the media, we need
-        to check witch day of the week is and with that we sum 1 to the variable of the day to get
+        to check which day of the week is and with that we sum 1 to the variable of the day to get
         the amount of post we published each day*/
         let day = moment(media.mediaInfo[i].timestamp).format('dddd')
 

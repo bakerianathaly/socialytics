@@ -87,7 +87,7 @@ async function bestDayToPostByProfileViews(req,res,done){
 
         if(profileViews != null){
             /*To be able to calculate the best day to post, for each one of the value we get in the request, we need
-            to check witch day of the week is and with that sum the value to the variable of that day
+            to check which day of the week is and with that sum the value to the variable of that day
             
             And also, we need to calculate the total to be able to calculate de percent of probability*/
             for(let i =0; i < profileViews.length; i++){
@@ -248,7 +248,7 @@ async function probableAmountOfReach(req,res,done){
 
         if(probableReach != null){
             /*To be able to calculate the best day to post, for each one of the value we get in the request, we need
-            to check witch day of the week is and with that sum the value to the variable of that day
+            to check which day of the week is and with that sum the value to the variable of that day
             
             And also, we need to calculate the total to be able to calculate de percent of probability*/
             for(let i =0; i < probableReach.length; i++){

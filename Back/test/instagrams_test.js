@@ -73,23 +73,23 @@ describe("New followers graphic tests", () => {
         request(app).post('/signup').send(register).end((err, res) =>{
             let data = [
                 {
-                    value: 2,
+                    value: 0,
                     end_time: "2020-11-01T07:00:00+0000"
                 },
                 {
-                    value: 2,
+                    value: 3,
                     end_time: "2020-11-02T08:00:00+0000"
                 },
                 {
-                    value: 2,
+                    value: 21,
                     end_time: "2020-11-03T08:00:00+0000"
                 },
                 {
-                    value: 0,
+                    value: 3,
                     end_time: "2020-11-04T08:00:00+0000"
                 },
                 {
-                    value: 1,
+                    value: 4,
                     end_time: "2020-11-05T08:00:00+0000"
                 },
                 {
@@ -97,7 +97,7 @@ describe("New followers graphic tests", () => {
                     end_time: "2020-11-06T08:00:00+0000"
                 },
                 {
-                    value: 1,
+                    value: 0,
                     end_time: "2020-11-07T08:00:00+0000"
                 },
                 {
@@ -105,31 +105,31 @@ describe("New followers graphic tests", () => {
                     end_time: "2020-11-08T08:00:00+0000"
                 },
                 {
-                    value: 1,
+                    value: 0,
                     end_time: "2020-11-09T08:00:00+0000"
                 },
                 {
-                    value: 2,
+                    value: 0,
                     end_time: "2020-11-10T08:00:00+0000"
                 },
                 {
-                    value: 2,
+                    value: 0,
                     end_time: "2020-11-11T08:00:00+0000"
                 },
                 {
-                    value: 0,
+                    value: 43,
                     end_time: "2020-11-12T08:00:00+0000"
                 },
                 {
-                    value: 2,
+                    value: 4,
                     end_time: "2020-11-13T08:00:00+0000"
                 },
                 {
-                    value: 0,
+                    value: 2,
                     end_time: "2020-11-14T08:00:00+0000"
                 },
                 {
-                    value: 8,
+                    value: 4,
                     end_time: "2020-11-15T08:00:00+0000"
                 },
                 {
@@ -137,11 +137,11 @@ describe("New followers graphic tests", () => {
                     end_time: "2020-11-16T08:00:00+0000"
                 },
                 {
-                    value: 2,
+                    value: 10,
                     end_time: "2020-11-17T08:00:00+0000"
                 },
                 {
-                    value: 0,
+                    value: 1,
                     end_time: "2020-11-18T08:00:00+0000"
                 },
                 {
@@ -161,35 +161,35 @@ describe("New followers graphic tests", () => {
                     end_time: "2020-11-22T08:00:00+0000"
                 },
                 {
-                    value: 2,
+                    value: 0,
                     end_time: "2020-11-23T08:00:00+0000"
                 },
                 {
-                    value: 1,
+                    value: 0,
                     end_time: "2020-11-24T08:00:00+0000"
                 },
                 {
-                    value: 2,
+                    value: 34,
                     end_time: "2020-11-25T08:00:00+0000"
                 },
                 {
-                    value: 1,
+                    value: 12,
                     end_time: "2020-11-26T08:00:00+0000"
                 },
                 {
-                    value: 1,
+                    value: 4,
                     end_time: "2020-11-27T08:00:00+0000"
                 },
                 {
-                    value: 1,
+                    value: 3,
                     end_time: "2020-11-28T08:00:00+0000"
                 },
                 {
-                    value: 0,
+                    value: 6,
                     end_time: "2020-11-29T08:00:00+0000"
                 },
                 {
-                    value: 0,
+                    value: 12,
                     end_time: "2020-11-30T08:00:00+0000"
                 }
             ]
@@ -200,7 +200,7 @@ describe("New followers graphic tests", () => {
             }
             
             request(app).post('/intstagram/newFollowers').send(info).end((err, res) =>{
-                assert(res.body.message === "Successful recomendation")
+                assert(res.body.message === "Successful follower description graphic")
                 done()
             })
         })
