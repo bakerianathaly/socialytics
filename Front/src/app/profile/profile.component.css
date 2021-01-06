@@ -64,33 +64,9 @@ p{
     font-family: 'Roboto', sans-serif;
 }
 
-.cardImage{
-    height: 150px;
-}
-
-.cardText{
-    font-size: 16px;
-    text-align: justify!important;
-    font-family: 'Roboto', sans-serif;
-    
-}
-
-.cardSize{
-    height: auto;
-}
-
 h5{
     font-family: 'Roboto', sans-serif;
 }
-
-.caption2 { 
-    background-image: url('../../assets/instagram2.png');
-    width: 100%; 
-    height: auto;
-    background-size: cover;
-    padding-top: 50px;
-    padding-bottom: 40px;
-} 
 
 #openSource{
     font-family: 'Roboto', sans-serif;
@@ -133,11 +109,6 @@ footer p{
 footer img{
     height: 30px;
     width: 30px;
-}
-
-.instagramBtn{
-    background-color: #C13584;
-    color: white;
 }
 
 li a {

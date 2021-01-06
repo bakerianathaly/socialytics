@@ -59,7 +59,7 @@ async function getProfileViewsData(fbToken, instagramId, test_data){
 
         if(profileViews != null){
             /*To be able to calculate the best day to post, for each one of the value we get in the request, we need
-            to check witch day of the week is and with that sum the value to the variable of that day
+            to check which day of the week is and with that sum the value to the variable of that day
             And also, we need to calculate the total to be able to calculate de percent of probability*/
             for(let i =0; i < profileViews.length; i++){
                 let day = moment(profileViews[i].end_time).format('dddd')
@@ -134,7 +134,7 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
     let socialyticId = req.body.socialyticId //Variable to handle the user identification in the app
     let media = req.body.media //Variable that containts de media data, this data is request by the view in getMedia method
     let test_data = req.body.data
-    let profileViews = null
+    let profileViews = null //Variable that contains the response for the profile views function
     /*The next seven variables are the one that will have the prediction of each day of the week, that is the reason 
     they are identify by the name of the day */
     let monday = 0
@@ -145,7 +145,7 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
     let saturday = 0
     let sunday = 0 
     let totalPrediction = 0 //Variable that contains the total addition of the values of the request
-    let fail = null
+    let fail = null //Variable to handle some errors we need to put in some conditions
 
     if(test_data != undefined){
         //This condition is ONLY use for the TDD, to test the Successfull case. The reason is that the facebook token comes from the view
@@ -157,7 +157,7 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
         return res.status(406).send({
             status: "406",
             response:"Not Acceptable",
-            message:"This field is required"
+            message:"Couldn’t process your request due to missing params inside the request"
         })
     }
     else{
@@ -187,7 +187,7 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
     totalPrediction = media.totalComments + media.totalLikes
     for(let i =0; i < media.mediaInfo.length; i++){
         /*To be able to calculate the best day to post, for each one of the value we get in the media, we need
-        to check witch day of the week is and with that sum the value to the variable of that day
+        to check which day of the week is and with that sum the value to the variable of that day
         And also, we need to calculate the total to be able to calculate de percent of probability*/
         let day = moment(media.mediaInfo[i].timestamp).format('dddd')
 
@@ -284,11 +284,11 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
 }
 
 async function getAmountOfPostProfileViewsRecomendation(req, res, done){
-    let fbToken = req.body.fbToken//Variable to handle the facebook token
+    let fbToken = req.body.fbToken //Variable to handle the facebook token
     let socialyticId = req.body.socialyticId //Variable to handle the user identification in the app
     let media = req.body.media //Variable that containts de media data, this data is request by the view in getMedia method
     let test_data = req.body.data
-    let profileViews = null
+    let profileViews = null //Variable that contains the response for the profile views function
     /*The next seven variables are the one that will have the prediction of each day of the week, that is the reason 
     they are identify by the name of the day */
     let monday = 0
@@ -298,8 +298,7 @@ async function getAmountOfPostProfileViewsRecomendation(req, res, done){
     let friday = 0
     let saturday = 0
     let sunday = 0 
-    let totalPrediction = 0 //Variable that contains the total addition of the values of the request
-    let fail = null
+    let fail = null //Variable to handle some errors we need to put in some conditions
 
     if(test_data != undefined){
         //This condition is ONLY use for the TDD, to test the Successfull case. The reason is that the facebook token comes from the view
@@ -311,7 +310,7 @@ async function getAmountOfPostProfileViewsRecomendation(req, res, done){
         return res.status(406).send({
             status: "406",
             response:"Not Acceptable",
-            message:"This field is required"
+            message:"Couldn’t process your request due to missing params inside the request"
         })
     }
     else{
@@ -341,7 +340,7 @@ async function getAmountOfPostProfileViewsRecomendation(req, res, done){
     
     for(let i =0; i < media.mediaInfo.length; i++){
         /*To be able to calculate the best day to post, for each one of the value we get in the media, we need
-        to check witch day of the week is and with that we sum 1 to the variable of the day to get
+        to check which day of the week is and with that we sum 1 to the variable of the day to get
         the amount of post we published each day*/
         let day = moment(media.mediaInfo[i].timestamp).format('dddd')
 
