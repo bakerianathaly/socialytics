@@ -127,7 +127,6 @@ async function getMedia(req,res,done){
 async function getFrequencyTypeOfPost(req, res, done){
     let socialyticId = req.body.socialyticId //Variable to handle the user identification in the app
     let media = req.body.media //Variable that containts de media data, this data is request by the view in getMedia method
-    let frequencyTypePost = null //Variable that contains the response for the profile views function
     let fail = null //Variable to handle some errors we need to put in some conditions
     let test_data = req.body.data
     //Variable that will has the amount of each post type
@@ -181,13 +180,20 @@ async function getFrequencyTypeOfPost(req, res, done){
         }
     }
 
-    console.log('IMAGE', image)
+    //Now we calculate the relative percent frequency for each of the 3 post type
+    image = (image/media.mediaInfo.length)*100
+    video = (video/media.mediaInfo.length)*100
+    carouselAlbum = (carouselAlbum/media.mediaInfo.length)*100
 
     return res.status(200).send({
         status: "200",
         response:"OK",
         message: "Frequency of your differents type of post",
-        
+        typePostFrequencyPercent: {
+            image: image.toFixed(2),
+            video: video.toFixed(2),
+            carouselAlbum: carouselAlbum.toFixed(2)
+        }
     })
 }
 
