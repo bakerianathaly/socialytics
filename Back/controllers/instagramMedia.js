@@ -189,11 +189,11 @@ async function getFrequencyTypeOfPost(req, res, done){
         status: "200",
         response:"OK",
         message: "Frequency of your differents type of post",
-        typePostFrequencyPercent: {
-            image: image.toFixed(2),
-            video: video.toFixed(2),
-            carouselAlbum: carouselAlbum.toFixed(2)
-        }
+        typePostFrequencyPercent: [
+            image,
+            video,
+            carouselAlbum
+        ]
     })
 }
 

@@ -13,6 +13,11 @@ body {
     color: black;
 }
 
+h6, small{
+    font-family: 'Roboto', sans-serif;
+    color: black;
+}
+
 nav{
     background-color: rgb(255, 193, 7)!important;
     color: black!important;

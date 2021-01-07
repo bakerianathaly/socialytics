@@ -78,6 +78,13 @@ export class RecomendationsComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
 
   ngOnInit() {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Welcome to Socialytics.',
+      text: 'Obtaining and processing your information. This may take a few minutes, please be patient.',
+      showConfirmButton: false,
+      timer: 5000
+    })
     this.user = this.authService.getcurrentUser()
     this.current.push(this.user) 
     this.getRecomendationForProfileViewsEngagements()
@@ -160,7 +167,6 @@ export class RecomendationsComponent implements OnInit {
           title: 'Oops...',
           text: error.error.message
         })
-        this.router.navigate(['/home'])
       });
     }
     else{
@@ -225,7 +231,6 @@ export class RecomendationsComponent implements OnInit {
           title: 'Oops...',
           text: error.error.message
         })
-        this.router.navigate(['/home'])
       });
     }
     else{

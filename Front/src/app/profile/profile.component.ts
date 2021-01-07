@@ -6,9 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label, Color } from 'ng2-charts';
-
-declare var FB: any;
+import { Label, Color, MultiDataSet } from 'ng2-charts';
 
 @Component({
   selector: 'app-profile',
@@ -72,6 +70,28 @@ export class ProfileComponent implements OnInit {
   public followerCountData: any[] = [] //Variable that will containt the data for the Best day to post by profile views graphic
   public changeFollowers: any
 
+  //Frequency type of post graphics variables
+  public doughnutChartOptions: ChartOptions = { 
+    responsive: true,
+    legend: {
+      display: true,
+      labels: {
+        fontColor: 'black'
+      }
+    }
+  };
+  public doughnutChartLabels: Label[] = ["Image", "Video", "Carousel Album"];
+  public doughnutChartData: MultiDataSet =  [];
+  public doughnutChartType: ChartType = 'doughnut';
+  public donutColors=[{
+      backgroundColor: [
+        'rgb(255,167,182)',
+        'rgb(117,187,255)',
+        'rgb(255,209,117)'
+      ]
+    }
+  ];
+
   constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
 
   ngOnInit() {
@@ -119,8 +139,8 @@ export class ProfileComponent implements OnInit {
       /*If there is none error, we set it again, set the
       instagramData variable to use it in the profile.component.html*/
       this.instagramMedia = response.allMediaInfo
-      localStorage.setItem("INSTAGRAM_DATA", JSON.stringify(this.instagramData))
-      console.log('[MEDIA]', response.allMediaInfo.mediaInfo)
+      localStorage.setItem("INSTAGRAM_MEDIA", JSON.stringify(this.instagramMedia))
+      this.getFrequencyPostType()
     }, error => {
       //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
       Swal.fire({
@@ -270,7 +290,6 @@ export class ProfileComponent implements OnInit {
     this.http.post(nodeAPI.toString(), info).subscribe((response: any) => {
       /*If there is none error, we set it again, set the
       instagramData variable to use it in the profile.component.html*/
-      console.log('[Response]', response)
       this.changeFollowers = {
         total: response.totalChangeFollowers,
         avg: response.avgChange,
@@ -281,6 +300,30 @@ export class ProfileComponent implements OnInit {
       this.followerCountData.push({ data: response.week2, label: 'Week number 2'})
       this.followerCountData.push({ data: response.week3, label: 'Week number 3'})
       this.followerCountData.push({ data: response.week4, label: 'Week number 4'})
+    }, error => {
+      //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.error.message
+      })
+      this.authService.logout()
+      this.router.navigate(['/'])
+    });
+  }
+
+  protected getFrequencyPostType(){
+    //Here we initialize the URL to make the request to get te info, we initialize it with the token and the user id
+    let nodeAPI = this.nodeAPI+'/instagram/typeMediaFrequency'
+    let info = { //Variable with the JSON that it will be send to the API endpoint 
+      socialyticId: this.user.id,
+      media: this.instagramMedia
+    }
+
+    this.http.post(nodeAPI.toString(), info).subscribe((response: any) => {
+      /*If there is none error, we set it again, set the
+      instagramData variable to use it in the profile.component.html*/
+      this.doughnutChartData = [response.typePostFrequencyPercent]
     }, error => {
       //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
       Swal.fire({
