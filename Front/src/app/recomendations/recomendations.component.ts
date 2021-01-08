@@ -160,7 +160,7 @@ export class RecomendationsComponent implements OnInit {
           title: 'Oops...',
           text: error.error.message
         })
-        this.router.navigate(['/home'])
+        
       });
     }
     else{

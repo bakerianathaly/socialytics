@@ -212,7 +212,7 @@ describe("Recomendations of profile views and engagements", () => {
         })
     })
 
-    it("Fail recomendations of profile views and engagements due to unexist user", done =>{
+    it("Fail recomendations of profile views and engagements due to unexistent user", done =>{
         let media = {
             "totalLikes": 221,
             "totalComments": 17,
@@ -454,7 +454,7 @@ describe("Recomendations of profile views and number of post", () => {
         })
     })
 
-    it("Fail recomendations of profile views and amountofpost due to unexist user", done =>{
+    it("Fail recomendations of profile views and amountofpost due to unexistent user", done =>{
         let media = {
             "totalLikes": 221,
             "totalComments": 17,

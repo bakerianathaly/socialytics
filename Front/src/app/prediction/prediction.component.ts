@@ -18,6 +18,7 @@ export class PredictionComponent implements OnInit {
   private user: User
   private current:Array<User>=[];
   public instagramData: any = JSON.parse(localStorage.getItem('INSTAGRAM_DATA')) //Instagram basic info from the user, we set it in the local storage at the profile.component.ts
+  private instagramMedia: any = JSON.parse(localStorage.getItem('INSTAGRAM_MEDIA'))
   private fbToken: String = localStorage.getItem("FB_ACCESS_TOKEN") //Facebook token, we set it in the local storage at the profile.component.ts
   private nodeAPI: String = 'https://localhost:3000' //Basic URL to the API
 
@@ -66,6 +67,15 @@ export class PredictionComponent implements OnInit {
   public maxValuePV: any //Variable that will containt the max value of the profile views graphic
   public maxDayPV: String //Variable that will containt the day who has the max value of the profile views graphic
 
+  //Best day to post by engagement graphics variables
+  public byEngagementColor: Color[] = [
+    { backgroundColor: '#2eb82e' },
+  ]
+  public byEngagementData: any[] = [] //Variable that will containt the data for the Best day to post by engagement graphic
+  public maxValueEng: any //Variable that will containt the max value of the engagement graphic
+  public maxDayEng: String //Variable that will containt the day who has the max value of engagement graphic
+
+
   //Probable amount of Reach by day of the week graphics variables
   public probableReachColor: Color[] = [
     { backgroundColor: '#A52A2A' },
@@ -80,7 +90,9 @@ export class PredictionComponent implements OnInit {
     this.user = this.authService.getcurrentUser()
     this.current.push(this.user) 
     this.getBestDayToPostByProfileViews()
+    this.getBestDayToPostByEngagements()
     this.getProbableReach()
+    
   }
 
   private getMaxValueDay(values: any, maxValue: number){
@@ -154,6 +166,57 @@ export class PredictionComponent implements OnInit {
     }
   }
 
+  protected getBestDayToPostByEngagements(){
+    if(this.fbToken && this.user.id){
+      /*If we have the facebook token and the user ID we proceed to make the request to the API, the values are send in the url
+      After we initialize the URL variable we made the request*/
+      let API = this.nodeAPI+'/prediction/bestdaybyengagement'
+      let info = { //Variable with the JSON that it will be send to the API endpoint 
+        socialyticId: this.user.id,
+        media: this.instagramMedia
+      }
+
+      this.http.post(API.toString(), info).subscribe((response: any) => {
+        /*If the request return with none error, it is initialize the max value variable of the graphic with the 7 values of the response
+        After that, we push those values to the variable data of the graphic with the label that will have in the legend */
+        this.maxValueEng = [
+          response.Engagements.sunday,
+          response.Engagements.monday,
+          response.Engagements.tuesday,
+          response.Engagements.wednesday,
+          response.Engagements.thursday,
+          response.Engagements.friday,
+          response.Engagements.saturday
+        ]
+        this.byEngagementData.push({ data: this.maxValueEng, label: 'Probable engagements' })
+        /*For last, we calculate the max value of the resuqest with the method Math.max, it needs an array of values tu proceed. And after that
+        we call the getMaxValueDay function to get the day that will have that max value  */
+        this.maxValueEng= Math.max(...this.maxValueEng)
+        this.maxDayEng = this.getMaxValueDay(response.Engagements, this.maxValueEng)
+      }, error => {
+        //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.error.message
+        })
+        this.router.navigate(['/home'])
+      });
+    }
+    else{
+      //If for some reason the token o the user id does not exist, it swal an error and logout the user
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Your sessions has expired'
+      })
+      this.authService.logout()
+      this.router.navigate(['/'])
+    }
+  }
+
+  
+
   protected getProbableReach(){
     if(this.fbToken && this.user.id){
       /*If we have the facebook token and the user ID we proceed to make the request to the API, the values are send in the url
@@ -197,6 +260,11 @@ export class PredictionComponent implements OnInit {
       this.authService.logout()
       this.router.navigate(['/'])
     }
+  }
+
+  public logout(){
+    this.authService.logout()
+    this.router.navigate(['/'])
   }
 
 }
