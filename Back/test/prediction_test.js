@@ -216,7 +216,7 @@ describe("Best day to post by profile views", () => {
 
 //Probable amount of Reach tests
 describe("Probable amount of Reach per day of the week", () => {
-    it("Best day to post by profile views Successfully", done =>{
+    it("Probable amount of reach successfully", done =>{
         let register = {
             name: "Gianluigi",
             lastName: "Vincenzo",
@@ -358,7 +358,7 @@ describe("Probable amount of Reach per day of the week", () => {
         })
     })
 
-    it("Fail best day to post by profile views due to missing params in the request" , done =>{
+    it("Fail probable amount of reach due to missing params in the request" , done =>{
         let data =[
             {
                 value: 2,
@@ -411,7 +411,7 @@ describe("Probable amount of Reach per day of the week", () => {
         })
     })
 
-    it("Fail best day to post by profile views due to unexistent user", done =>{
+    it("Fail probable amount of reach due to unexistent user", done =>{
         
         let socialyticId = '5fa4c2f58a0772y6w52cb0e9'
         let fbToken = 'EAAV2pKo9RUke1vWV3YvgkCMgDaEZAjgZBHqdSHdmOE3d1OFZCxJSFDjVzskkhNSYZANHyTiDFW43riox4nfF7jjdONMCn2rIPzk3FiZA6ZBwC9petZBlQZDZD'
@@ -535,5 +535,218 @@ describe("Best day to post by engagement", () => {
     })
 
 })
+
+//Probable amount of Impressions tests
+
+describe("Probable amount of Impressions per day of the week", () => {
+    it("Probable amounnt of Impressions successfully", done =>{
+        let register = {
+            name: "vegeta",
+            lastName: "sayayin",
+            password: "12345678910",
+            email: "vegeta@gmail.com",
+            industry: "Influencer"
+        }
+        
+        request(app).post('/signup').send(register).end((err, res) =>{
+            let data =[
+                {
+                    value: 22,
+                    end_time: "2020-11-01T07:00:00+0000"
+                },
+                {
+                    value: 12,
+                    end_time: "2020-11-02T08:00:00+0000"
+                },
+                {
+                    value: 42,
+                    end_time: "2020-11-03T08:00:00+0000"
+                },
+                {
+                    value: 0,
+                    end_time: "2020-11-04T08:00:00+0000"
+                },
+                {
+                    value: 11,
+                    end_time: "2020-11-05T08:00:00+0000"
+                },
+                {
+                    value: 22,
+                    end_time: "2020-11-06T08:00:00+0000"
+                },
+                {
+                    value: 31,
+                    end_time: "2020-11-07T08:00:00+0000"
+                },
+                {
+                    value: 1,
+                    end_time: "2020-11-08T08:00:00+0000"
+                },
+                {
+                    value: 11,
+                    end_time: "2020-11-09T08:00:00+0000"
+                },
+                {
+                    value: 25,
+                    end_time: "2020-11-10T08:00:00+0000"
+                },
+                {
+                    value: 26,
+                    end_time: "2020-11-11T08:00:00+0000"
+                },
+                {
+                    value: 0,
+                    end_time: "2020-11-12T08:00:00+0000"
+                },
+                {
+                    value: 22,
+                    end_time: "2020-11-13T08:00:00+0000"
+                },
+                {
+                    value: 0,
+                    end_time: "2020-11-14T08:00:00+0000"
+                },
+                {
+                    value: 8,
+                    end_time: "2020-11-15T08:00:00+0000"
+                },
+                {
+                    value: 5,
+                    end_time: "2020-11-16T08:00:00+0000"
+                },
+                {
+                    value: 2,
+                    end_time: "2020-11-17T08:00:00+0000"
+                },
+                {
+                    value: 0,
+                    end_time: "2020-11-18T08:00:00+0000"
+                },
+                {
+                    value: 1,
+                    end_time: "2020-11-19T08:00:00+0000"
+                },
+                {
+                    value: 1,
+                    end_time: "2020-11-20T08:00:00+0000"
+                },
+                {
+                    value: 0,
+                    end_time: "2020-11-21T08:00:00+0000"
+                },
+                {
+                    value: 0,
+                    end_time: "2020-11-22T08:00:00+0000"
+                },
+                {
+                    value: 2,
+                    end_time: "2020-11-23T08:00:00+0000"
+                },
+                {
+                    value: 1,
+                    end_time: "2020-11-24T08:00:00+0000"
+                },
+                {
+                    value: 2,
+                    end_time: "2020-11-25T08:00:00+0000"
+                },
+                {
+                    value: 1,
+                    end_time: "2020-11-26T08:00:00+0000"
+                },
+                {
+                    value: 1,
+                    end_time: "2020-11-27T08:00:00+0000"
+                },
+                {
+                    value: 1,
+                    end_time: "2020-11-28T08:00:00+0000"
+                },
+                {
+                    value: 0,
+                    end_time: "2020-11-29T08:00:00+0000"
+                },
+                {
+                    value: 0,
+                    end_time: "2020-11-30T08:00:00+0000"
+                }
+            ]
+            let socialyticId = res.body.id
+            let url = '/prediction/probableimpressions?socialyticId='+socialyticId+'&data='+data
+        
+            request(app).get(url.toString()).end((err, res) =>{
+                assert(res.body.message === "Successful prediction")
+                done()
+            })
+        })
+    })
+
+    it("Fail probable amount of impressions due to missing params in the request" , done =>{
+        let data =[
+            {
+                value: 2,
+                end_time: "2020-11-01T07:00:00+0000"
+            },
+            {
+                value: 2,
+                end_time: "2020-11-02T08:00:00+0000"
+            },
+            {
+                value: 2,
+                end_time: "2020-11-03T08:00:00+0000"
+            },
+            {
+                value: 0,
+                end_time: "2020-11-04T08:00:00+0000"
+            },
+            {
+                value: 1,
+                end_time: "2020-11-05T08:00:00+0000"
+            },
+            {
+                value: 2,
+                end_time: "2020-11-06T08:00:00+0000"
+            },
+            {
+                value: 1,
+                end_time: "2020-11-07T08:00:00+0000"
+            },
+            {
+                value: 1,
+                end_time: "2020-11-08T08:00:00+0000"
+            },
+            {
+                value: 1,
+                end_time: "2020-11-09T08:00:00+0000"
+            },
+            {
+                value: 2,
+                end_time: "2020-11-10T08:00:00+0000"
+            }
+        ]
+
+        let socialyticId = ''
+        let url = '/prediction/probableimpressions?socialyticId='+socialyticId+'&data='+data
+    
+        request(app).get(url.toString()).end((err, res) =>{
+            assert(res.body.message === "Couldn't process your request due to missing params inside the request")
+            done()
+        })
+    })
+
+    it("Fail probable amount of impressions due to unexistent user", done =>{
+        
+        let socialyticId = '5fa4c2f58a0772y6w52cb0e9'
+        let fbToken = 'EAAV2pKo9RUke1vWV3YvgkCMgDaEZAjgZBHqdSHdmOE3d1OFZCxJSFDjVzskkhNSYZANHyTiDFW43riox4nfF7jjdONMCn2rIPzk3FiZA6ZBwC9petZBlQZDZD'
+        let url = '/prediction/probableimpressions?socialyticId='+socialyticId+'&fbToken='+fbToken
+    
+        request(app).get(url.toString()).end((err, res) =>{
+            assert(res.body.message === "This user doesn't exist, please try again")
+            done()
+        })
+    })
+})
+
+
 
     

@@ -26,7 +26,7 @@
           </div>
         </li>
       </ul>
-  </div>
+   </div>
 </nav>
 
 <!-- Instagram Basic Info -->
@@ -96,7 +96,7 @@
           </div>
 
 
-          <div class="container" id="PostByEngagement"  *ngIf="this.maxValueEng && this.maxDayEng ">
+          <div class="container" id="PostByEngagement"  *ngIf="this.maxValueEng && this.maxDayEng">
             <h4>Best day to post by engagements</h4>
             <h6>Your best day to post is on {{this.maxDayEng}}, estimating a {{this.maxValueEng}}% of probability by Engagement Success.</h6>
             <div class="row">
@@ -112,14 +112,15 @@
               </div>
             </div>
           </div>
-       </div>
+
+        </div>
 
       
-    <!-- Probable amount of reach graphic -->
+     <!-- Probable amount of reach graphic -->
       <div class="tab-pane container-fluid" id="Reach" role="tabpanel" aria-labelledby="reachPrediction">
         <div class="container" id="Reach" *ngIf="this.maxDayPR && this.maxValuePR">
           <h4>Probable amount of Reach by days of the week</h4>
-          <h6>This is your probability of Reach by day of the week, your best day could be on {{this.maxDayPR}}, estimating a {{this.maxValuePR}}% of success</h6>
+          <h6>This is your probability of Reach by days of the week, your best day could be on {{this.maxDayPR}}, estimating a {{this.maxValuePR}}% of success</h6>
           <div class="row">
             <div class="col-12">
               <div class="card mb-4 box-shadow">
@@ -137,13 +138,24 @@
     
       <!-- Probable amount of impressions graphic -->
       <div class="tab-pane container-fluid" id="Impressions" role="tabpanel" aria-labelledby="impressionsPrediction">
-        <div class="container" id="Impressions">
-          <h4>Probable amount of Impressions by the days of the week</h4>
+        <div class="container" id="Impressions" *ngIf="this.maxDayPI && this.maxValuePI; else problem">
+          <h4>Probable amount of Impressions by days of the week</h4>
+          <h6>This is your probability of Impressions by days of the week, your best day could be on {{this.maxDayPI}}, estimating a {{this.maxValuePI}}% of success</h6>
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-4 box-shadow">
+                <div class="card-body text-center" >
+                  <canvas  baseChart [datasets]="probableImpressionData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType" [colors]="probableIColor">
+                  </canvas>
+                  <small style="font-size: 10px">Impressions: Total number of times this profile has been seen during a time period.</small>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+   </div>
 
 <!-- End homepage content -->
 <!-- <footer class="fixed-bottom">

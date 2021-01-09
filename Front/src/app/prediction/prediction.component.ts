@@ -84,6 +84,14 @@ export class PredictionComponent implements OnInit {
   public maxValuePR: any //Variable that will containt the max value of the probable reach graphic
   public maxDayPR: String //Variable that will containt the day who has the max value of the probable reach  graphic
 
+  //Probable amount of Impressions by day of the week graphics variables
+  public probableIColor: Color[] = [
+    { backgroundColor: '#240834' },
+  ]
+  public probableImpressionData: any[] = [] //Variable that will containt the data for Probable amount by the day of the week graphic
+  public maxValuePI: any //Variable that will containt the max value of the probable Impressions graphic
+  public maxDayPI: String //Variable that will containt the day who has the max value of the probable impressions  graphic
+
   constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
 
   ngOnInit() {
@@ -99,6 +107,7 @@ export class PredictionComponent implements OnInit {
     this.getBestDayToPostByProfileViews()
     this.getBestDayToPostByEngagements()
     this.getProbableReach()
+    this.getProbableImpressions()
     
   }
 
@@ -247,6 +256,51 @@ export class PredictionComponent implements OnInit {
         we call the getMaxValueDay function to get the day that will have that max value  */
         this.maxValuePR = Math.max(...this.maxValuePR)
         this.maxDayPR = this.getMaxValueDay(response.probableReachs, this.maxValuePR)
+      }, error => {
+        //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.error.message
+        })
+        this.router.navigate(['/home'])
+      });
+    }
+    else{
+      //If for some reason the token o the user id does not exist, it swal an error and logout the user
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Your sessions has expired'
+      })
+      this.authService.logout()
+      this.router.navigate(['/'])
+    }
+  }
+
+  protected getProbableImpressions(){
+    if(this.fbToken && this.user.id){
+      /*If we have the facebook token and the user ID we proceed to make the request to the API, the values are send in the url
+      After we initialize the URL variable we made the request*/
+      let API = this.nodeAPI+'/prediction/probableimpressions?socialyticId='+this.user.id+'&fbToken='+this.fbToken
+
+      this.http.get(API.toString()).subscribe((response: any) => {
+        /*If the request return with none error, it is initialize the max value variable of the graphic with the 7 values of the response
+        After that, we push those values to the variable data of the graphic with the label that will have in the legend */
+        this.maxValuePI = [
+          response.probableImpressions.sunday,
+          response.probableImpressions.monday,
+          response.probableImpressions.tuesday,
+          response.probableImpressions.wednesday,
+          response.probableImpressions.thursday,
+          response.probableImpressions.friday,
+          response.probableImpressions.saturday
+        ]
+        this.probableImpressionData.push({ data: this.maxValuePI, label: 'Probable Impressions' })
+        /*For last, we calculate the max value of the resuqest with the method Math.max, it needs an array of values tu proceed. And after that
+        we call the getMaxValueDay function to get the day that will have that max value  */
+        this.maxValuePI = Math.max(...this.maxValuePI)
+        this.maxDayPI = this.getMaxValueDay(response.probableImpressions, this.maxValuePI)
       }, error => {
         //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
         Swal.fire({
