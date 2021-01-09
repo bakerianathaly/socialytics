@@ -124,6 +124,80 @@ async function getMedia(req,res,done){
     }
 }
 
+async function getFrequencyTypeOfPost(req, res, done){
+    let socialyticId = req.body.socialyticId //Variable to handle the user identification in the app
+    let media = req.body.media //Variable that containts de media data, this data is request by the view in getMedia method
+    let fail = null //Variable to handle some errors we need to put in some conditions
+    let test_data = req.body.data
+    //Variable that will has the amount of each post type
+    let image = 0
+    let video = 0
+    let carouselAlbum = 0
+
+    if(test_data != undefined){
+        //This condition is ONLY use for the TDD, to test the Successfull case. The reason is that the facebook token comes from the view
+        //and we can not make the request to facebook API to get the values
+        media = test_data 
+    }
+    else if((socialyticId == undefined || socialyticId == "") || (media == undefined || media == "")){
+        //Case 1: It checks for any empty fields in the data.
+        return res.status(406).send({
+            status: "406",
+            response:"Not Acceptable",
+            message:"Couldn’t process your request due to missing params inside the request"
+        })
+    }
+    else{
+        //The data from the view it is good to proceed to get the profile views prediction data
+        //Query to get the instagram user data in the socialytics DB
+        try{
+            var igUser = await instagramModel.findOne({socialyticId: socialyticId}).exec()
+        }catch(err){
+            fail = err.messageFormat
+        }
+
+        if(fail == undefined && igUser == undefined){
+            //Case 2: It checks if the user exists in the DB.
+            //It checks if an error has happens, and returned it 
+            return res.status(409).send({
+                status: "409",
+                response:"Conflict",
+                message:"This user doesn't exist, please try again"
+            }) 
+        }
+    }
+
+    //Case 3: The user exists we proceed to make the request to Facebook API to get the values of the profile views
+    for(let i = 0; i< media.mediaInfo.length; i++){
+        if(media.mediaInfo[i].media_type == 'IMAGE'){
+            image = image + 1
+        }
+        else if(media.mediaInfo[i].media_type == 'VIDEO'){
+            video = video + 1
+        }
+        else{ //CAROUSEL_ALBUM
+            carouselAlbum = carouselAlbum + 1
+        }
+    }
+
+    //Now we calculate the relative percent frequency for each of the 3 post type
+    image = (image/media.mediaInfo.length)*100
+    video = (video/media.mediaInfo.length)*100
+    carouselAlbum = (carouselAlbum/media.mediaInfo.length)*100
+
+    return res.status(200).send({
+        status: "200",
+        response:"OK",
+        message: "Frequency of your differents type of post",
+        typePostFrequencyPercent: [
+            image,
+            video,
+            carouselAlbum
+        ]
+    })
+}
+
 module.exports = {
-    getMedia
+    getMedia,
+    getFrequencyTypeOfPost
 }

@@ -111,53 +111,12 @@
         </div>
       </div>
     </div>
-
-    <!-- Cuadros de: Total likes, Total comments, Average likes, Average comments -->
-    <!-- <div *ngIf="this.instagramMedia" class="row">
-      <div class="col-3">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body text-center">
-            <small class="score-header">Total Likes</small>
-            <h4 class="card-text score-body">{{instagramMedia.totalLikes}}</h4>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body text-center">
-            <small class="score-header">Total Comments</small>
-            <h4 class="card-text score-body">{{instagramMedia.totalComments}}</h4>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body text-center">
-            <small class="score-header">Average Likes</small>
-            <h4 class="card-text score-body" >{{instagramMedia.avgLikes}}</h4>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-3">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body text-center">
-            <small class="score-header">Average Comments</small>
-            <h4 class="card-text score-body">{{instagramMedia.avgComments}}</h4>
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!-- Hasta aqui -->
-
-    
   </div>
 </div>
 
+<!-- Follower growth count graphics -->
 <div class="container" *ngIf = "this.changeFollowers">
-  <h4 class="text-center mt-3">Follower growth count</h4>
+  <h4 class="mt-3">Follower growth count</h4>
   <div class="row" >
     <div class="col-12">
       <div class="card mb-4 box-shadow">
@@ -193,8 +152,29 @@
   </table>
 </div>
 
+<!-- Frequency post type graphics -->
+<div class="container" *ngIf = "this.instagramMedia">
+  <h4 class="mt-3">Most frequent post types</h4>
+  <div class="row" >
+    <div class="col-12">
+      <div class="card mb-4 box-shadow">
+        <div class="card-body text-center" >
+          <small style="font-size: 15px">In your last 25 pictures you have been publishing this percent frequency of each type of post.</small>
+          <canvas baseChart
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType"
+            [colors]="donutColors"
+            [options]="doughnutChartOptions">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- End homepage content -->
-<footer >
+<footer *ngIf = "this.instagramMedia">
   <div class="wrapper">
     <p><img src="../../assets/logo.png" alt="logo"> Socialytics</p>
     <p>&copy; All Rights Reserved 2020</p>
