@@ -195,7 +195,7 @@ describe("Best day to post by profile views", () => {
         let url = '/prediction/bestdaybyviews?socialyticId='+socialyticId+'&data='+data
     
         request(app).get(url.toString()).end((err, res) =>{
-            assert(res.body.message === "Couldn't process your request due to missing params inside it")
+            assert(res.body.message === "Couldn't process your request due to missing params inside the request")
             done()
         })
     })
@@ -406,7 +406,7 @@ describe("Probable amount of Reach per day of the week", () => {
         let url = '/prediction/probablereach?socialyticId='+socialyticId+'&data='+data
     
         request(app).get(url.toString()).end((err, res) =>{
-            assert(res.body.message === "Couldn't process your request due to missing params inside it")
+            assert(res.body.message === "Couldn't process your request due to missing params inside the request")
             done()
         })
     })
@@ -529,7 +529,7 @@ describe("Best day to post by engagement", () => {
         }
 
         request(app).post('/prediction/bestdaybyengagement').send(info).end((err, res) =>{
-            assert(res.body.message === "Couldn’t process your request due to missing params inside it")
+            assert(res.body.message === "Couldn’t process your request due to missing params inside the request")
             done()
         })
     })

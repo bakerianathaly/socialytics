@@ -199,7 +199,7 @@ describe("Recomendations of profile views and engagements", () => {
         })
     })
 
-    it("Fail recomendations of profile views and engagements due to empty fields" , done =>{
+    it("Fail recomendations of profile views and engagements due to missing params inside the request" , done =>{
         let info = {
             fbToken: 'EAAV2pKo9RUke1vWV3YvgkCMgDaEZAjgZBHqdSHdmOE3d1OFZCxJSFDjVzskkhNSYZANHyTiDFW43riox4nfF7jjdONMCn2rIPzk3FiZA6ZBwC9petZBlQZDZD',
             socialyticId: '',
@@ -441,7 +441,7 @@ describe("Recomendations of profile views and number of post", () => {
         })
     })
 
-    it("Fail recomendations of profile views and amountofpost due to empty fields" , done =>{
+    it("Fail recomendations of profile views and amountofpost due to missing params inside the request" , done =>{
         let info = {
             fbToken: 'EAAV2pKo9RUke1vWV3YvgkCMgDaEZAjgZBHqdSHdmOE3d1OFZCxJSFDjVzskkhNSYZANHyTiDFW43riox4nfF7jjdONMCn2rIPzk3FiZA6ZBwC9petZBlQZDZD',
             socialyticId: '',
