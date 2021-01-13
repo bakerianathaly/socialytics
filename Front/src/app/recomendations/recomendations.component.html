@@ -100,8 +100,23 @@
     
       <!-- Recomendation between profile views and new Followers graphic -->
       <div class="tab-pane container-fluid" id="FollowersProfileViews" role="tabpanel" aria-labelledby="newFollows-Views">
-        <div class="container" id="FollowersProfileViews">
-          <h4>Our recomentation to your account based in your profile's new Followers and Profile views</h4>
+        <div class="container" id="FollowersProfileViews" *ngIf="this.messageNFPV">
+          <h4>This is our recomentation to your account based on your profile's new Followers and Profile views</h4>
+          <h6>{{this.messageNFPV}}</h6>
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-4 box-shadow">
+                <div class="card-body text-center" >
+                  <canvas baseChart [datasets]="byNewFollowersAndPvData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                    [plugins]="lineChartPlugins" [legend]="lineChartLegend" [chartType]="lineChartType" [colors]="byNewFollowersAndPvColor">
+                  </canvas> 
+                  <small style="font-size: 10px">Profile Views: Total number of times the multimedia objects in the trading account were viewed uniquely.</small><br>
+                  <small style="font-size: 10px">Followers: Total number of new followers each day within the specified time range.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
 
         </div>
       </div>
