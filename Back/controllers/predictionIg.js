@@ -340,8 +340,6 @@ async function bestDayToPostByEngagement(req,res,done){
     let fail = null //Variable to handle some errors we need to put in some conditions
     
     
-    
-    
     if((socialyticId == undefined || socialyticId == "")|| (media == undefined || media == ""))  {
 
         return res.status(406).send({
@@ -418,7 +416,6 @@ async function bestDayToPostByEngagement(req,res,done){
             })
         }
     }
-
 }
 
 async function probableAmountOfImpressions(req,res,done){
