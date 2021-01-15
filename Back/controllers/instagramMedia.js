@@ -125,7 +125,7 @@ async function getMedia(req,res,done){
 }
 
 async function getFrequencyTypeOfPost(req, res, done){
-    let socialyticId = req.body.socialyticId //Variable to handle the user identification in the app
+    let socialyticId = req.body.socialyticId//Variable to handle the user identification in the app
     let media = req.body.media //Variable that containts de media data, this data is request by the view in getMedia method
     let fail = null //Variable to handle some errors we need to put in some conditions
     let test_data = req.body.data
@@ -197,7 +197,93 @@ async function getFrequencyTypeOfPost(req, res, done){
     })
 }
 
+async function getTopMediaPost(req, res, done){
+    
+    let socialyticId=req.body.socialyticId//Variable to handle the user identification in the app
+    let media=req.body.media //Variable that containts de media data, this data is request by the view in getMedia method
+    let totalEngagementPost = 0 //Variable that contains the total addition of likes and comments of each post
+    let TopMediaEngagement = [] // array that contains all total engagements of each media post
+    let topFiveMediaPost=[] // array that contains the top 5 media post.
+    let fail = null //Variable to handle some errors we need to put in some conditions
+
+    
+    if((socialyticId == undefined || socialyticId == "")|| (media == undefined || media == ""))  {
+
+        return res.status(406).send({
+            status: "406",
+            response:"Not Acceptable",
+            message:"Couldn’t process your request due to missing params inside the request"
+        })
+    }
+
+    else{
+
+     //The data from the view it is good to proceed to get the profile views prediction data
+        //Query to get the instagram user data in the socialytics DB
+        try{
+            var igUser = await instagramModel.findOne({socialyticId: socialyticId}).exec()
+        }catch(err){
+            fail = err.messageFormat
+        }
+         
+        if(fail == undefined && igUser == undefined){
+            //Case 2: It checks if the user exists in the DB.
+            //It checks if an error has happens, and returned it 
+            return res.status(409).send({
+                status: "409",
+                response:"Conflict",
+                message:"This user doesn't exist, please try again"
+            }) 
+        }
+    
+
+        else{
+            
+            for(let i =0; i < media.mediaInfo.length; i++){
+
+                totalEngagementPost= media.mediaInfo[i].like_count + media.mediaInfo[i].comments_count
+                TopMediaEngagement.push({mediaInfo:media.mediaInfo[i],totalEngagementPost})
+            }
+
+            // sort the total engagements of each post from the highest to the lowest
+            TopMediaEngagement.sort(function (a,b) {
+                    
+                var x = a.totalEngagementPost
+                var y = b.totalEngagementPost
+                return ((x > y) ? -1 : ((x < y) ? 1 : 0))
+            })
+            
+            // cut the top 5 media posts
+            topFiveMediaPost=TopMediaEngagement.slice(0,5)
+
+           
+            if(fail != null){
+               //It checks if an error has happens, and returned it 
+                return res.status(400).send({
+                    status: fail.status,
+                    response: fail.response,
+                    message: fail.message
+                })
+            }
+          
+            else{
+                //Case 4: Sucessful response message and JSON
+                return res.status(200).send({
+                    status: "200",
+                    response:"OK",
+                    message: "Top of your best posts",
+                    Top5MediaPost:topFiveMediaPost
+                        
+                })
+            }
+            
+        }
+    }
+
+}
+
 module.exports = {
     getMedia,
-    getFrequencyTypeOfPost
+    getFrequencyTypeOfPost,
+    getTopMediaPost
 }

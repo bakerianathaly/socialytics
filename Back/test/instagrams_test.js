@@ -299,7 +299,7 @@ describe("Frequency of the type of post tests", () => {
                 ]
             }
             let info = {
-                socialyticId: res.body.id,
+                socialyticId:res.body.id,
                 data: media
             }
             
@@ -333,4 +333,145 @@ describe("Frequency of the type of post tests", () => {
             done()
         })
     })
+})
+//Tests for top media posts
+
+describe("Top 5 media post", () => {
+
+    it("Top 5 media post successfully", done =>{
+
+        let register = {
+            name: "kiwito",
+            lastName: "GB",
+            password: "123456789101213",
+            email: "DBSuper@gmail.com",
+            industry: "Influencer"
+        }
+        
+        request(app).post('/signup').send(register).end((err, res) =>{
+
+            
+            let media = {
+                "totalLikes": 221,
+                "totalComments": 17,
+                "avgLikes": "9.21",
+                "avgComments": "0.71",
+                "countMedia": 25,
+                "mediaInfo": [
+                    {
+                        "caption": "Holi",
+                        "comments_count": 1,
+                        "like_count": 8,
+                        "media_url": "https://scontent.cdninstagram.com/v/t51.29350-15/132170888_217390559959362_6066709970203035943_n.jpg?_nc_cat=111&ccb=2&_nc_sid=8ae9d6&_nc_ohc=YB9SbPoMwuEAX8Z788W&_nc_ht=scontent.cdninstagram.com&oh=176a8b34cc1dda4bcad75317d4b58f22&oe=600E27AC",
+                        "timestamp": "2020-12-21T21:01:37+0000",
+                        "media_type": "CAROUSEL_ALBUM",
+                        "id": "17864289935231673"
+                    },
+                    {
+                        "caption": "Canción sad pal despecho",
+                        "comments_count": 0,
+                        "like_count": 2,
+                        "media_url": "https://scontent.cdninstagram.com/v/t51.29350-15/126272955_690680088540977_468325408198630663_n.jpg?_nc_cat=108&ccb=2&_nc_sid=8ae9d6&_nc_ohc=10mA_x9zoJgAX-QHhRm&_nc_ht=scontent.cdninstagram.com&oh=9631cc95383d399af52e886db0ae8df6&oe=600F0B7A",
+                        "timestamp": "2020-11-25T15:55:41+0000",
+                        "media_type": "IMAGE",
+                        "id": "18034324525286351"
+                    },
+                    {
+                        "caption": "Titi",
+                        "comments_count": 0,
+                        "like_count": 1,
+                        "media_url": "https://scontent.cdninstagram.com/v/t51.29350-15/126121852_2755489051390962_3057261165333830718_n.jpg?_nc_cat=106&ccb=2&_nc_sid=8ae9d6&_nc_ohc=ffCvODZCXAgAX-TxY3k&_nc_ht=scontent.cdninstagram.com&oh=03977b7310fb877601929da1238a2b93&oe=600FCED8",
+                        "timestamp": "2020-11-17T15:46:37+0000",
+                        "media_type": "VIDEO",
+                        "id": "18174095983000043"
+                    },
+                    {
+                        "caption": "Sad",
+                        "comments_count": 0,
+                        "like_count": 1,
+                        "media_url": "https://scontent.cdninstagram.com/v/t51.29350-15/125547761_857750878331204_8758991756139947909_n.jpg?_nc_cat=111&ccb=2&_nc_sid=8ae9d6&_nc_ohc=qU9JnRtQ14AAX92ZCfS&_nc_ht=scontent.cdninstagram.com&oh=f818182250b4ed50e80b83d16d2df2a8&oe=600E37F5",
+                        "timestamp": "2020-11-15T15:53:23+0000",
+                        "media_type": "IMAGE",
+                        "id": "17933012251434673"
+                    },
+                    {
+                        "caption": "#KiddosFatLife",
+                        "comments_count": 6,
+                        "like_count": 5,
+                        "media_url": "https://scontent.cdninstagram.com/v/t51.29350-15/125235797_211378747020878_3794149802359569123_n.jpg?_nc_cat=108&ccb=2&_nc_sid=8ae9d6&_nc_ohc=Vk7QSJ0-zzAAX8f88KD&_nc_ht=scontent.cdninstagram.com&oh=7f7f1fc0b0bb50d8ae473d205d6975f1&oe=600FDD03",
+                        "timestamp": "2020-11-15T15:52:04+0000",
+                        "media_type": "VIDEO",
+                        "id": "17870178458056385"
+                    },
+
+                    {
+                        "caption": "#Kid",
+                        "comments_count": 16,
+                        "like_count": 15,
+                        "media_url": "https://scontent.cdninstagram.com/v/t51.29350-15/125235797_211378747020878_3794149802359569123_n.jpg?_nc_cat=108&ccb=2&_nc_sid=8ae9d6&_nc_ohc=Vk7QSJ0-zzAAX8f88KD&_nc_ht=scontent.cdninstagram.com&oh=7f7f1fc0b0bb50d8ae473d205d6975f1&oe=600FDD03",
+                        "timestamp": "2020-11-15T15:52:04+0000",
+                        "media_type": "VIDEO",
+                        "id": "17870178458056385"
+                    },
+
+                    {
+                        "caption": "#F",
+                        "comments_count": 26,
+                        "like_count": 25,
+                        "media_url": "https://scontent.cdninstagram.com/v/t51.29350-15/125235797_211378747020878_3794149802359569123_n.jpg?_nc_cat=108&ccb=2&_nc_sid=8ae9d6&_nc_ohc=Vk7QSJ0-zzAAX8f88KD&_nc_ht=scontent.cdninstagram.com&oh=7f7f1fc0b0bb50d8ae473d205d6975f1&oe=600FDD03",
+                        "timestamp": "2020-11-15T15:52:04+0000",
+                        "media_type": "VIDEO",
+                        "id": "17870178458056385"
+                    },
+
+                    {
+                        "caption": "#LOL",
+                        "comments_count": 5,
+                        "like_count": 5,
+                        "media_url": "https://scontent.cdninstagram.com/v/t51.29350-15/125235797_211378747020878_3794149802359569123_n.jpg?_nc_cat=108&ccb=2&_nc_sid=8ae9d6&_nc_ohc=Vk7QSJ0-zzAAX8f88KD&_nc_ht=scontent.cdninstagram.com&oh=7f7f1fc0b0bb50d8ae473d205d6975f1&oe=600FDD03",
+                        "timestamp": "2020-11-15T15:52:04+0000",
+                        "media_type": "VIDEO",
+                        "id": "17870178458056385"
+                    }
+
+                ]
+            }
+            
+            let info = {
+                socialyticId:res.body.id,
+                media:media
+            }
+        
+            request(app).post('/instagram/topMediaPost').send(info).end((err, res) =>{
+                console.log(res)
+                assert(res.body.message === "Top of your best posts")
+                done()
+            })
+        })
+    })
+
+    it("Fail top media post due to missing params in the request", done =>{
+        let info = {
+            socialyticId: '5faec2f588ri4k56552cb0e9',
+            media: ''
+        }
+
+        request(app).post('/instagram/topMediaPost').send(info).end((err, res) =>{
+            assert(res.body.message === "Couldn’t process your request due to missing params inside the request")
+            done()
+        })
+    })
+
+    it("Fail top media post due to unexistent user", done =>{
+        let info = {
+            socialyticId: '5fae4kf588ri4k56552cb0e9',
+            media : 'aksdkmk'
+        }
+
+        request(app).post('/instagram/topMediaPost').send(info).end((err, res) =>{
+            assert(res.body.message === "This user doesn't exist, please try again")
+            done()
+        })
+    })
+
 })
