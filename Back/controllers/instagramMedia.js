@@ -205,9 +205,15 @@ async function getTopMediaPost(req, res, done){
     let TopMediaEngagement = [] // array that contains all total engagements of each media post
     let topFiveMediaPost=[] // array that contains the top 5 media post.
     let fail = null //Variable to handle some errors we need to put in some conditions
-
+    let test_data = req.body.data
     
-    if((socialyticId == undefined || socialyticId == "")|| (media == undefined || media == ""))  {
+    if(test_data != undefined){
+        //This condition is ONLY use for the TDD, to test the Successfull case. The reason is that the facebook token comes from the view
+        //and we can not make the request to facebook API to get the values
+        media = test_data 
+    }
+    
+    else if((socialyticId == undefined || socialyticId == "")|| (media == undefined || media == ""))  {
 
         return res.status(406).send({
             status: "406",
@@ -235,49 +241,44 @@ async function getTopMediaPost(req, res, done){
                 message:"This user doesn't exist, please try again"
             }) 
         }
+    }
+
+    for(let i =0; i < media.mediaInfo.length; i++){
+
+        totalEngagementPost= media.mediaInfo[i].like_count + media.mediaInfo[i].comments_count
+        TopMediaEngagement.push({mediaInfo:media.mediaInfo[i],totalEngagementPost})
+    }
+
+    // sort the total engagements of each post from the highest to the lowest
+    TopMediaEngagement.sort(function (a,b) {
+            
+        var x = a.totalEngagementPost
+        var y = b.totalEngagementPost
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0))
+    })
     
+    // cut the top 5 media posts
+    topFiveMediaPost=TopMediaEngagement.slice(0,5)
 
-        else{
-            
-            for(let i =0; i < media.mediaInfo.length; i++){
-
-                totalEngagementPost= media.mediaInfo[i].like_count + media.mediaInfo[i].comments_count
-                TopMediaEngagement.push({mediaInfo:media.mediaInfo[i],totalEngagementPost})
-            }
-
-            // sort the total engagements of each post from the highest to the lowest
-            TopMediaEngagement.sort(function (a,b) {
-                    
-                var x = a.totalEngagementPost
-                var y = b.totalEngagementPost
-                return ((x > y) ? -1 : ((x < y) ? 1 : 0))
-            })
-            
-            // cut the top 5 media posts
-            topFiveMediaPost=TopMediaEngagement.slice(0,5)
-
-           
-            if(fail != null){
-               //It checks if an error has happens, and returned it 
-                return res.status(400).send({
-                    status: fail.status,
-                    response: fail.response,
-                    message: fail.message
-                })
-            }
-          
-            else{
-                //Case 4: Sucessful response message and JSON
-                return res.status(200).send({
-                    status: "200",
-                    response:"OK",
-                    message: "Top of your best posts",
-                    Top5MediaPost:topFiveMediaPost
-                        
-                })
-            }
-            
-        }
+   
+    if(fail != null){
+       //It checks if an error has happens, and returned it 
+        return res.status(400).send({
+            status: fail.status,
+            response: fail.response,
+            message: fail.message
+        })
+    }
+  
+    else{
+        //Case 4: Sucessful response message and JSON
+        return res.status(200).send({
+            status: "200",
+            response:"OK",
+            message: "Top of your best posts",
+            Top5MediaPost:topFiveMediaPost
+                
+        })
     }
 
 }

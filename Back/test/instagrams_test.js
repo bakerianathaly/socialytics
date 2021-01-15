@@ -350,7 +350,6 @@ describe("Top 5 media post", () => {
         
         request(app).post('/signup').send(register).end((err, res) =>{
 
-            
             let media = {
                 "totalLikes": 221,
                 "totalComments": 17,
@@ -439,11 +438,10 @@ describe("Top 5 media post", () => {
             
             let info = {
                 socialyticId:res.body.id,
-                media:media
+                data:media
             }
         
             request(app).post('/instagram/topMediaPost').send(info).end((err, res) =>{
-                console.log(res)
                 assert(res.body.message === "Top of your best posts")
                 done()
             })
