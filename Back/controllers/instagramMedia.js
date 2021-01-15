@@ -201,11 +201,12 @@ async function getTopMediaPost(req, res, done){
     
     let socialyticId=req.body.socialyticId//Variable to handle the user identification in the app
     let media=req.body.media //Variable that containts de media data, this data is request by the view in getMedia method
+    let test_data = req.body.data // Variable to handle test data
     let totalEngagementPost = 0 //Variable that contains the total addition of likes and comments of each post
     let TopMediaEngagement = [] // array that contains all total engagements of each media post
     let topFiveMediaPost=[] // array that contains the top 5 media post.
     let fail = null //Variable to handle some errors we need to put in some conditions
-    let test_data = req.body.data
+    
     
     if(test_data != undefined){
         //This condition is ONLY use for the TDD, to test the Successfull case. The reason is that the facebook token comes from the view
