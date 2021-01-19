@@ -3,10 +3,13 @@ import { User } from '../models/user';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {AuthService} from '../services/auth.service';
+import { ExportdataService } from '../services/exportdata.service';
 import { HttpClient } from '@angular/common/http';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label, Color } from 'ng2-charts';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-prediction',
@@ -92,7 +95,7 @@ export class PredictionComponent implements OnInit {
   public maxValuePI: any //Variable that will containt the max value of the probable Impressions graphic
   public maxDayPI: String //Variable that will containt the day who has the max value of the probable impressions  graphic
 
-  constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
+  constructor(private authService: AuthService, private exportService:ExportdataService, private router: Router,private http: HttpClient) { }
 
   ngOnInit() {
     Swal.fire({
@@ -326,6 +329,11 @@ export class PredictionComponent implements OnInit {
   public logout(){
     this.authService.logout()
     this.router.navigate(['/'])
+  }
+
+  public exportData(DivId){
+    
+    this.exportService.generatePDF(DivId)
   }
 
 }

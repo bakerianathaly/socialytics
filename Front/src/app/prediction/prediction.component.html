@@ -79,6 +79,7 @@
         <div class="tab-pane active container-fluid" id="BestDayToPost" role="tabpanel" aria-labelledby="best-DayToPost">
         
           <div class="container" id="BestDayToPost"  *ngIf="this.maxDayPV && this.maxValuePV">
+            <div> <button class="btn col col-lg-4 btn-danger btn-block ml-4" (click)="exportData('BestDayToPost')">Download PDF</button> </div>
             <h4>Best day to post by profile views</h4>
             <h6>Your best day to post is on {{this.maxDayPV}}, estimating a {{this.maxValuePV}}% of probability by Profile Views.</h6>
             <div class="row">
