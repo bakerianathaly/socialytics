@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/user')
 const instagramRoutes = require('./routes/homeDescription')
 const predictionRoutes = require('./routes/prediction')
-const recomendationRoutes = require('./routes/recomendations')
+const recommendationRoutes = require('./routes/recommendations')
 
 //Mongo DB connection
 if (process.env.NODE_ENV !== "test"){
@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 userRoutes(app)
 instagramRoutes(app)
 predictionRoutes(app)
-recomendationRoutes(app)
+recommendationRoutes(app)
 
 https.createServer({
     key: fs.readFileSync('server.key'),

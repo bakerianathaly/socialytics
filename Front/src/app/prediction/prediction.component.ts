@@ -51,6 +51,17 @@ export class PredictionComponent implements OnInit {
       datalabels: {
         anchor: 'end',
         align: 'end',
+        color: 'black',
+        formatter: (value, ctx) => {
+          var perc = value + "%";
+          return perc;
+        }
+      }
+    },
+    legend: {
+      display: true,
+      labels: {
+        fontColor: 'black'
       }
     }
   };
@@ -75,10 +86,9 @@ export class PredictionComponent implements OnInit {
   public maxValueEng: any //Variable that will containt the max value of the engagement graphic
   public maxDayEng: String //Variable that will containt the day who has the max value of engagement graphic
 
-
   //Probable amount of Reach by day of the week graphics variables
   public probableReachColor: Color[] = [
-    { backgroundColor: '#A52A2A' },
+    { backgroundColor: 'rgb(180,93,151)' },
   ]
   public probableReachData: any[] = [] //Variable that will containt the data for Probable amount by the day of the week graphic
   public maxValuePR: any //Variable that will containt the max value of the probable reach graphic
@@ -86,7 +96,7 @@ export class PredictionComponent implements OnInit {
 
   //Probable amount of Impressions by day of the week graphics variables
   public probableIColor: Color[] = [
-    { backgroundColor: '#240834' },
+    { backgroundColor: 'rgb(255,66,96)' },
   ]
   public probableImpressionData: any[] = [] //Variable that will containt the data for Probable amount by the day of the week graphic
   public maxValuePI: any //Variable that will containt the max value of the probable Impressions graphic

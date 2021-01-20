@@ -3,8 +3,8 @@ const request = require("supertest") //It allows us to make calls to our own api
 const app = require("../index") //The server needs to be invoked because that's where the paths are invoked
 
 //Cross between profile views and engagements tests
-describe("Recomendations of profile views and engagements", () => {
-    it("Recomendations of profile views and engagements Successfully", done =>{
+describe("Recommendations of profile views and engagements", () => {
+    it("Recommendations of profile views and engagements Successfully", done =>{
         let register = {
             name: "Gianluigi",
             lastName: "Vincenzo",
@@ -192,27 +192,27 @@ describe("Recomendations of profile views and engagements", () => {
                 media: media
             }
             
-            request(app).post('/recomendations/engagements').send(info).end((err, res) =>{
-                assert(res.body.message === "Successful recomendation")
+            request(app).post('/recommendations/engagements').send(info).end((err, res) =>{
+                assert(res.body.message === "Successful recommendation")
                 done()
             })
         })
     })
 
-    it("Fail recomendations of profile views and engagements due to missing params inside the request" , done =>{
+    it("Fail recommendations of profile views and engagements due to missing params inside the request" , done =>{
         let info = {
             fbToken: 'EAAV2pKo9RUke1vWV3YvgkCMgDaEZAjgZBHqdSHdmOE3d1OFZCxJSFDjVzskkhNSYZANHyTiDFW43riox4nfF7jjdONMCn2rIPzk3FiZA6ZBwC9petZBlQZDZD',
             socialyticId: '',
             media: ''
         }
 
-        request(app).post('/recomendations/engagements').send(info).end((err, res) =>{
+        request(app).post('/recommendations/engagements').send(info).end((err, res) =>{
             assert(res.body.message === "Couldn’t process your request due to missing params inside the request")
             done()
         })
     })
 
-    it("Fail recomendations of profile views and engagements due to unexistent user", done =>{
+    it("Fail recommendations of profile views and engagements due to unexistent user", done =>{
         let media = {
             "totalLikes": 221,
             "totalComments": 17,
@@ -237,7 +237,7 @@ describe("Recomendations of profile views and engagements", () => {
             media: media
         }
     
-        request(app).post('/recomendations/engagements').send(info).end((err, res) =>{
+        request(app).post('/recommendations/engagements').send(info).end((err, res) =>{
             assert(res.body.message === "This user doesn't exist, please try again")
             done()
         })
@@ -245,8 +245,8 @@ describe("Recomendations of profile views and engagements", () => {
 })
 
 //Cross between profile views and the number of post tests
-describe("Recomendations of profile views and number of post", () => {
-    it("Recomendations of profile views and amountofpost Successfully", done =>{
+describe("Recommendations of profile views and number of post", () => {
+    it("Recommendations of profile views and amountofpost Successfully", done =>{
         let register = {
             name: "Henry",
             lastName: "Cavill",
@@ -434,27 +434,27 @@ describe("Recomendations of profile views and number of post", () => {
                 media: media
             }
             
-            request(app).post('/recomendations/amountofpost').send(info).end((err, res) =>{
-                assert(res.body.message === "Successful recomendation")
+            request(app).post('/recommendations/amountofpost').send(info).end((err, res) =>{
+                assert(res.body.message === "Successful recommendation")
                 done()
             })
         })
     })
 
-    it("Fail recomendations of profile views and amountofpost due to missing params inside the request" , done =>{
+    it("Fail recommendations of profile views and amountofpost due to missing params inside the request" , done =>{
         let info = {
             fbToken: 'EAAV2pKo9RUke1vWV3YvgkCMgDaEZAjgZBHqdSHdmOE3d1OFZCxJSFDjVzskkhNSYZANHyTiDFW43riox4nfF7jjdONMCn2rIPzk3FiZA6ZBwC9petZBlQZDZD',
             socialyticId: '',
             media: ''
         }
 
-        request(app).post('/recomendations/amountofpost').send(info).end((err, res) =>{
+        request(app).post('/recommendations/amountofpost').send(info).end((err, res) =>{
             assert(res.body.message === "Couldn’t process your request due to missing params inside the request")
             done()
         })
     })
 
-    it("Fail recomendations of profile views and amountofpost due to unexistent user", done =>{
+    it("Fail recommendations of profile views and amountofpost due to unexistent user", done =>{
         let media = {
             "totalLikes": 221,
             "totalComments": 17,
@@ -479,7 +479,7 @@ describe("Recomendations of profile views and number of post", () => {
             media: media
         }
     
-        request(app).post('/recomendations/amountofpost').send(info).end((err, res) =>{
+        request(app).post('/recommendations/amountofpost').send(info).end((err, res) =>{
             assert(res.body.message === "This user doesn't exist, please try again")
             done()
         })
@@ -487,10 +487,9 @@ describe("Recomendations of profile views and number of post", () => {
 })
 
 //Cross between new followers and profile views tests
+describe("Recommendations of new followers and profile views", () => {
 
-describe("Recomendations of new followers and profile views", () => {
-
-    it("Recomendations of new followers and profile views Successfully", done =>{
+    it("Recommendations of new followers and profile views Successfully", done =>{
         let register = {
             name: "chayanne",
             lastName: "divo",
@@ -753,33 +752,33 @@ describe("Recomendations of new followers and profile views", () => {
                 Followers:Followers
             }
             
-            request(app).post('/recomendations/followersAndProfile').send(info).end((err, res) =>{
-                assert(res.body.message === "Successful recomendation")
+            request(app).post('/recommendations/followersAndProfile').send(info).end((err, res) =>{
+                assert(res.body.message === "Successful recommendation")
                 done()
             })
         })
     })
 
-    it("Fail recomendations of new followers and profile views due to missing params inside the request" , done =>{
+    it("Fail recommendations of new followers and profile views due to missing params inside the request" , done =>{
         let info = {
             fbToken: 'EAAV2pKo9RUke1vWV3YvgkCMgDaEZAjgZBHqdSHdmOE3d1OFZCxJSFDjVzskkhNSYZANHyTiDFW43riox4nfF7jjdONMCn2rIPzk3FiZA6ZBwC9petZBlQZDZD',
             socialyticId: ''
         }
 
-        request(app).post('/recomendations/followersAndProfile').send(info).end((err, res) =>{
+        request(app).post('/recommendations/followersAndProfile').send(info).end((err, res) =>{
             assert(res.body.message === "Couldn’t process your request due to missing params inside the request")
             done()
         })
     })
 
-    it("Fail recomendations of new followers and profile views recomendation due to unexistent user", done =>{
+    it("Fail recommendations of new followers and profile views recommendation due to unexistent user", done =>{
         
         let info = {
             fbToken: 'EAAV2pKo9RUke1vWV3YvgkCMgDaEZAjgZBHqdSHdmOE3d1OFZCxJSFDjVzskkhNSYZANHyTiDFW43riox4nfF7jjdONMCn2rIPzk3FiZA6ZBwC9petZBlQZDZD',
             socialyticId: '5fa4c2f58a0772y6w52cb0e9',
         }
     
-        request(app).post('/recomendations/followersAndProfile').send(info).end((err, res) =>{
+        request(app).post('/recommendations/followersAndProfile').send(info).end((err, res) =>{
             assert(res.body.message === "This user doesn't exist, please try again")
             done()
         })

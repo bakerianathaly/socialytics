@@ -14,7 +14,7 @@
           <a class="nav-link active" href="/prediction">Prediction</a>
         </li>
         <li  class="nav-item">
-          <a class="nav-link active" href="/recomendation">Recomendation</a>
+          <a class="nav-link active" href="/recommendation">Recommendation</a>
         </li>
         <li class="nav-item dropdown">
           <a *ngFor="let user of current" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -51,7 +51,7 @@
         <div class="website">
           <a (click)="externalUrl(stats.website)" target="_blank">{{instagramData.website}}</a>
         </div>
-        <small style="font-size: 10px">(Based on 3 months of historical data)</small>
+        <small style="font-size: 10px">(Based on the probability of the last 3 months data)</small>
       </div>
     </div>
   

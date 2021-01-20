@@ -103,11 +103,13 @@ async function getMedia(req,res,done){
         //Calculation of the average
         avgComments = totalComments / (countMedia-1)
         avgLikes = totalLikes / (countMedia-1)
+        totalEngagement = totalLikes + totalComments
 
         //Initialation of the JSON that it will be returned if the error variable is still null
         let allMediaInfo = {
             totalLikes: totalLikes,
             totalComments: totalComments,
+            totalEngagement: totalEngagement, 
             avgLikes: avgLikes.toFixed(2),
             avgComments: avgComments.toFixed(2),
             countMedia: countMedia,
