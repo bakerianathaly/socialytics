@@ -40,18 +40,19 @@ export class ExportdataService {
 
       console.log(DivId)
       let data=document.getElementById(DivId)
+      console.log(data)
       let doc = new jsPDF('p', 'pt', 'a4')
       let options={
         // Opciones
         background: 'white',
         // Calidad del PDF
-        scale: 2
+        scale: 1
       }
     
       html2canvas(data,options).then(function(canvas) {
         
         let bufferX = 15
-        let bufferY = 17
+        let bufferY = 18
         let img = canvas.toDataURL("image/png")
         let imgProps = (doc as any).getImageProperties(img);
         let pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;

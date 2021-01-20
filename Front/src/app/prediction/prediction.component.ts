@@ -332,7 +332,6 @@ export class PredictionComponent implements OnInit {
   }
 
   public exportData(DivId){
-    
     this.exportService.generatePDF(DivId)
   }
 
