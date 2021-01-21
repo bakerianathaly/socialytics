@@ -3,6 +3,7 @@ import { User } from '../models/user';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {AuthService} from '../services/auth.service';
+import { ExportdataService } from '../services/exportdata.service';
 import { HttpClient } from '@angular/common/http';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
@@ -83,7 +84,7 @@ export class RecomendationsComponent implements OnInit {
   public byProfileViewsAmountOfPostData: any[] = [] //Variable that will containt the data for the Best day to post by profile views graphic
   public messagePost: String 
 
-  constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
+  constructor(private authService: AuthService, private exportService:ExportdataService, private router: Router,private http: HttpClient) { }
 
   ngOnInit() {
     Swal.fire({
@@ -315,6 +316,10 @@ export class RecomendationsComponent implements OnInit {
       this.authService.logout()
       this.router.navigate(['/'])
     }
+  }
+
+  public exportData(DivId){
+    this.exportService.generatePDF(DivId)
   }
 
   public logout(){

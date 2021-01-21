@@ -8,8 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label, Color } from 'ng2-charts';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+
 
 @Component({
   selector: 'app-prediction',
