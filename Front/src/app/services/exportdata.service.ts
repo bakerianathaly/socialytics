@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import html2canvas from 'html2canvas';
 import Swal from 'sweetalert2';
 
 
@@ -31,8 +35,34 @@ export class ExportdataService {
         clearInterval(timerInterval)
       }
     }).then(()=> {
-
+        
         let data=document.getElementById(DivId)
+        let options={
+          scrollX: -window.scrollX,
+          scrollY: -window.scrollY
+        }
+
+        html2canvas(data,options).then(function(canvas) {
+          console.log(canvas.width)
+          let img = canvas.toDataURL()
+          let pdfDoc = {
+            content: [{
+              image: img
+              }
+              
+            ],
+            pageOrientation: 'portrait',
+            pageMargins: [ 40, 60, 40, 60 ],
+            pageSize: {
+              width: 2450,
+              height: 'auto'
+            }
+             
+          }
+          pdfMake.createPdf(pdfDoc).download('Report.pdf')
+          
+        })
+    
     })
       
   }
