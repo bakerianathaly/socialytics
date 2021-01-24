@@ -77,9 +77,8 @@
     <div class="ml-5 mt-3 tab-content">
       <!-- Best day to post graphics -->
         <div class="tab-pane active container-fluid" id="BestDayToPost" role="tabpanel" aria-labelledby="best-DayToPost">
-           
-          <div class="container" id="BestDayToPost"  *ngIf="this.maxDayPV && this.maxValuePV">
-           <h4>Best day to post by profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('BestDayToPost')" > </button></h4>
+          <div class="container" id="BestDay"  *ngIf="this.maxDayPV && this.maxValuePV">
+           <h4>Best day to post by profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('BestDay')" > </button></h4>
             <h6>Your best day to post is on {{this.maxDayPV}}, estimating a {{this.maxValuePV}}% of probability by Profile Views.</h6>
             <div class="row">
               <div class="col-12">
@@ -97,7 +96,7 @@
 
           
           <div class="container" id="PostByEngagement"  *ngIf="this.maxValueEng && this.maxDayEng">
-            <h4>Best day to post by engagements</h4>
+            <h4>Best day to post by engagements <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('PostByEngagement')" > </button></h4>
             <h6>Your best day to post is on {{this.maxDayEng}}, estimating a {{this.maxValueEng}}% of probability by Engagement Success.</h6>
             <div class="row">
               <div class="col-12">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {AuthService} from '../services/auth.service';
+import { ExportdataService } from '../services/exportdata.service';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
@@ -92,7 +93,7 @@ export class ProfileComponent implements OnInit {
     }
   ];
 
-  constructor(private authService: AuthService, private router: Router,private http: HttpClient) { }
+  constructor(private authService: AuthService,private exportService:ExportdataService, private router: Router,private http: HttpClient) { }
 
   ngOnInit() {
     this.user=this.authService.getcurrentUser()
@@ -334,6 +335,10 @@ export class ProfileComponent implements OnInit {
       this.authService.logout()
       this.router.navigate(['/'])
     });
+  }
+
+  public exportData(DivId){
+    this.exportService.generatePDF(DivId)
   }
 
   public logout(){

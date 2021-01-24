@@ -11,8 +11,9 @@ import Swal from 'sweetalert2';
 export class ExportdataService {
   
  constructor() { }
-   
+  // Function to generate Pdf 
   generatePDF(DivId){
+    // Message displays after clicking the event.
     let timerInterval
     Swal.fire({
       title: 'Welcome to Socialytics.',
@@ -35,13 +36,14 @@ export class ExportdataService {
         clearInterval(timerInterval)
       }
     }).then(()=> {
-        
+        // Get the div id 
         let data=document.getElementById(DivId)
+        // Options to avoid images from being cut off.
         let options={
           scrollX: -window.scrollX,
           scrollY: -window.scrollY
         }
-
+        // It converts the Html to an image in base 64 and then creates the Pdf through Pdfmake.
         html2canvas(data,options).then(function(canvas) {
           console.log(canvas.width)
           let img = canvas.toDataURL()
