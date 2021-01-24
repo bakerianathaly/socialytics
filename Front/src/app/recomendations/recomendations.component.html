@@ -14,7 +14,7 @@
           <a class="nav-link active" href="/prediction">Prediction</a>
         </li>
         <li  class="nav-item">
-          <a class="nav-link active" href="/recomendation">Recomendation</a>
+          <a class="nav-link active" href="/recommendation">Recommendation</a>
         </li>
         <li class="nav-item dropdown">
           <a *ngFor="let user of current" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,7 +53,7 @@
         </div>
         <small style="font-size: 10px">All the graphic are calculate by the day of the week.</small>
         <br>
-        <small style="font-size: 10px">(Based on historical data)</small>
+        <small style="font-size: 10px">(Based on your recent data)</small>
       </div>
     </div>
   
@@ -76,10 +76,10 @@
     </ul>
 
     <div class="ml-5 mt-3 tab-content">
-      <!-- Recomendation between profile views and engagements graphic -->
+      <!-- Recommendation between profile views and engagements graphic -->
       <div class="tab-pane active container-fluid" id="EngagementsProfileViews" role="tabpanel" aria-labelledby="engagements-Profileviews">
-        <div class="container" id="EngagementProfileView" *ngIf="this.messageEngagements">
-          <h4>Our recomentation to your account based on your profile's Engagements and Profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('EngagementProfileView')" > </button></h4>
+        <div class="container" id="EngagementsProfileViews" *ngIf="this.messageEngagements">
+          <h4>This is our recommendation to your account based on your profile's Engagements and Profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('EngagementProfileView')" > </button></h4>
           <h6>{{this.messageEngagements}}</h6>
           <div class="row">
             <div class="col-12">
@@ -98,10 +98,10 @@
         </div>
       </div>
     
-      <!-- Recomendation between profile views and new Followers graphic -->
+      <!-- Recommendation between profile views and new Followers graphic -->
       <div class="tab-pane container-fluid" id="FollowersProfileViews" role="tabpanel" aria-labelledby="newFollows-Views">
-        <div class="container" id="FollowersProfileView" *ngIf="this.messageNFPV">
-          <h4>This is our recomentation to your account based on your profile's new Followers and Profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('FollowersProfileView')" > </button></h4>
+        <div class="container" id="FollowersProfileViews" *ngIf="this.messageNFPV">
+          <h4>This is our recommendation to your account based on your profile's new Followers and Profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('FollowersProfileView')" > </button></h4>
           <h6>{{this.messageNFPV}}</h6>
           <div class="row">
             <div class="col-12">
@@ -121,10 +121,10 @@
         </div>
       </div>
     
-      <!-- Recomendation between profile views and amount of post graphic -->
+      <!-- Recomemndation between profile views and amount of post graphic -->
       <div class="tab-pane container-fluid" id="PostProfileViews" role="tabpanel" aria-labelledby="post-Profileviews">
-        <div class="container" id="PostProfileView" *ngIf="this.messagePost">
-          <h4>Our recomentation to your account based on your profile's number of Post and Profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('PostProfileView')"> </button></h4>
+        <div class="container" id="PostProfileViews" *ngIf="this.messagePost">
+          <h4>This is our recommendation to your account based on your profile's number of Post and Profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('PostProfileView')"> </button></h4>
           <h6>{{this.messagePost}}</h6>
           <div class="row">
             <div class="col-12">

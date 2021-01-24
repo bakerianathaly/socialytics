@@ -208,3 +208,27 @@ img.avatar {
     50%{top:0em}
     100%{top:0em;}
 }
+.square {
+    width: 100%;
+    padding-bottom: 100%;
+    background-size: cover;
+    background-position: top;
+}
+    
+.topMedia{
+    cursor: pointer;
+}
+    
+.image {
+    opacity: 1;
+    text-align: center!important;
+    width: 200px;
+    height: 200px;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+     
+.topMediaContainer:hover .overlay {
+    opacity: 0.8;
+}
+    

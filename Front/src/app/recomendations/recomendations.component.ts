@@ -52,6 +52,13 @@ export class RecomendationsComponent implements OnInit {
       datalabels: {
         anchor: 'end',
         align: 'end',
+        color: 'black'
+      }
+    },
+    legend: {
+      display: true,
+      labels: {
+        fontColor: 'black'
       }
     }
   };
@@ -60,7 +67,7 @@ export class RecomendationsComponent implements OnInit {
   public lineChartLegend = true; //Variable to display the legend 
   public lineChartPlugins = [pluginDataLabels];
 
-  //Recomendation based on profile views and engagements 
+  //Recommendation based on profile views and engagements 
   public byProfileViewsEngagementsColor: Color[] = [
     { borderColor: 'red',backgroundColor: 'rgba(255,0,0,0.3)'},
     {borderColor: 'rgba(77,83,96,1)',backgroundColor: 'rgba(77,83,96,0.2)'}
@@ -68,15 +75,15 @@ export class RecomendationsComponent implements OnInit {
   public byProfileViewsEngagementsData: any[] = [] //Variable that will contain the data for the Best day to post by profile views graphic
   public messageEngagements: String
 
-  //Recomendation based on new followers and profile views
+  //Recommendation based on new followers and profile views
   public byNewFollowersAndPvColor: Color[] = [
-    { borderColor: 'red',backgroundColor: 'rgba(255,0,0,0.3)'},
+    { borderColor: 'rgb(116,208,255)',backgroundColor: 'rgb(193,234,255)'},
     {borderColor: 'rgba(77,83,96,1)',backgroundColor: 'rgba(77,83,96,0.2)'}
   ]
   public byNewFollowersAndPvData: any[] = [] //Variable that will contain the data for new followers graphic
   public messageNFPV: String
 
-  //Recomendation based on profile views and the number of post 
+  //Recommendation based on profile views and the number of post 
   public byProfileViewsAmountOfPostColor: Color[] = [
     { borderColor: 'rgb(180,93,151)',backgroundColor: 'rgb(228,197,218)'},
     {borderColor: 'rgba(77,83,96,1)',backgroundColor: 'rgba(77,83,96,0.2)'}
@@ -96,9 +103,9 @@ export class RecomendationsComponent implements OnInit {
     })
     this.user = this.authService.getcurrentUser()
     this.current.push(this.user) 
-    this.getRecomendationForProfileViewsEngagements()
-    this.getRecomendationForProfileViewsAmountOfPost()
-    this.getRecomendationForNewFollowersAndPV()
+    this.getRecommendationForProfileViewsEngagements()
+    this.getRecommendationForProfileViewsAmountOfPost()
+    this.getRecommendationForNewFollowersAndPV()
   }
 
   private getMaxValueDay(values: any, maxValue: number){
@@ -127,12 +134,12 @@ export class RecomendationsComponent implements OnInit {
     }
   }
 
-  //Recomendation between profile views and engagements
-  private getRecomendationForProfileViewsEngagements(){
+  //Recommendation between profile views and engagements
+  private getRecommendationForProfileViewsEngagements(){
     if(this.fbToken && this.user.id){
       /*If we have the facebook token and the user ID we proceed to make the request to the API, we send the token, the ID and the media we requested
       in the /home route*/
-      let API = this.nodeAPI+'/recomendations/engagements'
+      let API = this.nodeAPI+'/recommendations/engagements'
       let info = { //Variable with the JSON that it will be send to the API endpoint 
         socialyticId: this.user.id,
         fbToken: this.fbToken,
@@ -163,12 +170,12 @@ export class RecomendationsComponent implements OnInit {
         this.byProfileViewsEngagementsData.push({ data: auxData, label: 'Probable Profile Views' })
         let dayValueProfileViews = this.getMaxValueDay(response.profileViews, response.maxValueProfileViews) //Variable that has the return (the day of the week) of the function call
 
-        //We evaluated is both day are or aren't the same to initialize the message variable to make the recomendation to the user
+        //We evaluated is both day are or aren't the same to initialize the message variable to make the recommendation to the user
         if(dayValueEngagements != dayValueProfileViews){
           this.messageEngagements = 'Your most engagement day is '+dayValueEngagements+', but people are viewing your profile the most on '+ dayValueProfileViews+' we recommend you to start posting on both days'
         }
         else{
-          this.messageEngagements = 'It seems you are doing pretty good, your most engagement day and your most profile views are on the same day! Keep posting the most on '+dayValueEngagements
+          this.messageEngagements = 'It seems you are doing pretty good, your most engagement day and your most profile views are on the same day! Keep doing what you are doing and posting on '+dayValueEngagements
         }
       }, error => {
         //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
@@ -191,12 +198,12 @@ export class RecomendationsComponent implements OnInit {
     }
   }
 
-  //Recomendation between profile views and the number of Post
-  private getRecomendationForProfileViewsAmountOfPost(){
+  //Recommendation between profile views and the number of Post
+  private getRecommendationForProfileViewsAmountOfPost(){
     if(this.fbToken && this.user.id){
       /*If we have the facebook token and the user ID we proceed to make the request to the API, we send the token, the ID and the media we requested
       in the /home route*/
-      let API = this.nodeAPI+'/recomendations/amountofpost'
+      let API = this.nodeAPI+'/recommendations/amountofpost'
       let info = { //Variable with the JSON that it will be send to the API endpoint
         socialyticId: this.user.id,
         fbToken: this.fbToken,
@@ -227,12 +234,12 @@ export class RecomendationsComponent implements OnInit {
         this.byProfileViewsAmountOfPostData.push({ data: auxData, label: 'Probable Profile Views' })
         let dayValueProfileViews = this.getMaxValueDay(response.profileViews, response.maxValueProfileViews) //Variable that has the return (the day of the week) of the function call
 
-        //We evaluated is both day are or aren't the same to initialize the message variable to make the recomendation to the user
+        //We evaluated is both day are or aren't the same to initialize the message variable to make the recommendation to the user
         if(dayValueNumberPost != dayValueProfileViews){
           this.messagePost = 'You have been posting more on '+dayValueNumberPost+', but people are viewing your profile the most on '+ dayValueProfileViews+'. We recommend to start posting more on '+dayValueProfileViews
         }
         else{
-          this.messagePost = 'It seems you are doing pretty good, you are posting the most on the same day as your profile is having more views! Keep posting the most on '+dayValueNumberPost
+          this.messagePost = 'It seems you are doing pretty good, you are posting the most on the same day as your profile is having more views! Keep doing what you are doing and posting on '+dayValueNumberPost
         }
       }, error => {
         //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
@@ -255,12 +262,12 @@ export class RecomendationsComponent implements OnInit {
     }
   }
 
-   //Recomendation between new followers and profile views
-   private getRecomendationForNewFollowersAndPV(){
+   //Recommendation between new followers and profile views
+   private getRecommendationForNewFollowersAndPV(){
     if(this.fbToken && this.user.id){
       /*If we have the facebook token and the user ID we proceed to make the request to the API, we send the token, the ID and the media we requested
       in the /home route*/
-      let API = this.nodeAPI+'/recomendations/followersAndProfile'
+      let API = this.nodeAPI+'/recommendations/followersAndProfile'
       let info = { //Variable with the JSON that it will be send to the API endpoint
         socialyticId: this.user.id,
         fbToken: this.fbToken,
@@ -290,12 +297,12 @@ export class RecomendationsComponent implements OnInit {
         this.byNewFollowersAndPvData.push({ data: auxData, label: 'Probable Profile Views' })
         let dayValueProfileViews = this.getMaxValueDay(response.profileViews, response.maxValueProfileViews) //Variable that has the return (the day of the week) of the function call
 
-        //We evaluated is both day are or aren't the same to initialize the message variable to make the recomendation to the user
+        //We evaluated is both day are or aren't the same to initialize the message variable to make the recommendation to the user
         if(dayValueNewFollowers != dayValueProfileViews){
           this.messageNFPV= 'You have been having more new followers on '+dayValueNewFollowers+', but people are viewing your profile the most on '+ dayValueProfileViews+'. We recommend you to start posting more on both days'
         }
         else{
-          this.messageNFPV = 'It seems you are doing pretty good, you are getting new followers the most on the same day as your profile is having more views! Keep posting the most on '+ dayValueNewFollowers
+          this.messageNFPV = 'It seems you are doing pretty good, you are getting new followers the most on the same day as your profile is having more views! Keep doing what you are doing and posting on '+ dayValueNewFollowers
         }
       }, error => {
         //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user

@@ -129,7 +129,7 @@ async function getProfileViewsData(fbToken, instagramId, test_data){
     }
 }
 
-async function getEngagementsProfileViewsRecomendation(req, res, done){
+async function getEngagementsProfileViewsRecommendation(req, res, done){
     let fbToken = req.body.fbToken//Variable to handle the facebook token
     let socialyticId = req.body.socialyticId //Variable to handle the user identification in the app
     let media = req.body.media //Variable that containts de media data, this data is request by the view in getMedia method
@@ -266,7 +266,7 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
         return res.status(200).send({
             status: "200",
             response:"OK",
-            message: "Successful recomendation",
+            message: "Successful recommendation",
             probableEngagements: {
                 sunday: sunday.toFixed(2),
                 monday: monday.toFixed(2),
@@ -283,7 +283,7 @@ async function getEngagementsProfileViewsRecomendation(req, res, done){
     }
 }
 
-async function getAmountOfPostProfileViewsRecomendation(req, res, done){
+async function getAmountOfPostProfileViewsRecommendation(req, res, done){
     let fbToken = req.body.fbToken //Variable to handle the facebook token
     let socialyticId = req.body.socialyticId //Variable to handle the user identification in the app
     let media = req.body.media //Variable that containts de media data, this data is request by the view in getMedia method
@@ -410,7 +410,7 @@ async function getAmountOfPostProfileViewsRecomendation(req, res, done){
         return res.status(200).send({
             status: "200",
             response:"OK",
-            message: "Successful recomendation",
+            message: "Successful recommendation",
             amountOfPictures: {
                 sunday: sunday,
                 monday: monday,
@@ -427,7 +427,7 @@ async function getAmountOfPostProfileViewsRecomendation(req, res, done){
     }
 }
 
-async function getFollowersAndProfileViewsRecomendation(req, res, done){
+async function getFollowersAndProfileViewsRecommendation(req, res, done){
     let profileViews= null //Variable that contains the response for the facebook request
     let newFollowers= null // variable that contains the response for the facebook request for the new followers
     let test_data=req.body.data
@@ -590,7 +590,7 @@ async function getFollowersAndProfileViewsRecomendation(req, res, done){
         return res.status(200).send({
             status: "200",
             response:"OK",
-            message: "Successful recomendation",
+            message: "Successful recommendation",
             probableFollowers: {
                 sunday: sunday.toFixed(2),
                 monday: monday.toFixed(2),
@@ -609,7 +609,7 @@ async function getFollowersAndProfileViewsRecomendation(req, res, done){
 }
 
 module.exports = {
-    getEngagementsProfileViewsRecomendation,
-    getAmountOfPostProfileViewsRecomendation,
-    getFollowersAndProfileViewsRecomendation
+    getEngagementsProfileViewsRecommendation,
+    getAmountOfPostProfileViewsRecommendation,
+    getFollowersAndProfileViewsRecommendation
 }

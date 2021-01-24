@@ -21,7 +21,7 @@ const routes: Routes = [
     {path:'home', component: ProfileComponent, canActivate: [AuthGuard]}, 
     {path: 'prediction', component: PredictionComponent, canActivate: [AuthGuard]},
     {path:'userprofile', component:UserprofileComponent, canActivate: [AuthGuard]},
-    {path:'recomendation', component:RecomendationsComponent, canActivate: [AuthGuard]}
+    {path:'recommendation', component:RecomendationsComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   private current:Array<User>=[];
   public instagramData: any //Basic user instagram data
   public instagramMedia: any //First 25 pictures of the user
+  public topMediaPost: any  //Media information for the top 5 media post
 
   //Comun graphics variables
   public ChartOptions: ChartOptions = { 
@@ -53,6 +54,13 @@ export class ProfileComponent implements OnInit {
       datalabels: {
         anchor: 'end',
         align: 'end',
+        color: 'black'
+      }
+    },
+    legend: {
+      display: true,
+      labels: {
+        fontColor: 'black'
       }
     }
   };
@@ -63,10 +71,10 @@ export class ProfileComponent implements OnInit {
   //Follower count graphics variables 
   public barChartType: ChartType = 'bar'; //Type of graphic, in this cases is a bar  graphics
   public followerCountColor: Color[] = [
-    {backgroundColor: '#3366cc'},
-    {backgroundColor: '#660099'},
-    {backgroundColor: '#800000'},
-    {backgroundColor: '#5f9ea0'}
+    {backgroundColor: 'rgb(251,203,84)'},
+    {backgroundColor: 'rgb(251,119,84)'},
+    {backgroundColor: 'rgb(180,93,151)'},
+    {backgroundColor: 'rgb(152,70,84)'}
   ]
   public followerCountData: any[] = [] //Variable that will containt the data for the Best day to post by profile views graphic
   public changeFollowers: any
@@ -78,6 +86,15 @@ export class ProfileComponent implements OnInit {
       display: true,
       labels: {
         fontColor: 'black'
+      }
+    },
+    plugins: {
+      datalabels: {
+        color: "black",
+        formatter: (value, ctx) => {
+          var perc = value + "%";
+          return perc;
+        }
       }
     }
   };
@@ -142,6 +159,7 @@ export class ProfileComponent implements OnInit {
       this.instagramMedia = response.allMediaInfo
       localStorage.setItem("INSTAGRAM_MEDIA", JSON.stringify(this.instagramMedia))
       this.getFrequencyPostType()
+      this.getTop5MediaPost()
     }, error => {
       //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
       Swal.fire({
@@ -158,135 +176,135 @@ export class ProfileComponent implements OnInit {
   protected getFollowerCount(){
     //Here we initialize the URL to make the request to get te info, we initialize it with the token and the user id
     let nodeAPI = this.nodeAPI+'/intstagram/newFollowers'
-    let info = { //Variable with the JSON that it will be send to the API endpoint 
-      socialyticId: this.user.id,
-      fbToken: this.fbToken
-    }
-
-    // let info = {
-    //   data: [
-    //     {
-    //       value: 0,
-    //       end_time: "2020-11-01T07:00:00+0000"
-    //     },
-    //     {
-    //         value: 3,
-    //         end_time: "2020-11-02T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 21,
-    //         end_time: "2020-11-03T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 3,
-    //         end_time: "2020-11-04T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 4,
-    //         end_time: "2020-11-05T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 2,
-    //         end_time: "2020-11-06T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 0,
-    //         end_time: "2020-11-07T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 1,
-    //         end_time: "2020-11-08T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 0,
-    //         end_time: "2020-11-09T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 0,
-    //         end_time: "2020-11-10T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 0,
-    //         end_time: "2020-11-11T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 43,
-    //         end_time: "2020-11-12T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 4,
-    //         end_time: "2020-11-13T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 2,
-    //         end_time: "2020-11-14T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 4,
-    //         end_time: "2020-11-15T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 5,
-    //         end_time: "2020-11-16T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 10,
-    //         end_time: "2020-11-17T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 1,
-    //         end_time: "2020-11-18T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 1,
-    //         end_time: "2020-11-19T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 1,
-    //         end_time: "2020-11-20T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 0,
-    //         end_time: "2020-11-21T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 0,
-    //         end_time: "2020-11-22T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 0,
-    //         end_time: "2020-11-23T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 0,
-    //         end_time: "2020-11-24T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 34,
-    //         end_time: "2020-11-25T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 12,
-    //         end_time: "2020-11-26T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 4,
-    //         end_time: "2020-11-27T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 3,
-    //         end_time: "2020-11-28T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 6,
-    //         end_time: "2020-11-29T08:00:00+0000"
-    //     },
-    //     {
-    //         value: 12,
-    //         end_time: "2020-11-30T08:00:00+0000"
-    //     }
-    //   ]
+    // let info = { //Variable with the JSON that it will be send to the API endpoint 
+    //   socialyticId: this.user.id,
+    //   fbToken: this.fbToken
     // }
+
+    let info = {
+      data: [
+        {
+          value: 0,
+          end_time: "2020-11-01T07:00:00+0000"
+        },
+        {
+            value: 3,
+            end_time: "2020-11-02T08:00:00+0000"
+        },
+        {
+            value: 21,
+            end_time: "2020-11-03T08:00:00+0000"
+        },
+        {
+            value: 3,
+            end_time: "2020-11-04T08:00:00+0000"
+        },
+        {
+            value: 4,
+            end_time: "2020-11-05T08:00:00+0000"
+        },
+        {
+            value: 2,
+            end_time: "2020-11-06T08:00:00+0000"
+        },
+        {
+            value: 0,
+            end_time: "2020-11-07T08:00:00+0000"
+        },
+        {
+            value: 1,
+            end_time: "2020-11-08T08:00:00+0000"
+        },
+        {
+            value: 0,
+            end_time: "2020-11-09T08:00:00+0000"
+        },
+        {
+            value: 0,
+            end_time: "2020-11-10T08:00:00+0000"
+        },
+        {
+            value: 0,
+            end_time: "2020-11-11T08:00:00+0000"
+        },
+        {
+            value: 43,
+            end_time: "2020-11-12T08:00:00+0000"
+        },
+        {
+            value: 4,
+            end_time: "2020-11-13T08:00:00+0000"
+        },
+        {
+            value: 2,
+            end_time: "2020-11-14T08:00:00+0000"
+        },
+        {
+            value: 4,
+            end_time: "2020-11-15T08:00:00+0000"
+        },
+        {
+            value: 5,
+            end_time: "2020-11-16T08:00:00+0000"
+        },
+        {
+            value: 10,
+            end_time: "2020-11-17T08:00:00+0000"
+        },
+        {
+            value: 1,
+            end_time: "2020-11-18T08:00:00+0000"
+        },
+        {
+            value: 1,
+            end_time: "2020-11-19T08:00:00+0000"
+        },
+        {
+            value: 1,
+            end_time: "2020-11-20T08:00:00+0000"
+        },
+        {
+            value: 0,
+            end_time: "2020-11-21T08:00:00+0000"
+        },
+        {
+            value: 0,
+            end_time: "2020-11-22T08:00:00+0000"
+        },
+        {
+            value: 0,
+            end_time: "2020-11-23T08:00:00+0000"
+        },
+        {
+            value: 0,
+            end_time: "2020-11-24T08:00:00+0000"
+        },
+        {
+            value: 34,
+            end_time: "2020-11-25T08:00:00+0000"
+        },
+        {
+            value: 12,
+            end_time: "2020-11-26T08:00:00+0000"
+        },
+        {
+            value: 4,
+            end_time: "2020-11-27T08:00:00+0000"
+        },
+        {
+            value: 3,
+            end_time: "2020-11-28T08:00:00+0000"
+        },
+        {
+            value: 6,
+            end_time: "2020-11-29T08:00:00+0000"
+        },
+        {
+            value: 12,
+            end_time: "2020-11-30T08:00:00+0000"
+        }
+      ]
+    }
 
     this.http.post(nodeAPI.toString(), info).subscribe((response: any) => {
       /*If there is none error, we set it again, set the
@@ -340,10 +358,49 @@ export class ProfileComponent implements OnInit {
   public exportData(DivId){
     this.exportService.generatePDF(DivId)
   }
+  
+  protected getTop5MediaPost(){
+    //Here we initialize the URL to make the request to get te info, we initialize it with the token and the user id
+    let nodeAPI = this.nodeAPI+'/instagram/topMediaPost'
+    let info = { //Variable with the JSON that it will be send to the API endpoint 
+      socialyticId: this.user.id,
+      media: this.instagramMedia
+    }
+
+    this.http.post(nodeAPI.toString(), info).subscribe((response: any) => {
+      /*If there is none error, we set it again, set the
+      top media post variable to use it in the profile.component.html*/
+      this.topMediaPost = response.Top5MediaPost
+    }, error => {
+      //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.error.message
+      })
+      this.authService.logout()
+      this.router.navigate(['/'])
+    });
+  }
 
   public logout(){
     this.authService.logout()
     this.router.navigate(['/'])
+  }
+
+  public getTopInfo(media: any){
+    Swal.fire({
+      imageUrl: media.mediaInfo.media_url,
+      html:
+        '<i class="fa fa-heart" aria-hidden="true" title="Likes"></i>' + media.mediaInfo.like_count + '   ' + '   ' +
+        '<i class="fa fa-comments" aria-hidden="true" title="Comments"></i>' + media.mediaInfo.comments_count + '   ' + '   ' +
+        '<i class="fa fa-users" aria-hidden="true" title="Engagements"></i>' + media.totalEngagementPost + '</br>'+ '</br>' +
+        media.mediaInfo.caption
+      ,
+      showCloseButton: false,
+      showCancelButton: false,
+      focusConfirm: false
+    })
   }
 
 }
