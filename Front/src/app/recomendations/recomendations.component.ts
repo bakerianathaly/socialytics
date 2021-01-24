@@ -175,7 +175,7 @@ export class RecomendationsComponent implements OnInit {
           this.messageEngagements = 'Your most engagement day is '+dayValueEngagements+', but people are viewing your profile the most on '+ dayValueProfileViews+' we recommend you to start posting on both days'
         }
         else{
-          this.messageEngagements = 'It seems you are doing pretty good, your most engagement day and your most profile views are on the same day! Keep doing what you are doing and posting on '+dayValueEngagements
+          this.messageEngagements = 'It seems you are doing pretty good, your most engagement day and your most profile views are on the same day! Keep doing what you are doing and make posts on '+dayValueEngagements
         }
       }, error => {
         //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
@@ -239,7 +239,7 @@ export class RecomendationsComponent implements OnInit {
           this.messagePost = 'You have been posting more on '+dayValueNumberPost+', but people are viewing your profile the most on '+ dayValueProfileViews+'. We recommend to start posting more on '+dayValueProfileViews
         }
         else{
-          this.messagePost = 'It seems you are doing pretty good, you are posting the most on the same day as your profile is having more views! Keep doing what you are doing and posting on '+dayValueNumberPost
+          this.messagePost = 'It seems you are doing pretty good, you are posting the most on the same day as your profile is having more views! Keep doing what you are doing and make posts on '+dayValueNumberPost
         }
       }, error => {
         //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
@@ -302,7 +302,7 @@ export class RecomendationsComponent implements OnInit {
           this.messageNFPV= 'You have been having more new followers on '+dayValueNewFollowers+', but people are viewing your profile the most on '+ dayValueProfileViews+'. We recommend you to start posting more on both days'
         }
         else{
-          this.messageNFPV = 'It seems you are doing pretty good, you are getting new followers the most on the same day as your profile is having more views! Keep doing what you are doing and posting on '+ dayValueNewFollowers
+          this.messageNFPV = 'It seems you are doing pretty good, you are getting new followers the most on the same day as your profile is having more views! Keep doing what you are doing and make posts on '+ dayValueNewFollowers
         }
       }, error => {
         //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
