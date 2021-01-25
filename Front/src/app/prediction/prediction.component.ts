@@ -76,6 +76,7 @@ export class PredictionComponent implements OnInit {
   public byProfileViewsColor: Color[] = [
     { backgroundColor: '#5B54FB' },
   ]
+  public byProfileViewsExcelData:any[]=[]
   public byProfileViewsData: any[] = [] //Variable that will containt the data for the Best day to post by profile views graphic
   public maxValuePV: any //Variable that will containt the max value of the profile views graphic
   public maxDayPV: String //Variable that will containt the day who has the max value of the profile views graphic
@@ -167,6 +168,14 @@ export class PredictionComponent implements OnInit {
           response.byProfileViews.friday,
           response.byProfileViews.saturday
         ]
+        this.byProfileViewsExcelData.push({Sunday:response.byProfileViews.sunday,
+        Monday:response.byProfileViews.monday,
+        Tuesday:response.byProfileViews.tuesday,
+        Wednesday:response.byProfileViews.wednesday,
+        Thursday:response.byProfileViews.thursday,
+        Friday:response.byProfileViews.friday,
+        Saturday:response.byProfileViews.saturday
+        })
         this.byProfileViewsData.push({ data: this.maxValuePV, label: 'Probable Profile Views' })
         /*For last, we calculate the max value of the resuqest with the method Math.max, it needs an array of values tu proceed. And after that
         we call the getMaxValueDay function to get the day that will have that max value  */
@@ -216,6 +225,7 @@ export class PredictionComponent implements OnInit {
           response.Engagements.friday,
           response.Engagements.saturday
         ]
+        
         this.byEngagementData.push({ data: this.maxValueEng, label: 'Probable engagements' })
         /*For last, we calculate the max value of the resuqest with the method Math.max, it needs an array of values tu proceed. And after that
         we call the getMaxValueDay function to get the day that will have that max value  */
@@ -342,6 +352,11 @@ export class PredictionComponent implements OnInit {
 
   public exportData(DivId){
     this.exportService.generatePDF(DivId)
+  }
+
+  public exportExcel(data:any[]){
+    console.log('lo q trae',data)
+    this.exportService.generateExcel(data)
   }
 
 }

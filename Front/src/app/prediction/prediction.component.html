@@ -78,7 +78,11 @@
       <!-- Best day to post graphics -->
         <div class="tab-pane active container-fluid" id="BestDayToPost" role="tabpanel" aria-labelledby="best-DayToPost">
           <div class="container" id="BestDay"  *ngIf="this.maxDayPV && this.maxValuePV">
-           <h4>Best day to post by profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('BestDay')" > </button></h4>
+            <h4>Best day to post by profile views 
+              <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export PDF" (click)="exportData('BestDay')"><br>Pdf</a>
+              <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export XLXS" (click)="exportExcel(byProfileViewsExcelData)"> <br>Excel</a>
+              
+            </h4>
             <h6>Your best day to post is on {{this.maxDayPV}}, estimating a {{this.maxValuePV}}% of probability by Profile Views.</h6>
             <div class="row">
               <div class="col-12">
@@ -96,7 +100,7 @@
 
           
           <div class="container" id="PostByEngagement"  *ngIf="this.maxValueEng && this.maxDayEng">
-            <h4>Best day to post by engagements <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('PostByEngagement')" > </button></h4>
+            <h4>Best day to post by engagements <button data-html2canvas-ignore="true" class="ExportPdf btn bouncy" title="Export" (click)="exportData('PostByEngagement')" > </button></h4>
             <h6>Your best day to post is on {{this.maxDayEng}}, estimating a {{this.maxValueEng}}% of probability by Engagement Success.</h6>
             <div class="row">
               <div class="col-12">
@@ -118,7 +122,7 @@
      <!-- Probable amount of reach graphic -->
       <div class="tab-pane container-fluid" id="Reach" role="tabpanel" aria-labelledby="reachPrediction">
         <div class="container" id="reach" *ngIf="this.maxDayPR && this.maxValuePR">
-          <h4>Probable amount of Reach by days of the week <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('reach')"> </button></h4>
+          <h4>Probable amount of Reach by days of the week <button data-html2canvas-ignore="true" class="ExportPdf btn bouncy" title="Export" (click)="exportData('reach')"> </button></h4>
           <h6>This is your probability of Reach by days of the week, your best day could be on {{this.maxDayPR}}, estimating a {{this.maxValuePR}}% of success</h6>
           <div class="row">
             <div class="col-12">
@@ -138,7 +142,7 @@
       <!-- Probable amount of impressions graphic -->
       <div class="tab-pane container-fluid" id="Impressions" role="tabpanel" aria-labelledby="impressionsPrediction">
         <div class="container" id="impressions" *ngIf="this.maxDayPI && this.maxValuePI; else problem">
-          <h4>Probable amount of Impressions by days of the week <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('impressions')" > </button></h4>
+          <h4>Probable amount of Impressions by days of the week <button data-html2canvas-ignore="true" class="ExportPdf btn bouncy" title="Export" (click)="exportData('impressions')" > </button></h4>
           <h6>This is your probability of Impressions by days of the week, your best day could be on {{this.maxDayPI}}, estimating a {{this.maxValuePI}}% of success</h6>
           <div class="row">
             <div class="col-12">

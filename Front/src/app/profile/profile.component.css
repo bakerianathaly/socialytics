@@ -178,7 +178,7 @@ img.avatar {
     height: 32px;
     float:right;
     background-color:transparent;
-    background-image: url('../../assets/export.png');
+    background-image: url('../../assets/exportPdf.png');
     transition:  all 0.2s;
     cursor: pointer;
 }

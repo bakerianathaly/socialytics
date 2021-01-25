@@ -3,14 +3,20 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import html2canvas from 'html2canvas';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2';
+
+// Excel global variables
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+const EXCEL_EXTENSION = '.xlsx'
 
 
 @Injectable()
 
 export class ExportdataService {
   
- constructor() { }
+  constructor() { }
   // Function to generate Pdf 
   generatePDF(DivId){
     // Message displays after clicking the event.
@@ -51,7 +57,6 @@ export class ExportdataService {
             content: [{
               image: img
               }
-              
             ],
             pageOrientation: 'portrait',
             pageMargins: [ 40, 60, 40, 60 ],
@@ -68,9 +73,51 @@ export class ExportdataService {
     })
       
   }
+  // function to generate the excel file
+  generateExcel(json:any[]){
 
+    console.log('lo q trae',json)
+    // Message displays after clicking the event.
+    let timerInterval
+    Swal.fire({
+      title: 'Welcome to Socialytics.',
+      html: 'Your download will start in <strong></strong> seconds.',
+      timer:5000,
+      timerProgressBar: true,
+      didOpen:() => {
+        Swal.showLoading()
+        timerInterval = setInterval(() => {
+          const content = Swal.getContent()
+          if (content) {
+            const b = content.querySelector('strong')
+            if (b) {
+              b.textContent =(Swal.getTimerLeft()/1000).toFixed(0)
+            }
+          }
+        },100)
+      },
+      willClose:() => {
+        clearInterval(timerInterval)
+      }
+    }).then(()=> {
 
-}
+      let worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json)
+      let workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      let excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer);
+      
+    })
+    
+  }
+  // Function to save the excel file
+  private saveAsExcelFile(buffer: any): void {
+    
+    const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
+    FileSaver.saveAs(data, 'Report' + EXCEL_EXTENSION);
+    
+  }
+    
+}  
 
 
       
