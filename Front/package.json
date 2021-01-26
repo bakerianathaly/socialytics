@@ -38,6 +38,7 @@
     "ngx-electron": "^1.0.4",
     "node-gyp": "^7.1.0",
     "pdfmake": "^0.1.70",
+    "pptxgenjs": "^3.4.0",
     "rebuild": "^0.1.2",
     "rxjs": "^6.5.3",
     "sleep": "^6.3.0",

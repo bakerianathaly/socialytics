@@ -325,8 +325,17 @@ export class RecomendationsComponent implements OnInit {
     }
   }
 
-  public exportData(DivId){
+  public exportPdf(DivId){
     this.exportService.generatePDF(DivId)
+  }
+
+  public exportExcel(data:any[]){
+    console.log('lo q trae',data)
+    this.exportService.generateExcel(data)
+  }
+
+  public exportPPT(DivId){
+    this.exportService.generatePPT(DivId)
   }
 
   public logout(){

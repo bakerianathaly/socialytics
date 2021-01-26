@@ -79,8 +79,12 @@
       <!-- Recommendation between profile views and engagements graphic -->
       <div class="tab-pane active container-fluid" id="EngagementsProfileViews" role="tabpanel" aria-labelledby="engagements-Profileviews">
         <div class="container" id="EngagementsProfileViews" *ngIf="this.messageEngagements">
-          <h4>This is our recommendation to your account based on your profile's Engagements and Profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('EngagementProfileView')" > </button></h4>
-          <h6>{{this.messageEngagements}}</h6>
+          <h4>This is our recommendation to your account based on your profile's Engagements and Profile views</h4>
+          <h6>{{this.messageEngagements}}
+            <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('EngagementsProfileViews')"><br>Pdf</a>
+            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel()"> <br>Excel</a>
+            <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('EngagementsProfileViews')"> <br>PPTX</a>
+          </h6>
           <div class="row">
             <div class="col-12">
               <div class="card mb-4 box-shadow">
@@ -101,7 +105,11 @@
       <!-- Recommendation between profile views and new Followers graphic -->
       <div class="tab-pane container-fluid" id="FollowersProfileViews" role="tabpanel" aria-labelledby="newFollows-Views">
         <div class="container" id="FollowersProfileViews" *ngIf="this.messageNFPV">
-          <h4>This is our recommendation to your account based on your profile's new Followers and Profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('FollowersProfileView')" > </button></h4>
+          <h4>This is our recommendation to your account based on your profile's new Followers and Profile views
+            <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('FollowersProfileViews')"><br>Pdf</a>
+            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel()"> <br>Excel</a>
+            <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('FollowersProfileViews')"> <br>PPTX</a>
+          </h4>
           <h6>{{this.messageNFPV}}</h6>
           <div class="row">
             <div class="col-12">
@@ -124,7 +132,11 @@
       <!-- Recomemndation between profile views and amount of post graphic -->
       <div class="tab-pane container-fluid" id="PostProfileViews" role="tabpanel" aria-labelledby="post-Profileviews">
         <div class="container" id="PostProfileViews" *ngIf="this.messagePost">
-          <h4>This is our recommendation to your account based on your profile's number of Post and Profile views <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('PostProfileView')"> </button></h4>
+          <h4>This is our recommendation to your account based on your profile's number of Post and Profile views 
+            <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('PostProfileViews')"><br>Pdf</a>
+            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel()"> <br>Excel</a>
+            <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('PostProfileViews')"> <br>PPTX</a>
+          </h4>
           <h6>{{this.messagePost}}</h6>
           <div class="row">
             <div class="col-12">
