@@ -116,8 +116,11 @@
 
 <!-- Follower growth count graphics -->
 <div class="container" id="changeFollowers" *ngIf = "this.changeFollowers && this.instagramData">
-  <h4 class="mt-2">Follower growth count <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('changeFollowers')"> <br />
-    Facebook</button></h4>
+  <h4 class="mt-2">Follower growth count
+    <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('changeFollowers')"><br>Pdf</a>
+    <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(ChangeFollowersExcelData)"><br>Excel</a>
+    <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('changeFollowers')"><br>PPTX</a> 
+  </h4>
   <small style="font-size: 15px">This is your follower change for the past 28 days excluded the current day, grouped in weeks.</small>
   <div class="row" >
     <div class="col-12">
@@ -194,7 +197,11 @@
 
 <!-- Frequency post type graphics -->
 <div class="container" id="mediaTypeGraph" *ngIf = "this.instagramMedia">
-  <h4 class="mt-5">Most frequent post types <button data-html2canvas-ignore="true" class="buttonExport btn bouncy" title="Export" (click)="exportData('mediaTypeGraph')"></button></h4>
+  <h4 class="mt-5">Most frequent post types 
+    <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('mediaTypeGraph')"><br>Pdf</a>
+    <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(MediaTypeExcelData)"><br>Excel</a>
+    <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('mediaTypeGraph')"><br>PPTX</a> 
+  </h4>
   <small style="font-size: 15px">In your last 25 pictures you have been publishing this percent frequency of each type of post.</small>
   <div class="row mt-2" >
     <div class="col-12">

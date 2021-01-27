@@ -102,7 +102,7 @@
           <div class="container" id="PostByEngagement"  *ngIf="this.maxValueEng && this.maxDayEng">
             <h4>Best day to post by engagements 
               <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('PostByEngagement')"><br>Pdf</a>
-              <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byProfileViewsExcelData)"> <br>Excel</a>
+              <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byEngagementExcelData)"> <br>Excel</a>
               <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('PostByEngagement')"> <br>PPTX</a>
             </h4>
             <h6>Your best day to post is on {{this.maxDayEng}}, estimating a {{this.maxValueEng}}% of probability by Engagement Success.</h6>
@@ -128,7 +128,7 @@
         <div class="container" id="reach" *ngIf="this.maxDayPR && this.maxValuePR">
           <h4>Probable amount of Reach by days of the week 
             <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('reach')"><br>Pdf</a>
-            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byProfileViewsExcelData)"> <br>Excel</a>
+            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byReachExcelData)"> <br>Excel</a>
             <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('reach')"> <br>PPTX</a>
           </h4>
           <h6>This is your probability of Reach by days of the week, your best day could be on {{this.maxDayPR}}, estimating a {{this.maxValuePR}}% of success</h6>
@@ -152,7 +152,7 @@
         <div class="container" id="impressions" *ngIf="this.maxDayPI && this.maxValuePI; else problem">
           <h4>Probable amount of Impressions by days of the week 
             <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('impressions')"><br>Pdf</a>
-            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byProfileViewsExcelData)"> <br>Excel</a>
+            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byImpressionsExcelData)"> <br>Excel</a>
             <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('impressions')"> <br>PPTX</a>
           </h4>
           <h6>This is your probability of Impressions by days of the week, your best day could be on {{this.maxDayPI}}, estimating a {{this.maxValuePI}}% of success</h6>

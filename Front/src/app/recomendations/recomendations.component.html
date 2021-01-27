@@ -80,15 +80,14 @@
       <div class="tab-pane active container-fluid" id="EngagementsProfileViews" role="tabpanel" aria-labelledby="engagements-Profileviews">
         <div class="container" id="EngagementsProfileViews" *ngIf="this.messageEngagements">
           <h4>This is our recommendation to your account based on your profile's Engagements and Profile views</h4>
-          <h6>{{this.messageEngagements}}
-            <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('EngagementsProfileViews')"><br>Pdf</a>
-            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel()"> <br>Excel</a>
-            <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('EngagementsProfileViews')"> <br>PPTX</a>
-          </h6>
+          <h6>{{this.messageEngagements}}</h6>
           <div class="row">
             <div class="col-12">
               <div class="card mb-4 box-shadow">
                 <div class="card-body text-center" >
+                   <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('EngagementsProfileViews')"><br>Pdf</a>
+                   <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byProfileViewsExcelEngagementsData)"> <br>Excel</a>
+                   <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('EngagementsProfileViews')"> <br>PPTX</a>
                   <canvas baseChart [datasets]="byProfileViewsEngagementsData" [labels]="lineChartLabels" [options]="lineChartOptions"
                     [plugins]="lineChartPlugins" [legend]="lineChartLegend" [chartType]="lineChartType" [colors]="byProfileViewsEngagementsColor">
                   </canvas> 
@@ -107,7 +106,7 @@
         <div class="container" id="FollowersProfileViews" *ngIf="this.messageNFPV">
           <h4>This is our recommendation to your account based on your profile's new Followers and Profile views
             <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('FollowersProfileViews')"><br>Pdf</a>
-            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel()"> <br>Excel</a>
+            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byNewFollowersAndPvExcelData)"> <br>Excel</a>
             <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('FollowersProfileViews')"> <br>PPTX</a>
           </h4>
           <h6>{{this.messageNFPV}}</h6>
@@ -134,7 +133,7 @@
         <div class="container" id="PostProfileViews" *ngIf="this.messagePost">
           <h4>This is our recommendation to your account based on your profile's number of Post and Profile views 
             <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('PostProfileViews')"><br>Pdf</a>
-            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel()"> <br>Excel</a>
+            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byProfileViewsAmountOfPostExcelData)"> <br>Excel</a>
             <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('PostProfileViews')"> <br>PPTX</a>
           </h4>
           <h6>{{this.messagePost}}</h6>

@@ -76,7 +76,8 @@ export class ProfileComponent implements OnInit {
     {backgroundColor: 'rgb(180,93,151)'},
     {backgroundColor: 'rgb(152,70,84)'}
   ]
-  public followerCountData: any[] = [] //Variable that will containt the data for the Best day to post by profile views graphic
+  public ChangeFollowersExcelData:any[]=[] // Variable that contains all the change followers excel data to export.
+  public followerCountData: any[] = [] //Variable that will contain the data for the Best day to post by profile views graphic
   public changeFollowers: any
 
   //Frequency type of post graphics variables
@@ -98,6 +99,7 @@ export class ProfileComponent implements OnInit {
       }
     }
   };
+  public MediaTypeExcelData:any[]=[] // Variable that contains all the excel media type data to export 
   public doughnutChartLabels: Label[] = ["Image", "Video", "Carousel Album"];
   public doughnutChartData: MultiDataSet =  [];
   public doughnutChartType: ChartType = 'doughnut';
@@ -319,6 +321,21 @@ export class ProfileComponent implements OnInit {
       this.followerCountData.push({ data: response.week2, label: 'Week number 2'})
       this.followerCountData.push({ data: response.week3, label: 'Week number 3'})
       this.followerCountData.push({ data: response.week4, label: 'Week number 4'})
+
+      this.ChangeFollowersExcelData.push({ total: response.totalChangeFollowers,
+        avg: response.avgChange,
+        max: response.maxOfEachWeek,
+        min: response.minOfEachWeek,
+        Week1Day1:response.week1[0],
+        Week1Day2:response.week1[1],
+        Week1Day3:response.week1[2],
+        Week1Day4:response.week1[3],
+        Week1Day5:response.week1[4],
+        Week2:response.week2,
+        Week3:response.week3,
+        Week4:response.week4
+
+      })
     }, error => {
       //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
       Swal.fire({
@@ -343,6 +360,12 @@ export class ProfileComponent implements OnInit {
       /*If there is none error, we set it again, set the
       instagramData variable to use it in the profile.component.html*/
       this.doughnutChartData = [response.typePostFrequencyPercent]
+      
+      this.MediaTypeExcelData.push({
+        Image:response.typePostFrequencyPercent[0]+ '%',
+        Video:response.typePostFrequencyPercent[1]+ '%',
+        CarouselAlbum:response.typePostFrequencyPercent[2]+ '%'
+      })
     }, error => {
       //If there is any error (such as bad request or a problem with the token) it swal an error and logout the user
       Swal.fire({
@@ -355,8 +378,17 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  public exportData(DivId){
+  public exportPdf(DivId){
     this.exportService.generatePDF(DivId)
+  }
+  
+  public exportExcel(data:any[]){
+    console.log('lo q trae',data)
+    this.exportService.generateExcel(data)
+  }
+
+  public exportPPT(DivId){
+    this.exportService.generatePPT(DivId)
   }
   
   protected getTop5MediaPost(){

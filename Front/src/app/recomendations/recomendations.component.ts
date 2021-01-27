@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label, Color } from 'ng2-charts';
+import { createECDH } from 'crypto';
 
 @Component({
   selector: 'app-recomendations',
@@ -72,6 +73,7 @@ export class RecomendationsComponent implements OnInit {
     { borderColor: 'red',backgroundColor: 'rgba(255,0,0,0.3)'},
     {borderColor: 'rgba(77,83,96,1)',backgroundColor: 'rgba(77,83,96,0.2)'}
   ]
+  public byProfileViewsExcelEngagementsData: any[] = [] //Variable that will contain the excel data for the Best day to post by profile.
   public byProfileViewsEngagementsData: any[] = [] //Variable that will contain the data for the Best day to post by profile views graphic
   public messageEngagements: String
 
@@ -80,6 +82,7 @@ export class RecomendationsComponent implements OnInit {
     { borderColor: 'rgb(116,208,255)',backgroundColor: 'rgb(193,234,255)'},
     {borderColor: 'rgba(77,83,96,1)',backgroundColor: 'rgba(77,83,96,0.2)'}
   ]
+  public byNewFollowersAndPvExcelData: any[] = [] //Variable that will contain the excel data for the for new followers and profile views.
   public byNewFollowersAndPvData: any[] = [] //Variable that will contain the data for new followers graphic
   public messageNFPV: String
 
@@ -88,6 +91,7 @@ export class RecomendationsComponent implements OnInit {
     { borderColor: 'rgb(180,93,151)',backgroundColor: 'rgb(228,197,218)'},
     {borderColor: 'rgba(77,83,96,1)',backgroundColor: 'rgba(77,83,96,0.2)'}
   ]
+  public byProfileViewsAmountOfPostExcelData: any[] = [] //Variable that will containt the excel data for the Best day to post by profile views graphic
   public byProfileViewsAmountOfPostData: any[] = [] //Variable that will containt the data for the Best day to post by profile views graphic
   public messagePost: String 
 
@@ -155,6 +159,21 @@ export class RecomendationsComponent implements OnInit {
           response.probableEngagements.friday,
           response.probableEngagements.saturday
         ]
+        this.byProfileViewsExcelEngagementsData.push({SundayEngagements:response.probableEngagements.sunday+ '%',
+          MondayEngagements:response.probableEngagements.monday+ '%',
+          TuesdayEngagements:response.probableEngagements.tuesday+ '%',
+          WednesdayEngagements:response.probableEngagements.wednesday+ '%',
+          ThursdayEngagements:response.probableEngagements.thursday+ '%',
+          FridayEngagements:response.probableEngagements.friday+ '%',
+          SaturdayEngagements:response.probableEngagements.saturday+ '%',
+          SundayProfileViews:response.profileViews.sunday+ '%',
+          MondayProfileViews:response.profileViews.monday+ '%',
+          TuesdayProfileViews:response.profileViews.tuesday+ '%',
+          WednesdayProfileViews:response.profileViews.wednesday+ '%',
+          ThursdayProfileViews:response.profileViews.thursday+ '%',
+          FridayProfileViews:response.profileViews.friday+ '%',
+          SaturdayProfileViews:response.profileViews.saturday+ '%'
+        })
         this.byProfileViewsEngagementsData.push({ data: auxData, label: 'Probable Engagements' })
         let dayValueEngagements = this.getMaxValueDay(response.probableEngagements, response.maxValueEngagements) //Variable that has the return (the day of the week) of the function call
 
@@ -167,6 +186,7 @@ export class RecomendationsComponent implements OnInit {
           response.profileViews.friday,
           response.profileViews.saturday
         ]
+
         this.byProfileViewsEngagementsData.push({ data: auxData, label: 'Probable Profile Views' })
         let dayValueProfileViews = this.getMaxValueDay(response.profileViews, response.maxValueProfileViews) //Variable that has the return (the day of the week) of the function call
 
@@ -219,6 +239,24 @@ export class RecomendationsComponent implements OnInit {
           response.amountOfPictures.friday,
           response.amountOfPictures.saturday
         ]
+
+        this.byProfileViewsAmountOfPostExcelData.push({SundayPosts:response.amountOfPictures.sunday,
+          MondayPosts:response.amountOfPictures.monday,
+          TuesdayPosts:response.amountOfPictures.tuesday,
+          WednesdayPost:response.amountOfPictures.wednesday,
+          ThursdayPosts:response.amountOfPictures.thursday,
+          FridayPosts:response.amountOfPictures.friday,
+          SaturdayPosts:response.amountOfPictures.saturday,
+          SundayProfileViews:response.profileViews.sunday+ '%',
+          MondayProfileViews:response.profileViews.monday+ '%',
+          TuesdayProfileViews:response.profileViews.tuesday+ '%',
+          WednesdayProfileViews:response.profileViews.wednesday+ '%',
+          ThursdayProfileViews:response.profileViews.thursday+ '%',
+          FridayProfileViews:response.profileViews.friday+ '%',
+          SaturdayProfileViews:response.profileViews.saturday + '%'
+
+        })
+        
         this.byProfileViewsAmountOfPostData.push({ data: auxData, label: 'Number of Post' })
         let dayValueNumberPost = this.getMaxValueDay(response.amountOfPictures, response.maxValueAmountOfPicture) //Variable that has the return (the day of the week) of the function call
 
@@ -282,6 +320,22 @@ export class RecomendationsComponent implements OnInit {
           response.probableFollowers.friday,
           response.probableFollowers.saturday
         ]
+        this.byNewFollowersAndPvExcelData.push({SundayFollowers:response.probableFollowers.sunday+ '%',
+          MondayFollowers:response.probableFollowers.monday+ '%',
+          TuesdayFollowers:response.probableFollowers.tuesday+ '%',
+          WednesdayFollowers:response.probableFollowers.wednesday+ '%',
+          ThursdayFollowers:response.probableFollowers.thursday+ '%',
+          FridayFollowers:response.probableFollowers.friday+ '%',
+          SaturdayFollowers:response.probableFollowers.saturday+ '%',
+          SundayProfileViews:response.profileViews.sunday+ '%',
+          MondayProfileViews:response.profileViews.monday+ '%',
+          TuesdayProfileViews:response.profileViews.tuesday+ '%',
+          WednesdayProfileViews:response.profileViews.wednesday+ '%',
+          ThursdayProfileViews:response.profileViews.thursday+ '%',
+          FridayProfileViews:response.profileViews.friday+ '%',
+          SaturdayProfileViews:response.profileViews.saturday+ '%'
+
+        })
         this.byNewFollowersAndPvData.push({ data: auxData, label: 'Probable New Followers' })
         let dayValueNewFollowers= this.getMaxValueDay(response.probableFollowers, response.maxValueNewFollowers) //Variable that has the return (the day of the week) of the function call
         
