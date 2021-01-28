@@ -192,7 +192,7 @@ export class RecomendationsComponent implements OnInit {
 
         //We evaluated is both day are or aren't the same to initialize the message variable to make the recommendation to the user
         if(dayValueEngagements != dayValueProfileViews){
-          this.messageEngagements = 'Your most engagement day is '+dayValueEngagements+', but people are viewing your profile the most on '+ dayValueProfileViews+' we recommend you to start posting on both days'
+          this.messageEngagements = 'Your most engagement day is '+dayValueEngagements+', but people are viewing your profile the most on '+ dayValueProfileViews+'. We recommend you to start posting on both days'
         }
         else{
           this.messageEngagements = 'It seems you are doing pretty good, your most engagement day and your most profile views are on the same day! Keep doing what you are doing and make posts on '+dayValueEngagements
@@ -257,7 +257,7 @@ export class RecomendationsComponent implements OnInit {
 
         })
         
-        this.byProfileViewsAmountOfPostData.push({ data: auxData, label: 'Number of Post' })
+        this.byProfileViewsAmountOfPostData.push({ data: auxData, label: 'Number of Posts' })
         let dayValueNumberPost = this.getMaxValueDay(response.amountOfPictures, response.maxValueAmountOfPicture) //Variable that has the return (the day of the week) of the function call
 
         auxData = [
@@ -320,6 +320,7 @@ export class RecomendationsComponent implements OnInit {
           response.probableFollowers.friday,
           response.probableFollowers.saturday
         ]
+        
         this.byNewFollowersAndPvExcelData.push({SundayFollowers:response.probableFollowers.sunday+ '%',
           MondayFollowers:response.probableFollowers.monday+ '%',
           TuesdayFollowers:response.probableFollowers.tuesday+ '%',

@@ -136,19 +136,25 @@ img.avatar {
     display: flex;
     align-items: center;     
     flex-direction: column;
-    font-size: 14px;
+    font-size: 12px;
+    padding-top:10px;
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     float:right;
+    position: absolute;
     background-color:transparent;
     background-image: url('../../assets/exportPdf.png');
     transition: all 0.2s;
     cursor: pointer;
 }
 
-
 .ExportPdf:hover{
     color:#180505;
-    border-width:outset;
+    -webkit-transform:scale(1.25); /* Safari and Chrome */
+    -moz-transform:scale(1.25); /* Firefox */
+    -ms-transform:scale(1.25); /* IE 9 */
+    -o-transform:scale(1.25); /* Opera */
+    transform:scale(1.25);
     border-color:#180505;
 }
 
@@ -162,22 +168,31 @@ img.avatar {
     width: 32px;
     height: 32px;
     margin: 5px;
-    display: flex;
-    align-items: center;     
+    display:flex;
+    vertical-align:baseline;
+    align-items: center!important;  
     flex-direction: column;
-    font-size: 14px;
-    text-align: center;
+    font-size: 12px;
+    padding-top:10px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center!important;
     float:right;
+    position: relative;
     background-color:transparent;
     background-image: url('../../assets/xlsx.png');
     transition:  all 0.2s;
     cursor: pointer;
+    
 }
 
 
 .ExportXlsx:hover{
     color:#180505;
-    border-radius: 8px;
+    -webkit-transform:scale(1.25); /* Safari and Chrome */
+    -moz-transform:scale(1.25); /* Firefox */
+    -ms-transform:scale(1.25); /* IE 9 */
+    -o-transform:scale(1.25); /* Opera */
+    transform:scale(1.25);
     border-color:#180505;
 }
 
@@ -194,9 +209,12 @@ img.avatar {
     display: flex;
     align-items: center;     
     flex-direction: column;
-    font-size: 14px;
+    font-size: 12px;
+    padding-top:10px;
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     float:right;
+    position: relative;
     background-color:transparent;
     background-image: url('../../assets/exportPPT.png');
     transition: all 0.2s;
@@ -206,7 +224,11 @@ img.avatar {
 
 .ExportPPT:hover{
     color:#180505;
-    border-width:outset;
+    -webkit-transform:scale(1.25); /* Safari and Chrome */
+    -moz-transform:scale(1.25); /* Firefox */
+    -ms-transform:scale(1.25); /* IE 9 */
+    -o-transform:scale(1.25); /* Opera */
+    transform:scale(1.25);
     border-color:#180505;
 }
 
@@ -215,7 +237,6 @@ img.avatar {
     box-shadow: 0 5px #666;
     transform: translateY(8px);
 }
-
 .bouncy{
     animation:bouncy 2s infinite linear;
     position: relative;
