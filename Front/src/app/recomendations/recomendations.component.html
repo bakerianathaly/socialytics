@@ -71,7 +71,7 @@
           <a class="nav-link" id="newFollows-Views" href="#FollowersProfileViews" role="tab" data-toggle="tab" aria-selected="false" aria-controls="FollowersProfileViews">New Followers</a>
         </li>
         <li class="nav-item hoverPrediction">
-          <a class="nav-link" id="post-Profileviews" href="#PostProfileViews" role="tab" data-toggle="tab" aria-selected="false" aria-controls="PostProfileViews">Number of Post</a>
+          <a class="nav-link" id="post-Profileviews" href="#PostProfileViews" role="tab" data-toggle="tab" aria-selected="false" aria-controls="PostProfileViews">Number of Posts</a>
         </li>
     </ul>
 
@@ -85,9 +85,9 @@
             <div class="col-12">
               <div class="card mb-4 box-shadow">
                 <div class="card-body text-center" >
-                   <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('EngagementsProfileViews')"><br>Pdf</a>
-                   <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byProfileViewsExcelEngagementsData)"> <br>Excel</a>
-                   <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('EngagementsProfileViews')"> <br>PPTX</a>
+                  <a class="ExportPdf btn bouncy" style="margin-right:25px;" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('EngagementsProfileViews')"><br>PDF</a>
+                  <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byProfileViewsExcelEngagementsData)"> <br>Excel</a>
+                  <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('EngagementsProfileViews')"> <br>PPTX</a>
                   <canvas baseChart [datasets]="byProfileViewsEngagementsData" [labels]="lineChartLabels" [options]="lineChartOptions"
                     [plugins]="lineChartPlugins" [legend]="lineChartLegend" [chartType]="lineChartType" [colors]="byProfileViewsEngagementsColor">
                   </canvas> 
@@ -104,16 +104,15 @@
       <!-- Recommendation between profile views and new Followers graphic -->
       <div class="tab-pane container-fluid" id="FollowersProfileViews" role="tabpanel" aria-labelledby="newFollows-Views">
         <div class="container" id="FollowersProfileViews" *ngIf="this.messageNFPV">
-          <h4>This is our recommendation to your account based on your profile's new Followers and Profile views
-            <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('FollowersProfileViews')"><br>Pdf</a>
-            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byNewFollowersAndPvExcelData)"> <br>Excel</a>
-            <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('FollowersProfileViews')"> <br>PPTX</a>
-          </h4>
+          <h4>This is our recommendation to your account based on your profile's new Followers and Profile views</h4>
           <h6>{{this.messageNFPV}}</h6>
           <div class="row">
             <div class="col-12">
               <div class="card mb-4 box-shadow">
                 <div class="card-body text-center" >
+                  <a class="ExportPdf btn bouncy" style="margin-right:25px;" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('FollowersProfileViews')"><br>PDF</a>
+                  <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byNewFollowersAndPvExcelData)"> <br>Excel</a>
+                  <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('FollowersProfileViews')"> <br>PPTX</a>
                   <canvas baseChart [datasets]="byNewFollowersAndPvData" [labels]="lineChartLabels" [options]="lineChartOptions"
                     [plugins]="lineChartPlugins" [legend]="lineChartLegend" [chartType]="lineChartType" [colors]="byNewFollowersAndPvColor">
                   </canvas> 
@@ -128,19 +127,18 @@
         </div>
       </div>
     
-      <!-- Recomemndation between profile views and amount of post graphic -->
+      <!-- Recomemndation between profile views and amount of posts graphic -->
       <div class="tab-pane container-fluid" id="PostProfileViews" role="tabpanel" aria-labelledby="post-Profileviews">
         <div class="container" id="PostProfileViews" *ngIf="this.messagePost">
-          <h4>This is our recommendation to your account based on your profile's number of Posts and Profile views 
-            <a class="ExportPdf btn bouncy" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('PostProfileViews')"><br>Pdf</a>
-            <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byProfileViewsAmountOfPostExcelData)"> <br>Excel</a>
-            <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('PostProfileViews')"> <br>PPTX</a>
-          </h4>
+          <h4>This is our recommendation to your account based on your profile's number of Post and Profile views </h4>
           <h6>{{this.messagePost}}</h6>
           <div class="row">
             <div class="col-12">
               <div class="card mb-4 box-shadow">
                 <div class="card-body text-center" >
+                  <a class="ExportPdf btn bouncy" style="margin-right:25px;" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('PostProfileViews')"><br>PDF</a>
+                  <a class="ExportXlsx btn bouncy" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byProfileViewsAmountOfPostExcelData)"> <br>Excel</a>
+                  <a class="ExportPPT btn bouncy" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('PostProfileViews')"> <br>PPTX</a>
                   <canvas baseChart [datasets]="byProfileViewsAmountOfPostData" [labels]="lineChartLabels" [options]="lineChartOptions"
                     [plugins]="lineChartPlugins" [legend]="lineChartLegend" [chartType]="lineChartType" [colors]="byProfileViewsAmountOfPostColor">
                   </canvas> 
