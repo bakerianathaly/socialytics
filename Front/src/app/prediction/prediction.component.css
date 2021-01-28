@@ -235,8 +235,19 @@ img.avatar {
     box-shadow: 0 5px #666;
     transform: translateY(8px);
 }
-.bouncy{
+.bouncy1{
     animation:bouncy 2s infinite linear;
+    position: relative;
+}
+
+.bouncy2{
+    animation:bouncy 3s infinite linear;
+    position: relative;
+}
+
+
+.bouncy3{
+    animation:bouncy 4s infinite linear;
     position: relative;
 }
 
@@ -249,4 +260,7 @@ img.avatar {
     50%{top:0em}
     100%{top:0em;}
 }
+
+
+
 
