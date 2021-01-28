@@ -23,7 +23,7 @@ export class ExportdataService {
     // Message displays after clicking the event.
     let timerInterval
     Swal.fire({
-      title: 'Welcome to Socialytics.',
+      title: 'Welcome to Socialytics',
       html: 'Your download will start in <strong></strong> seconds.',
       timer:5000,
       timerProgressBar: true,
@@ -81,7 +81,7 @@ export class ExportdataService {
     // Message displays after clicking the event.
     let timerInterval
     Swal.fire({
-      title: 'Welcome to Socialytics.',
+      title: 'Welcome to Socialytics',
       html: 'Your download will start in <strong></strong> seconds.',
       timer:5000,
       timerProgressBar: true,
@@ -124,7 +124,7 @@ export class ExportdataService {
 
     let timerInterval
     Swal.fire({
-      title: 'Welcome to Socialytics.',
+      title: 'Welcome to Socialytics',
       html: 'Your download will start in <strong></strong> seconds.',
       timer:5000,
       timerProgressBar: true,
