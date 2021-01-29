@@ -77,11 +77,11 @@
     <div class="ml-5 mt-3 tab-content">
       <!-- Best day to post graphics -->
         <div class="tab-pane active container-fluid" id="BestDayToPost" role="tabpanel" aria-labelledby="best-DayToPost">
-          <div class="container" id="BestDay"  *ngIf="this.maxDayPV && this.maxValuePV">
+          <div class="container" id="BestDayByProfile"  *ngIf="this.maxDayPV && this.maxValuePV">
             <h4>Best day to post by profile views 
-              <a class="ExportPdf btn bouncy1" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('BestDay')"><br>Pdf</a>
-              <a class="ExportXlsx btn bouncy2" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byProfileViewsExcelData)"> <br>Excel</a>
-              <a class="ExportPPT btn bouncy3" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('BestDay')"> <br>PPTX</a>
+              <a class="ExportPdf btn bouncy1" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('BestDayByProfile')"><br>Pdf</a>
+              <a class="ExportXlsx btn bouncy2" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byProfileViewsExcelData,'BestDayByProfile')"> <br>Excel</a>
+              <a class="ExportPPT btn bouncy3" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('BestDayByProfile')"> <br>PPTX</a>
             </h4>
             <h6>Your best day to post is on {{this.maxDayPV}}, estimating a {{this.maxValuePV}}% of probability by Profile Views.</h6>
             <div class="row">
@@ -99,11 +99,11 @@
           </div>
 
           
-          <div class="container" id="PostByEngagement"  *ngIf="this.maxValueEng && this.maxDayEng">
+          <div class="container" id="BestDayByEngagement"  *ngIf="this.maxValueEng && this.maxDayEng">
             <h4>Best day to post by engagements 
-              <a class="ExportPdf btn bouncy1" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('PostByEngagement')"><br>Pdf</a>
-              <a class="ExportXlsx btn bouncy2" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byEngagementExcelData)"> <br>Excel</a>
-              <a class="ExportPPT btn bouncy3" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('PostByEngagement')"> <br>PPTX</a>
+              <a class="ExportPdf btn bouncy1" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('BestDayByEngagement')"><br>Pdf</a>
+              <a class="ExportXlsx btn bouncy2" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byEngagementExcelData,'BestDayByEngagement')"> <br>Excel</a>
+              <a class="ExportPPT btn bouncy3" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('BestDayByEngagement')"> <br>PPTX</a>
             </h4>
             <h6>Your best day to post is on {{this.maxDayEng}}, estimating a {{this.maxValueEng}}% of probability by Engagement Success.</h6>
             <div class="row">
@@ -125,11 +125,11 @@
       
      <!-- Probable amount of reach graphic -->
       <div class="tab-pane container-fluid" id="Reach" role="tabpanel" aria-labelledby="reachPrediction">
-        <div class="container" id="reach" *ngIf="this.maxDayPR && this.maxValuePR">
+        <div class="container" id="ByReach" *ngIf="this.maxDayPR && this.maxValuePR">
           <h4>Probable amount of Reach by days of the week 
-            <a class="ExportPdf btn bouncy1" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('reach')"><br>Pdf</a>
-            <a class="ExportXlsx btn bouncy2" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byReachExcelData)"> <br>Excel</a>
-            <a class="ExportPPT btn bouncy3" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('reach')"> <br>PPTX</a>
+            <a class="ExportPdf btn bouncy1" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('ByReach')"><br>Pdf</a>
+            <a class="ExportXlsx btn bouncy2" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byReachExcelData,'ByReach')"> <br>Excel</a>
+            <a class="ExportPPT btn bouncy3" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('ByReach')"> <br>PPTX</a>
           </h4>
           <h6>This is your probability of Reach by days of the week, your best day could be on {{this.maxDayPR}}, estimating a {{this.maxValuePR}}% of success</h6>
           <div class="row">
@@ -149,11 +149,11 @@
     
       <!-- Probable amount of impressions graphic -->
       <div class="tab-pane container-fluid" id="Impressions" role="tabpanel" aria-labelledby="impressionsPrediction">
-        <div class="container" id="impressions" *ngIf="this.maxDayPI && this.maxValuePI; else problem">
+        <div class="container" id="ByImpressions" *ngIf="this.maxDayPI && this.maxValuePI; else problem">
           <h4>Probable amount of Impressions by days of the week 
-            <a class="ExportPdf btn bouncy1" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('impressions')"><br>Pdf</a>
-            <a class="ExportXlsx btn bouncy2" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byImpressionsExcelData)"> <br>Excel</a>
-            <a class="ExportPPT btn bouncy3" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('impressions')"> <br>PPTX</a>
+            <a class="ExportPdf btn bouncy1" data-html2canvas-ignore="true" title="Export To PDF" (click)="exportPdf('ByImpressions')"><br>Pdf</a>
+            <a class="ExportXlsx btn bouncy2" data-html2canvas-ignore="true" title="Export To Excel" (click)="exportExcel(byImpressionsExcelData,'ByImpressions')"> <br>Excel</a>
+            <a class="ExportPPT btn bouncy3" data-html2canvas-ignore="true" title="Export To PPTX" (click)="exportPPT('ByImpressions')"> <br>PPTX</a>
           </h4>
           <h6>This is your probability of Impressions by days of the week, your best day could be on {{this.maxDayPI}}, estimating a {{this.maxValuePI}}% of success</h6>
           <div class="row">

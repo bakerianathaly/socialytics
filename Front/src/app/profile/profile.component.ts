@@ -402,9 +402,8 @@ export class ProfileComponent implements OnInit {
     this.exportService.generatePDF(DivId)
   }
   
-  public exportExcel(data:any[]){
-    console.log('lo q trae',data)
-    this.exportService.generateExcel(data)
+  public exportExcel(data:any[],DivId){
+    this.exportService.generateExcel(data,DivId)
   }
 
   public exportPPT(DivId){

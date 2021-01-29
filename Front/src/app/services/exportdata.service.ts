@@ -67,7 +67,7 @@ export class ExportdataService {
             }
              
           }
-          pdfMake.createPdf(pdfDoc).download('Report.pdf')
+          pdfMake.createPdf(pdfDoc).download(DivId + '.pdf')
           
         })
     
@@ -75,9 +75,8 @@ export class ExportdataService {
       
   }
   // function to generate the excel file
-  generateExcel(json:any[]){
+  generateExcel(json:any[],DivId){
 
-    console.log('lo q trae',json)
     // Message displays after clicking the event.
     let timerInterval
     Swal.fire({
@@ -105,16 +104,16 @@ export class ExportdataService {
       let worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json)
       let workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       let excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcelFile(excelBuffer);
+      this.saveAsExcelFile(excelBuffer,DivId);
       
     })
     
   }
   // Function to save the excel file
-  private saveAsExcelFile(buffer: any): void {
+  private saveAsExcelFile(buffer: any,DivId): void {
     
     const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
-    FileSaver.saveAs(data, 'Report' + EXCEL_EXTENSION);
+    FileSaver.saveAs(data, DivId + EXCEL_EXTENSION);
     
   }
    
@@ -163,7 +162,7 @@ export class ExportdataService {
         // 3. Image by data (pre-encoded base64)
         slide.addImage({data:img, x:1, y: 1, w:'75%' , h:'75%'})
         // 4. Save the Presentation
-        pres.writeFile('Report Presentation.pptx')
+        pres.writeFile(DivId + '.pptx')
 
       })
 
