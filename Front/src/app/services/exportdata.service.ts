@@ -52,7 +52,6 @@ export class ExportdataService {
         }
         // It converts the Html to an image in base 64 and then creates the Pdf through Pdfmake.
         html2canvas(data,options).then(function(canvas) {
-          console.log(canvas.width)
           let img = canvas.toDataURL()
           let pdfDoc = {
             content: [{
